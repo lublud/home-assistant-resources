@@ -1,0 +1,15 @@
+light.entertainment_area_1:
+  hidden: true
+  homebridge_hidden: true
+
+light.entertainment_area_2:
+  hidden: true
+  homebridge_hidden: true
+
+light.everything:
+  hidden: true
+  homebridge_hidden: true
+
+light.living_room:
+  hidden: true
+  homebridge_hidden: true
