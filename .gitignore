@@ -11,6 +11,7 @@
 *.old
 *.db-shm
 *.db-wal
+*.swp
 .HA_VERSION
 known_devices.yaml
 secrets.yaml

@@ -6,6 +6,7 @@ Weather:
            - sensor.dark_sky_daily_low_temperature
            - sensor.dark_sky_precip
            - sensor.dark_sky_precip_probability
+           - sensor.waqi_zhongshan_taiwan
 
 Sean's Bedroom:
         entities:
@@ -16,6 +17,29 @@ Sean's Bedroom:
 
 Living Room:
         entities:
-           - input_boolean.livingroom_toggle
-           - light.couch_left
            - light.couch_right
+           - light.hue_color_lamp_1
+
+Kitchen:
+        entities:
+           - light.couch_left
+           - light.hue_white_lamp_1
+
+TV:
+        entities:
+           - light.tv_back
+           - light.tv_up
+
+Tara and Ludovic's bedroom:
+        entities:
+           - light.bed_l
+           - light.bed_t
+           - light.bed_under
+
+Showeroom:
+        entities:
+           - light.showeroom
+
+Bathroom:
+        entities:
+           - light.bathroom

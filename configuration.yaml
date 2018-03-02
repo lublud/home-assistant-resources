@@ -51,6 +51,7 @@ hue:
       allow_hue_groups: false
 
 sensor:
+# Weather
   - platform: darksky
     api_key: !secret darksky_api
     units: auto
@@ -61,3 +62,27 @@ sensor:
       - temperature_min
       - precip_type
       - precip_probability
+# Air quality
+  - platform: waqi
+    token: !secret token_waqi
+    locations:
+      - Zhongshan, Taiwan
+
+# Yeelight
+light:
+  - platform: yeelight
+    devices:
+      192.168.31.81:
+        name: TV up
+      192.168.31.184:
+        name: TV back
+      192.168.31.99:
+        name: Bed T
+      192.168.31.8:
+        name: Bed L
+      192.168.31.17:
+        name: Bed under
+      192.168.31.117:
+        name: Showeroom
+      192.168.31.76:
+        name: Bathroom
