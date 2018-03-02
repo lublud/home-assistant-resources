@@ -1,3 +1,4 @@
+# Hue Lights
 light.entertainment_area_1:
   hidden: true
   homebridge_hidden: true
@@ -13,3 +14,22 @@ light.everything:
 light.living_room:
   hidden: true
   homebridge_hidden: true
+
+# Dark Sky
+sensor.dark_sky_summary:
+  friendly_name: Conditions
+
+sensor.dark_sky_temperature:
+  friendly_name: Temp
+
+sensor.dark_sky_daily_high_temperature:
+  friendly_name: Daily High
+
+sensor.dark_sky_daily_low_temperature:
+  friendly_name: Daily Low
+
+sensor.dark_sky_precip:
+  friendly_name: Precipitation
+
+sensor.dark_sky_precip_probability:
+  friendly_name: Probability

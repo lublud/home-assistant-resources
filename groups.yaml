@@ -1,0 +1,21 @@
+Weather: 
+        entities:
+           - sensor.dark_sky_summary
+           - sensor.dark_sky_temperature
+           - sensor.dark_sky_daily_high_temperature
+           - sensor.dark_sky_daily_low_temperature
+           - sensor.dark_sky_precip
+           - sensor.dark_sky_precip_probability
+
+Sean's Bedroom:
+        entities:
+           - light.desk
+           - light.dresser
+           - light.hallway
+           - light.main
+
+Living Room:
+        entities:
+           - input_boolean.livingroom_toggle
+           - light.couch_left
+           - light.couch_right
