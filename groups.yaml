@@ -1,45 +1,112 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities: 
+    - group.weather
+    - group.bathroom
+    - group.kitchen
+    - group.seans_bedroom
+    - group.justins_bedroom
+    - group.showeroom
+    - group.tls_bedroom
+    - group.tv
+    - group.living_room
+
 Weather: 
-        entities:
-           - sensor.dark_sky_summary
-           - sensor.dark_sky_temperature
-           - sensor.dark_sky_daily_high_temperature
-           - sensor.dark_sky_daily_low_temperature
-           - sensor.dark_sky_precip
-           - sensor.dark_sky_precip_probability
-           - sensor.waqi_zhongshan_taiwan
+  view: no
+  entities:
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_daily_high_temperature
+    - sensor.dark_sky_daily_low_temperature
+    - sensor.dark_sky_precip
+    - sensor.dark_sky_precip_probability
+    - sensor.waqi_zhongshan_taiwan
 
 Sean's Bedroom:
-        entities:
-           - light.desk
-           - light.dresser
-           - light.hallway
-           - light.main
+  view: no
+  entities:
+    - light.desk # desk
+    - light.dresser # dresser
+    - light.hallway # bed
+    - light.main # lamp
+    - light.gateway_light_34ce00839441
+    - switch.plug_158d000163aec1
+
+Justin's Bedroom:
+  view: no
+  entities:
+    - light.justins_desk
+    - light.justins_bed 
 
 Living Room:
-        entities:
-           - light.couch_right
-           - light.hue_color_lamp_1
+  view: no
+  entities:
+    - light.couch_right # couch door
+    - light.hue_color_lamp_1 # couch window
 
 Kitchen:
-        entities:
-           - light.couch_left
-           - light.hue_white_lamp_1
+  view: no
+  entities:
+    - light.hue_white_lamp_1 # sink 1
+    - light.couch_left # sink 2
 
 TV:
-        entities:
-           - light.tv_back
-           - light.tv_up
+  view: no
+  entities:
+    - light.tv_back
+    - light.tv_up
 
-Tara and Ludovic's bedroom:
-        entities:
-           - light.bed_l
-           - light.bed_t
-           - light.bed_under
+TL's Bedroom:
+  view: no
+  entities:
+    - light.bed_l
+    - light.bed_t
+    - light.bed_under
+    - light.gateway_light_34ce0083878f
+    - fan.mi_air_purifier_2
 
 Showeroom:
-        entities:
-           - light.showeroom
+  view: no
+  entities:
+    - light.showeroom
 
 Bathroom:
-        entities:
-           - light.bathroom
+  view: no
+  entities:
+    - light.bathroom
+
+Sensors:
+  view: yes
+  entities:
+    - group.front_door
+    - group.unknown_sensors
+    - group.seans_sensors
+    - group.ludovics_sensors
+
+Front Door:
+  view: no
+  entities:
+    - binary_sensor.door_window_sensor_158d00012153cf
+
+Ludovic's Sensors:
+  view: no
+  entities:
+    - sensor.illumination_34ce0083878f
+    - binary_sensor.motion_sensor_158d0001225132 # Bedroom
+    - binary_sensor.motion_sensor_158d0001db53b2 # Bathroom
+    - binary_sensor.switch_158d000121d17f # Bedroom lights
+    - binary_sensor.switch_158d0001245482 # TV lights
+
+Sean's Sensors:
+  view: no
+  entities:
+    - binary_sensor.cube_158d0001020052 
+    - sensor.illumination_34ce00839441
+    - binary_sensor.switch_158d000122ce3b # Bathroom
+    - binary_sensor.switch_158d0001562c66 # Justin's room
+
+Remotes:
+  view: yes
+  entities:
+    - sensor.dark_sky_summary

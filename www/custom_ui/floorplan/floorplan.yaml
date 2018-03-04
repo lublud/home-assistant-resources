@@ -1,0 +1,13 @@
+  name: Floorplan
+  image: /local/custom_ui/floorplan/floorplan.svg
+  stylesheet: /local/custom_ui/floorplan/floorplan.css
+
+  - name: Lights
+    entities:
+      - light.hall_1
+      - light.hall_2
+    states:
+      - state: 'on'
+        class: 'light-on'
+      - state: 'off'
+        class: 'light-off'

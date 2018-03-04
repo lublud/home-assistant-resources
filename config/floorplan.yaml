@@ -1,0 +1,14 @@
+      name: Floorplan
+      image: /local/custom_ui/floorplan/studio.svg
+      stylesheet: /local/custom_ui/floorplan/floorplan.css
+
+      group:
+        - name: Lights
+          entities:
+            - light.couch_left
+            - light.hue_white_lamp_1
+          states:
+            - state: 'on'
+              class: 'light-on'
+            - state: 'off'
+              class: 'light-off'

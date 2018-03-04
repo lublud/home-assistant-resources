@@ -9,6 +9,11 @@ homeassistant:
 
 # Enables the frontend
 frontend:
+  themes: !include themes.yaml
+  extra_html_url:
+    - /local/custom_ui/state-card-tiles.html
+  extra_html_url_es5:
+    - /local/custom_ui/state-card-tiles_es5.html
 
 # Enables configuration UI
 config:
@@ -30,12 +35,21 @@ logbook:
       - sensor.dark_sky_summary
       - sensor.dark_sky_daily_high_temperature
       - sensor.dark_sky_daily_low_temperature
+      - group.all_automations
 
 # Enables a map showing the location of tracked devices
 #map:
 
 # Track the sun
 #sun:
+
+panel_custom:
+  - name: floorplan
+    sidebar_title: Floorplan
+    sidebar_icon: mdi:floor-plan
+    url_path: floorplan
+    config: !include config/floorplan.yaml
+
 
 # Cloud
 cloud:
@@ -75,6 +89,7 @@ sensor:
       - temperature_min
       - precip_type
       - precip_probability
+
 # Air quality
   - platform: waqi
     token: !secret token_waqi
@@ -99,3 +114,34 @@ light:
         name: Showeroom
       192.168.31.76:
         name: Bathroom
+      192.168.31.88:
+        name: Justin's bed
+      192.168.31.152:
+        name: Justin's desk
+
+# Air purifier 2
+fan:
+  - platform: xiaomi_miio
+    name: Mi Air Purifier 2
+    host: !secret host_air_purifier
+    token: !secret token_air_purifier
+
+# Gateway
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - mac: !secret mac_gateway_sean
+      key: !secret key_gateway_sean
+      host: !secret host_gateway_sean
+    - mac: !secret mac_gateway_ludo
+      key: !secret key_gateway_ludo
+      host: !secret host_gateway_ludo
+
+# IR Remote (FIXME)
+remote:
+  - platform: xiaomi_miio
+    host: 192.168.31.28
+    token: !secret token_remote_ludo
+  - platform: xiaomi_miio
+    host: 192.168.31.228
+    token: !secret token_remote_sean

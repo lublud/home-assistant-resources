@@ -1,35 +1,102 @@
-# Hue Lights
+fan.mi_air_purifier_2:
+  homebridge_hidden: true
+group.all_fans:
+  homebridge_hidden: true
+group.default_view:
+  homebridge_hidden: true
 light.entertainment_area_1:
   hidden: true
   homebridge_hidden: true
-
-light.entertainment_area_2:
-  hidden: true
-  homebridge_hidden: true
-
-light.everything:
-  hidden: true
-  homebridge_hidden: true
-
-light.living_room:
-  hidden: true
-  homebridge_hidden: true
-
-# Dark Sky
 sensor.dark_sky_summary:
   friendly_name: Conditions
-
+  homebridge_hidden: true
 sensor.dark_sky_temperature:
   friendly_name: Temp
-
+  homebridge_hidden: true
 sensor.dark_sky_daily_high_temperature:
   friendly_name: Daily High
-
+  homebridge_hidden: true
 sensor.dark_sky_daily_low_temperature:
   friendly_name: Daily Low
-
+  homebridge_hidden: true
 sensor.dark_sky_precip:
   friendly_name: Precipitation
-
+  homebridge_hidden: true
 sensor.dark_sky_precip_probability:
   friendly_name: Probability
+  homebridge_hidden: true
+light.gateway_light_34ce00839441:
+  friendly_name: Sean's Gateway
+light.gateway_light_34ce0083878f:
+  friendly_name: Ludovic's Gateway
+switch.plug_158d000163aec1:
+  friendly_name: Sean's Plug
+binary_sensor.cube_158d0001020052:
+  friendly_name: Sean's Cube
+sensor.Illumination_34ce00839441:
+  friendly_name: Sean's Gateway Light Sensor
+sensor.Illumination_34ce0083878f:
+  friendly_name: Ludovic's Gateway Light Sensor
+binary_sensor.motion_sensor_158d0001225132:
+  friendly_name: Ludovic's Motion Sensor Bedroom
+binary_sensor.motion_sensor_158d0001db53b2:
+  friendly_name: Ludovic's Motion Sensor Bathroom
+binary_sensor.switch_158d000121d17f:
+  friendly_name: Ludovic bedroom switch
+binary_sensor.switch_158d000122ce3b:
+  friendly_name: Switch Bathroom
+binary_sensor.switch_158d0001245482:
+  friendly_name: TV switch
+binary_sensor.door_window_sensor_158d00012153cf:
+  friendly_name: Front Door
+example_sensor.blah_blah:
+  custom_ui_state_card: state-card-tiles
+  config:
+    columns: 3
+    column_width: 75px
+    row_height: 75px
+    gap: 4px
+    color: blue
+    color_on: green
+    color_off: red
+    text_color: '#FFF'
+    text_color_on: '#FFF'
+    text_color_off: '#FFF'
+    text_size: 1em
+    text_sec_color: '#FFF'
+    text_sec_size: 1em
+    text_align: center | left | right
+    icon_size: 24px
+    entities:
+    - entity: script.test
+      label: S1
+      label_state: input_boolean.switch2
+      label_template: if (state < 10) return '<10'; else return '>=10';
+      label_sec: (S1)
+      label_sec_state: input_boolean.switch2
+      label_sec_template: if (state < 10) return '<10'; else return '>=10';
+      more_info: histroy_grah.temperature
+      icon: mdi:power
+      icon_template: if (state === 'on') return 'mdi:volume-high'; else return 'mdi:volume-low'
+      style_template: 'if (state === ''on'') return ''background-image: url("local/on.png");'';
+        else return ''background-image: url("local/off.png");'''
+      image: /local/test.png
+      data:
+        value: right
+      column: 2
+      column_span: 2
+      row: 2
+      row_span: 2
+      color: blue
+      color_on: green
+      color_off: red
+      text_color: '#FFF'
+      text_color_on: '#FFF'
+      text_color_off: '#FFF'
+      text_size: 1em
+      text_sec_color: '#FFF'
+      text_sec_size: 1em
+      text_align: center
+      icon_size: 24px
+binary_sensor.switch_158d0001562c66:
+  friendly_name: Switch Justin
