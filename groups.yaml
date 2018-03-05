@@ -9,6 +9,7 @@ default_view:
     - group.justins_bedroom
     - group.showeroom
     - group.tls_bedroom
+    - group.tls_others
     - group.tv
     - group.living_room
 
@@ -63,6 +64,10 @@ TL's Bedroom:
     - light.bed_l
     - light.bed_t
     - light.bed_under
+
+TL's others:
+  view: no
+  entities:
     - light.gateway_light_34ce0083878f
     - fan.mi_air_purifier_2
 
