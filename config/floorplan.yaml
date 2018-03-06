@@ -6,7 +6,7 @@
         - name: Temperature
           entities:
             - fan.mi_air_purifier_2
-          text_template: '${entity.state.temperature} °C'
+          text_template: '${entity.attributes.temperature} °C'
 
         - name: Weather temperature
           entities:
