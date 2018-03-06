@@ -110,6 +110,7 @@ Sean's Sensors:
     - sensor.illumination_34ce00839441
     - binary_sensor.switch_158d000122ce3b # Bathroom
     - binary_sensor.switch_158d0001562c66 # Justin's room
+    - binary_sensor.motion_sensor_158d0001225007 # Bathroom
 
 Remotes:
   view: yes

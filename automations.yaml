@@ -27,6 +27,23 @@
       entity_id: group.tv
 
 
+###########
+# KITCHEN #
+###########
+
+- alias: Long press toggle kitchen lights
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001245482
+      click_type: long_click_press
+  action:
+    service: light.toggle
+    data:
+      entity_id: group.kitchen
+
+
 ################
 # TL'S BEDROOM #
 ################
@@ -51,7 +68,7 @@
     to: 'on'
   condition:
     condition: time
-    after: '18:00:00'
+    after: '17:00:00'
     before: '06:00:00'
   action:
     service: light.turn_on
@@ -109,6 +126,30 @@
       click_type: single
   action:
     service: light.toggle
+    data:
+      entity_id: light.bathroom
+
+- alias: Motion detected turn on bathroom light
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0001225007
+    from: 'off'
+    to: 'on'
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.bathroom
+
+- alias: No motion for 5 minutes turn off bathroom light
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0001225007
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 5
+  action:
+    service: light.turn_off
     data:
       entity_id: light.bathroom
 
