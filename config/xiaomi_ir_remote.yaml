@@ -1,0 +1,56 @@
+- platform: xiaomi_miio
+  host: !secret host_remote_ludo
+  token: !secret token_remote_ludo
+  hidden: false
+  name: Ludovic's Remote
+  commands:
+    turn_on_ludovics_ac:
+      command:
+        - !secret turn_on_ac_ludo
+    turn_off_ludovics_ac:
+      command:
+        - !secret turn_off_ac_ludo
+    strong_wind_ludovics_ac:
+      command:
+        - !secret strong_wind_ac_ludo
+    weak_wind_ludovics_ac:
+      command:
+        - !secret weak_wind_ac_ludo
+    breeze_ludovics_ac:
+      command:
+        - !secret breeze_ac_ludo
+    cold_air_mode_ludovics_ac:
+      command:
+        - !secret cold_air_mode_ac_ludo
+    dehumidify_mode_ludovics_ac:
+      command:
+        - !secret dehumidify_mode_ac_ludo
+    blow_air_mode_ludovics_ac:
+      command:
+        - !secret blow_air_ac_ludo
+    temperature_up_ludovics_ac:
+      command:
+        - !secret temperature_up_ludo
+    temperature_down_ludovics_ac:
+      command:
+        - !secret temperature_down_ludo
+    time_up_ludovics_ac:
+      command:
+        - !secret time_up_ludo
+    time_down_ludovics_ac:
+      command:
+        - !secret time_down_ludo
+- platform: xiaomi_miio
+  host: !secret host_remote_sean
+  token: !secret token_remote_sean
+  slot: 1
+  timeout: 30
+  hidden: false
+  name: Sean's Remote
+  commands:
+     turn_on_seans_ac:
+       command:
+         - !secret turn_on_ac_sean
+     turn_off_seans_ac:
+       command:
+         - !secret turn_off_ac_sean
