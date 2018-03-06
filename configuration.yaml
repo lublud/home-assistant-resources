@@ -137,11 +137,31 @@ xiaomi_aqara:
       key: !secret key_gateway_ludo
       host: !secret host_gateway_ludo
 
-# IR Remote (FIXME)
+# IR Remote
 remote:
   - platform: xiaomi_miio
-    host: 192.168.31.28
+    host: !secret host_remote_ludo
     token: !secret token_remote_ludo
+    hidden: false
+    name: Ludovic's Remote
+    commands:
+      turn_on_ludovics_ac:
+        command:
+          - !secret turn_on_ac_ludo
+      turn_off_ludovics_ac:
+        command:
+          - !secret turn_off_ac_ludo
   - platform: xiaomi_miio
-    host: 192.168.31.228
+    host: !secret host_remote_sean
     token: !secret token_remote_sean
+    slot: 1
+    timeout: 30
+    hidden: false
+    name: Sean's Remote
+    commands:
+       turn_on_seans_ac:
+         command:
+           - !secret turn_on_ac_sean
+       turn_off_seans_ac:
+         command:
+           - !secret turn_off_ac_sean

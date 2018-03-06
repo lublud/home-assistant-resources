@@ -115,4 +115,7 @@ Sean's Sensors:
 Remotes:
   view: yes
   entities:
-    - sensor.dark_sky_summary
+    - script.turn_on_seans_ac
+    - script.turn_off_seans_ac
+    - script.turn_on_ludovics_ac
+    - script.turn_off_ludovics_ac
