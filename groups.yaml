@@ -119,3 +119,13 @@ Remotes:
     - script.turn_off_seans_ac
     - script.turn_on_ludovics_ac
     - script.turn_off_ludovics_ac
+    - script.strong_wind_ludovics_ac
+    - script.weak_wind_ludovics_ac
+    - script.breeze_ludovics_ac
+    - script.cold_air_mode_ludovics_ac
+    - script.dehumidify_mode_ludovics_ac
+    - script.blow_air_mode_ludovics_ac
+    - script.temperature_up_ludovics_ac
+    - script.temperature_down_ludovics_ac
+    - script.time_up_ludovics_ac
+    - script.time_down_ludovics_ac

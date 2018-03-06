@@ -31,3 +31,83 @@ turn_off_ludovics_ac:
         command:
           - 'turn_off_ludovics_ac'
 
+strong_wind_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'strong_wind_ludovics_ac'
+
+weak_wind_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'weak_wind_ludovics_ac'
+
+breeze_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'breeze_ludovics_ac'
+
+cold_air_mode_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'cold_air_mode_ludovics_ac'
+
+dehumidify_mode_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'dehumidify_mode_ludovics_ac'
+
+blow_air_mode_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'blow_air_mode_ludovics_ac'
+
+temperature_up_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'temperature_up_ludovics_ac'
+
+temperature_down_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'temperature_down_ludovics_ac'
+
+time_up_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'time_up_ludovics_ac'
+
+time_down_ludovics_ac:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'time_down_ludovics_ac'
+
