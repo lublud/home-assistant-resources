@@ -36,7 +36,9 @@
      inkscape:window-height="1037"
      inkscape:window-x="960"
      inkscape:window-y="41"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="0"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:object-nodes="false" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -45,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -174,12 +176,12 @@
        x="505.71432"
        y="421.79999" />
     <rect
-       style="fill:#4d4d4d;stroke-width:0.33242449"
+       style="fill:#4d4d4d;stroke-width:0.29920793"
        id="rect37-7-5-9-6"
        width="4.2857146"
-       height="137.23796"
+       height="111.18198"
        x="380.71429"
-       y="252.41917" />
+       y="278.47516" />
     <rect
        style="fill:#4d4d4d;stroke-width:0.36998293"
        id="rect37-2-3-6"
@@ -213,8 +215,8 @@
        id="rect37-2-3-6-9"
        width="81.428574"
        height="4.2857409"
-       x="383.57144"
-       y="321.08569" />
+       x="385"
+       y="278.47516" />
     <rect
        style="fill:#4d4d4d;stroke-width:0.32882953"
        id="rect37-7-5-9-2"
@@ -230,15 +232,15 @@
        x="634.99994"
        y="306.08566" />
     <rect
-       style="fill:#4d4d4d;stroke-width:0.19791865"
+       style="fill:#4d4d4d;stroke-width:0.22980261"
        id="rect37-7-5-9-6-3"
        width="4.2857146"
-       height="48.647629"
+       height="65.58403"
        x="380.71429"
        y="176.41275" />
     <circle
        style="fill:#4d4d4d"
-       id="light.couch_left_"
+       id="light.couch_left"
        cx="655.95929"
        cy="713.93231"
        r="11.073792"
@@ -248,6 +250,83 @@
        id="light.hue_white_lamp_1"
        cx="655.30786"
        cy="751.06207"
-       r="11.073792" />
+       r="11.073792"
+       inkscape:label="#path454-7" />
+    <circle
+       style="fill:#4d4d4d"
+       id="light.couch_right"
+       cx="366.08652"
+       cy="645.53534"
+       r="11.073792"
+       inkscape:label="#path454" />
+    <circle
+       style="fill:#4d4d4d"
+       id="light.hue_color_lamp_1"
+       cx="178.48346"
+       cy="642.92975"
+       r="11.073792"
+       inkscape:label="#path454" />
+    <rect
+       style="fill:#4d4d4d;stroke-width:0.32631341"
+       id="light.tv_up"
+       width="132.23773"
+       height="4.2857409"
+       x="214.63431"
+       y="437.55026"
+       inkscape:label="#rect37-2-3-6-9-7" />
+    <rect
+       style="fill:#4d4d4d;stroke-width:0.18179019"
+       id="light.tv_back"
+       width="41.041801"
+       height="4.2857409"
+       x="260.88367"
+       y="445.367"
+       inkscape:label="#rect37-2-3-6-9-7-5" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="18.239172"
+       y="231.24525"
+       id="sensor.dark_sky_temperature"
+       inkscape:label="#text161"><tspan
+         sodipodi:role="line"
+         id="tspan159"
+         x="18.239172"
+         y="231.24525"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.33333397px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start">Temp</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="215.78929"
+       y="294.90689"
+       id="fan.mi_air_purifier_2-4"
+       inkscape:label="#text161"><tspan
+         sodipodi:role="line"
+         id="tspan159-8"
+         x="215.78929"
+         y="294.90689"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.33333397px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start">Temp</tspan></text>
+    <circle
+       style="fill:#4d4d4d"
+       id="light.bed_t"
+       cx="209.75064"
+       cy="400.60913"
+       r="11.073792"
+       inkscape:label="#path454" />
+    <circle
+       style="fill:#4d4d4d"
+       id="light.bed_l"
+       cx="304.85495"
+       cy="400.60913"
+       r="11.073792"
+       inkscape:label="#path454" />
+    <rect
+       style="fill:#4d4d4d;stroke-width:0.23244023"
+       id="light.bed_under"
+       width="67.097778"
+       height="4.2857409"
+       x="223.10251"
+       y="345.05151"
+       inkscape:label="#rect37-2-3-6-9-7" />
   </g>
 </svg>

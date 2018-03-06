@@ -1,14 +1,34 @@
       name: Floorplan
-      image: /local/custom_ui/floorplan/studio.svg
+      image: /local/custom_ui/floorplan/floorplan.svg
       stylesheet: /local/custom_ui/floorplan/floorplan.css
 
-      group:
+      groups:
+        - name: Temperature
+          entities:
+            - fan.mi_air_purifier_2
+          text_template: '${entity.state.temperature} °C'
+
+        - name: Weather temperature
+          entities:
+            - sensor.dark_sky_temperature
+          text_template: '${entity.state} °C'
+
         - name: Lights
           entities:
-            - light.couch_left
-            - light.hue_white_lamp_1
+            - light.hue_white_lamp_1 # sink 1
+            - light.couch_left # sink 2
+            - light.hue_color_lamp_1 # couch window
+            - light.couch_right # couch door
+            - light.tv_back
+            - light.tv_up
+            - light.bed_under
+            - light.bed_t
+            - light.bed_l
           states:
             - state: 'on'
               class: 'light-on'
             - state: 'off'
               class: 'light-off'
+          action:
+            domain: homeassistant
+            service: toggle
