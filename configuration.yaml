@@ -6,6 +6,7 @@ homeassistant:
   unit_system: metric
   time_zone: !secret time_zone
   customize: !include customize.yaml
+  packages: !include_dir_named config/packages/
 
 # Enables the frontend
 frontend:
@@ -20,7 +21,9 @@ config:
 
 http:
   api_password: !secret http_password
-  # base_url: example.duckdns.org:8123
+  ssl_certificate: !secret ssl_certificate
+  ssl_key: !secret ssl_key
+  base_url: !secret base_url
 
 # Checks for available updates
 updater:
@@ -119,6 +122,14 @@ light:
       192.168.31.152:
         name: Justin's desk
 
+  - platform: group
+    name: Bedroom lights
+    entities:
+      - light.bed_t
+      - light.bed_l
+      - light.bed_under
+
+
 # Air purifier 2
 fan:
   - platform: xiaomi_miio
@@ -139,3 +150,20 @@ xiaomi_aqara:
 
 # IR Remote
 remote: !include config/xiaomi_ir_remote.yaml
+
+# Xiaomi Vacuum
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret host_vacuum
+    token: !secret token_vacuum
+
+notify:
+  - name: Telegram
+    platform: telegram
+    chat_id: !secret chat_id_telegram
+
+telegram_bot:
+  platform: webhooks
+  api_key: !secret api_key_telegram
+  allowed_chat_ids:
+    - !secret chat_id_telegram

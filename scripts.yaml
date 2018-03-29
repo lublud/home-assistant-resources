@@ -111,3 +111,72 @@ time_down_ludovics_ac:
         command:
           - 'time_down_ludovics_ac'
 
+
+# VACUUM
+vacuum_locate:
+  sequence:
+  - service: vacuum.locate
+    entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+
+vacuum_return_to_home:
+  sequence:
+  - service: vacuum.return_to_base
+    entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+
+vacuum_remote_control_start:
+  sequence:
+    - service: vacuum.xiaomi_remote_control_start
+      entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+
+vacuum_remote_control_stop:
+  sequence:
+    - service: vacuum.xiaomi_remote_control_stop
+      entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+
+vacuum_remote_control_move_foward_slow:
+  sequence:
+  - service: vacuum.xiaomi_remote_control_move
+    entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+    data:
+      velocity: 0.15
+      rotation: 0
+
+vacuum_remote_control_move_foward_fast:
+  sequence:
+  - service: vacuum.xiaomi_remote_control_move
+    entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+    data:
+      velocity: 0.25
+      rotation: 0
+
+vacuum_remote_control_turn_left_15:
+  sequence:
+  - service: vacuum.xiaomi_remote_control_move
+    entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+    data:
+      velocity: 0
+      rotation: 15
+
+vacuum_remote_control_turn_left_45:
+  sequence:
+  - service: vacuum.xiaomi_remote_control_move
+    entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+    data:
+      velocity: 0
+      rotation: 45
+
+vacuum_remote_control_turn_right_15:
+  sequence:
+  - service: vacuum.xiaomi_remote_control_move
+    entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+    data:
+      velocity: 0
+      rotation: -15
+
+vacuum_remote_control_turn_right_45:
+  sequence:
+  - service: vacuum.xiaomi_remote_control_move
+    entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+    data:
+      velocity: 0
+      rotation: -45

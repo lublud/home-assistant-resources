@@ -1,5 +1,4 @@
-fan.mi_air_purifier_2:
-  homebridge_hidden: true
+fan.mi_air_purifier_2: {}
 group.all_fans:
   homebridge_hidden: true
 group.default_view:
@@ -31,21 +30,27 @@ light.gateway_light_34ce0083878f:
   friendly_name: Ludovic's Gateway
 switch.plug_158d000163aec1:
   friendly_name: Sean's Plug
+  homebridge_hidden: true
 binary_sensor.cube_158d0001020052:
   friendly_name: Sean's Cube
+  homebridge_hidden: true
 sensor.Illumination_34ce00839441:
   friendly_name: Sean's Gateway Light Sensor
 sensor.Illumination_34ce0083878f:
   friendly_name: Ludovic's Gateway Light Sensor
 binary_sensor.motion_sensor_158d0001225132:
+  homebridge_hidden: true
   friendly_name: Ludovic's Motion Sensor Bedroom
 binary_sensor.motion_sensor_158d0001db53b2:
   friendly_name: Ludovic's Motion Sensor Bathroom
 binary_sensor.switch_158d000121d17f:
+  homebridge_hidden: true
   friendly_name: Ludovic bedroom switch
 binary_sensor.switch_158d000122ce3b:
+  homebridge_hidden: true
   friendly_name: Switch Bathroom
 binary_sensor.switch_158d0001245482:
+  homebridge_hidden: true
   friendly_name: TV switch
 binary_sensor.door_window_sensor_158d00012153cf:
   friendly_name: Front Door
@@ -99,6 +104,59 @@ example_sensor.blah_blah:
       text_align: center
       icon_size: 24px
 binary_sensor.switch_158d0001562c66:
+  homebridge_hidden: true
   friendly_name: Switch Justin
 binary_sensor.motion_sensor_158d0001225007:
   friendly_name: Motion sensor bathroom
+group.all_automations:
+  homebridge_hidden: true
+group.all_remotes:
+  homebridge_hidden: true
+script.cold_air_mode_ludovics_ac:
+  homebridge_hidden: true
+group.front_door:
+  homebridge_hidden: true
+automation.long_press_toggle_kitchen_lights:
+  homebridge_hidden: true
+remote.ludovics_remote:
+  homebridge_hidden: true
+group.ludovics_sensors:
+  homebridge_hidden: true
+automation.motion_detected_turn_on_bathroom_light:
+  homebridge_hidden: true
+automation.motion_detected_turn_on_bedroom_lights:
+  homebridge_hidden: true
+automation.motion_detected_turn_on_shower_room_light:
+  homebridge_hidden: true
+automation.no_motion_for_30_minutes_turn_off_bedroom_lights:
+  homebridge_hidden: true
+automation.no_motion_for_5_minutes_turn_off_bathroom_light:
+  homebridge_hidden: true
+automation.no_motion_for_5_minutes_turn_off_shower_room_light:
+  homebridge_hidden: true
+automation.notify_when_door_opened:
+  homebridge_hidden: true
+group.remotes:
+  homebridge_hidden: true
+group.seans_bedroom:
+  homebridge_hidden: true
+automation.single_click_toggle_justins_light:
+  homebridge_hidden: true
+automation.single_click_toggle_tv_lights:
+  homebridge_hidden: true
+automation.single_click_toggle_bathroom_lights:
+  homebridge_hidden: true
+automation.single_click_toggle_bedroom_lights:
+  homebridge_hidden: true
+automation.turn_off_light_after_20_minutes:
+  homebridge_hidden: true
+updater.updater:
+  homebridge_hidden: true
+group.weather:
+  homebridge_hidden: true
+group.all_lights:
+  homebridge_hidden: true
+group.all_scripts:
+  homebridge_hidden: true
+group.all_switches:
+  homebridge_hidden: true

@@ -27,6 +27,21 @@
       entity_id: group.tv
 
 
+- alias: Door opened for 10 minutes starts alarm
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00012153cf
+    from: 'off'
+    to: 'on'
+    for:
+      minutes: 10
+  action:
+    service: xiaomi_aqara.play_ringtone
+    data:
+      gw_mac: !secret mac_gateway_ludo
+      ringtone_id: 0
+
+
 ###########
 # KITCHEN #
 ###########
@@ -48,6 +63,45 @@
 # TL'S BEDROOM #
 ################
 
+- alias: Shake cube toggle lights
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010f0603
+      action_type: shake_air
+  action:
+    service: light.toggle
+    entity_id: light.bedroom_lights
+
+- alias: Tap twice with cube turn on light (white, 100%)
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010f0603
+      action_type: tap_twice
+  action:
+    service: light.turn_on
+    entity_id: light.bedroom_lights
+    data:
+      brightness: 255
+      rgb_color: [255,255,255]
+
+- alias: flip180 cube turn on light (orange, 30%)
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010f0603
+      action_type: flip180
+  action:
+    service: light.turn_on
+    entity_id: light.bedroom_lights
+    data:
+      brightness: 76
+      rgb_color: [255,165,0]
+
 - alias: Single click toggle bedroom lights
   trigger:
     platform: event
@@ -59,6 +113,18 @@
     service: light.toggle
     data:
       entity_id: group.tls_bedroom
+
+- alias: Double click toggle shower room lights
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d000121d17f
+      click_type: double
+  action:
+    service: light.toggle
+    data:
+      entity_id: light.showeroom
 
 - alias: Motion detected turn on bedroom lights
   trigger:
@@ -122,10 +188,23 @@
     platform: event
     event_type: click
     event_data:
-      entity_id: binary_sensor.switch_158d000122ce3b   
+      entity_id: binary_sensor.switch_158d000122ce3b
       click_type: single
   action:
     service: light.toggle
+    data:
+      entity_id: light.bathroom
+
+- alias: Turn off light after 20 minutes
+  trigger:
+    platform: state
+    entity_id: light.bathroom
+    from: 'off'
+    to: 'on'
+    for:
+      minutes: 20
+  action:
+    service: light.turn_off
     data:
       entity_id: light.bathroom
 
@@ -169,3 +248,22 @@
     service: light.toggle
     data:
       entity_id: group.justins_bedroom
+
+###############
+# SEAN'S ROOM #
+###############
+
+
+############
+# TELEGRAM #
+############
+- alias: Notify when door opened
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00012153cf
+    from: 'off'
+    to: 'on'
+  action:
+    service: notify.Telegram
+    data:
+      message: 'He did not hold the door'

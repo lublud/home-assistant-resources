@@ -61,20 +61,17 @@ TV:
 TL's Bedroom:
   view: no
   entities:
-    - light.bed_l
-    - light.bed_t
-    - light.bed_under
-
-TL's others:
-  view: no
-  entities:
+    - light.bedroom_lights
+    - light.showeroom
     - light.gateway_light_34ce0083878f
     - fan.mi_air_purifier_2
 
-Showeroom:
+TL's all:
   view: no
   entities:
-    - light.showeroom
+    - light.bed_l
+    - light.bed_t
+    - light.bed_under
 
 Bathroom:
   view: no
@@ -85,7 +82,6 @@ Sensors:
   view: yes
   entities:
     - group.front_door
-    - group.unknown_sensors
     - group.seans_sensors
     - group.ludovics_sensors
 
@@ -102,6 +98,7 @@ Ludovic's Sensors:
     - binary_sensor.motion_sensor_158d0001db53b2 # Bathroom
     - binary_sensor.switch_158d000121d17f # Bedroom lights
     - binary_sensor.switch_158d0001245482 # TV lights
+    - binary_sensor.cube_158d00010f0603
 
 Sean's Sensors:
   view: no
@@ -112,20 +109,20 @@ Sean's Sensors:
     - binary_sensor.switch_158d0001562c66 # Justin's room
     - binary_sensor.motion_sensor_158d0001225007 # Bathroom
 
-Remotes:
+Sean's Remote:
   view: yes
   entities:
     - script.turn_on_seans_ac
     - script.turn_off_seans_ac
-    - script.turn_on_ludovics_ac
-    - script.turn_off_ludovics_ac
-    - script.strong_wind_ludovics_ac
-    - script.weak_wind_ludovics_ac
-    - script.breeze_ludovics_ac
-    - script.cold_air_mode_ludovics_ac
-    - script.dehumidify_mode_ludovics_ac
-    - script.blow_air_mode_ludovics_ac
-    - script.temperature_up_ludovics_ac
-    - script.temperature_down_ludovics_ac
-    - script.time_up_ludovics_ac
-    - script.time_down_ludovics_ac
+
+Ludovic's Remote:
+  view: yes
+  icon: mdi:air-conditioner
+  entities:
+    - group.ac_control_panel
+
+Vacuum Remote:
+  view: yes
+  entities:
+    - vacuum.xiaomi_vacuum_cleaner
+    - group.vacuum_control_panel
