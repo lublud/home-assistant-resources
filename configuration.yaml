@@ -113,6 +113,8 @@ light:
         name: Bed L
       192.168.31.17:
         name: Bed under
+      192.168.31.222:
+        name: Ludovic's desk
       192.168.31.117:
         name: Showeroom
       192.168.31.76:

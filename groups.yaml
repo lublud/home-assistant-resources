@@ -62,6 +62,7 @@ TL's Bedroom:
   view: no
   entities:
     - light.bedroom_lights
+    - light.ludovics_desk
     - light.showeroom
     - light.gateway_light_34ce0083878f
     - fan.mi_air_purifier_2
@@ -119,6 +120,8 @@ Ludovic's Remote:
   view: yes
   icon: mdi:air-conditioner
   entities:
+    - group.ac_set_timer
+    - group.ac_set_delay
     - group.ac_control_panel
 
 Vacuum Remote:

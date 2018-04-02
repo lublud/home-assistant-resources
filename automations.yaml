@@ -27,21 +27,6 @@
       entity_id: group.tv
 
 
-- alias: Door opened for 10 minutes starts alarm
-  trigger:
-    platform: state
-    entity_id: binary_sensor.door_window_sensor_158d00012153cf
-    from: 'off'
-    to: 'on'
-    for:
-      minutes: 10
-  action:
-    service: xiaomi_aqara.play_ringtone
-    data:
-      gw_mac: !secret mac_gateway_ludo
-      ringtone_id: 0
-
-
 ###########
 # KITCHEN #
 ###########
@@ -102,6 +87,17 @@
       brightness: 76
       rgb_color: [255,165,0]
 
+- alias: flip90 cube toggle desk light
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d00010f0603
+      action_type: flip90
+  action:
+    service: light.toggle
+    entity_id: light.ludovics_desk
+
 - alias: Single click toggle bedroom lights
   trigger:
     platform: event
@@ -112,7 +108,7 @@
   action:
     service: light.toggle
     data:
-      entity_id: group.tls_bedroom
+      entity_id: light.bedroom_lights
 
 - alias: Double click toggle shower room lights
   trigger:
@@ -139,7 +135,7 @@
   action:
     service: light.turn_on
     data:
-      entity_id: group.tls_bedroom
+      entity_id: light.bedroom_lights
 
 - alias: No motion for 30 minutes turn off bedroom lights
   trigger:
@@ -152,7 +148,7 @@
   action:
     service: light.turn_off
     data:
-      entity_id: group.tls_bedroom
+      entity_id: light.bedroom_lights
 
 - alias: Motion detected turn on shower room light
   trigger:
@@ -254,9 +250,9 @@
 ###############
 
 
-############
-# TELEGRAM #
-############
+##############
+# FRONT DOOR #
+##############
 - alias: Notify when door opened
   trigger:
     platform: state
@@ -267,3 +263,16 @@
     service: notify.Telegram
     data:
       message: 'He did not hold the door'
+
+- alias: Notify if door opened too long
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00012153cf
+    from: 'off'
+    to: 'on'
+    for:
+      minutes: 10
+  action:
+    service: notify.Telegram
+    data:
+      message: 'WARNING: The front door has been opened for 10 minutes'

@@ -1,3 +1,85 @@
+input_number:
+  ac_timer_hour:
+    name: Hour
+    icon: mdi:timer
+    initial: 1
+    min: 0
+    max: 23
+    step: 1
+  ac_timer_minute:
+    name: Minute
+    icon: mdi:timer
+    initial: 30
+    min: 0
+    max: 59
+    step: 1
+
+  ac_delay_hour:
+    name: Hour
+    icon: mdi:timer
+    initial: 1
+    min: 0
+    max: 23
+    step: 1
+  ac_delay_minute:
+    name: Minute
+    icon: mdi:timer
+    initial: 30
+    min: 0
+    max: 59
+    step: 1
+
+
+input_boolean:
+  ac_timer_enabled:
+    name: Enable timer
+    initial: off
+    icon: mdi:toggle-switch
+
+  ac_delay_enabled:
+    name: Enable delay
+    initial: off
+    icon: mdi:toggle-switch
+
+
+sensor:
+  platform: template
+  sensors:
+    timer_hour:
+      value_template: '{{ states("input_number.ac_timer_hour") | round(0) }}'
+    timer_minute:
+      value_template: '{{ states("input_number.ac_timer_minute") | round(0) }}'
+    timer_duration:
+      value_template: >
+        {% if states("input_boolean.ac_timer_enabled") %}
+          {% if states("sensor.timer_hour") | length == 1 %}0{% endif %}{{states("sensor.timer_hour") }}:{% if states("sensor.timer_minute") | length == 1 %}0{% endif %}{{ states("sensor.timer_minute") }}:00
+        {% else %}
+          00:00:00
+        {% endif %}
+
+    delay_hour:
+      value_template: '{{ states("input_number.ac_delay_hour") | round(0) }}'
+    delay_minute:
+      value_template: '{{ states("input_number.ac_delay_minute") | round(0) }}'
+    delay_duration:
+      value_template: >
+        {% if states("input_boolean.ac_delay_enabled") %}
+          {% if states("sensor.delay_hour") | length == 1 %}0{% endif %}{{states("sensor.delay_hour") }}:{% if states("sensor.delay_minute") | length == 1 %}0{% endif %}{{ states("sensor.delay_minute") }}:00
+        {% else %}
+          00:00:00
+        {% endif %}
+
+
+timer:
+  ac_timer:
+    name: Timer
+    icon: mdi:timer
+
+  ac_delay:
+    name: Delay
+    icon: mdi:timer
+
+
 homeassistant:
   customize:
     script.ac_remote_control:
@@ -48,10 +130,106 @@ homeassistant:
 
 
 group:
+  ac_set_timer:
+    name: AC Set Timer
+    entities:
+      - input_number.ac_timer_hour
+      - input_number.ac_timer_minute
+      - timer.ac_timer
+      - input_boolean.ac_timer_enabled
+
+  ac_set_delay:
+    name: AC Set Delay
+    entities:
+      - input_number.ac_delay_hour
+      - input_number.ac_delay_minute
+      - timer.ac_delay
+      - input_boolean.ac_delay_enabled
+
   ac_control_panel:
     name: AC Control Panel
     entities:
       - script.ac_remote_control
+
+
+automation:
+  - alias: Start AC timer
+    trigger:
+      platform: state
+      entity_id: input_boolean.ac_timer_enabled
+      from: 'off'
+      to: 'on'
+    condition:
+      condition: or
+      conditions:
+        - condition: template
+          value_template: '{{ states("sensor.timer_hour") != 0 }}'
+        - condition: template
+          value_template: '{{ states("sensor.timer_minute") != 0 }}'
+    action:
+      - service: script.turn_on_ludovics_ac
+      - service: timer.start
+        entity_id: timer.ac_timer
+        data_template:
+          duration: '{{ states("sensor.timer_duration") }}'
+
+  - alias: Stops AC
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.ac_timer
+    action:
+      - service: script.turn_off_ludovics_ac
+
+  - alias: Cancel AC timer
+    trigger:
+      platform: state
+      entity_id: input_boolean.ac_timer_enabled
+      from: 'on'
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.ac_timer
+
+  - alias: Start AC delay
+    trigger:
+      platform: state
+      entity_id: input_boolean.ac_delay_enabled
+      from: 'off'
+      to: 'on'
+    condition:
+      condition: or
+      conditions:
+        - condition: template
+          value_template: '{{ states("sensor.delay_hour") != 0 }}'
+        - condition: template
+          value_template: '{{ states("sensor.delay_minute") != 0 }}'
+    action:
+      - service: timer.start
+        entity_id: timer.ac_delay
+        data_template:
+          duration: '{{ states("sensor.delay_duration") }}'
+
+  - alias: End delay start AC
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.ac_delay
+    action:
+      - service: script.turn_off_ludovics_ac
+
+  - alias: Cancel AC delay
+    trigger:
+      platform: state
+      entity_id: input_boolean.ac_delay_enabled
+      from: 'on'
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.ac_delay
+
 
 script:
   ac_remote_control:
