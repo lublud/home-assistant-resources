@@ -159,6 +159,25 @@ vacuum:
     host: !secret host_vacuum
     token: !secret token_vacuum
 
+# Google cast
+media_player:
+  - name: Chromcast
+    platform: cast
+    host: !secret host_chromecast
+  - name: Nexus Player
+    platform: cast
+    host: !secret host_nexus_player
+
+# Router
+device_tracker:
+  - name: Router
+    platform: xiaomi
+    host: !secret host_router
+    password: !secret password_router
+    consider_home: 30
+    track_new_devices: no
+
+# Telegram
 notify:
   - name: Telegram
     platform: telegram

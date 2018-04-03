@@ -2,6 +2,7 @@ default_view:
   view: yes
   icon: mdi:home
   entities: 
+    - group.presence_detection
     - group.weather
     - group.bathroom
     - group.kitchen
@@ -12,6 +13,16 @@ default_view:
     - group.tls_others
     - group.tv
     - group.living_room
+    - group.media_player
+    - device_tracker.ludos_phone
+    - device_tracker.seans_phone
+    - device_tracker.justins_phone
+
+Media Player:
+  view: no
+  entities:
+    - media_player.bedroom_tv
+    - media_player.nexus_player
 
 Weather: 
   view: no
@@ -81,6 +92,7 @@ Bathroom:
 
 Sensors:
   view: yes
+  icon: mdi:circle-outline
   entities:
     - group.front_door
     - group.seans_sensors
@@ -112,6 +124,7 @@ Sean's Sensors:
 
 Sean's Remote:
   view: yes
+  icon: mdi:remote
   entities:
     - script.turn_on_seans_ac
     - script.turn_off_seans_ac
@@ -126,6 +139,7 @@ Ludovic's Remote:
 
 Vacuum Remote:
   view: yes
+  icon: mdi:roomba
   entities:
     - vacuum.xiaomi_vacuum_cleaner
     - group.vacuum_control_panel
