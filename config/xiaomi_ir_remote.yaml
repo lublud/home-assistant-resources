@@ -40,6 +40,15 @@
     time_down_ludovics_ac:
       command:
         - !secret time_down_ludo
+    toggle_ludovics_fan:
+      command:
+        - !secret toggle_fan_ludo
+    change_wind_power_ludovics_fan:
+      command:
+        - !secret change_wind_power_fan_ludo
+    change_time_ludovics_fan:
+      command:
+        - !secret change_time_fan_ludo
 - platform: xiaomi_miio
   host: !secret host_remote_sean
   token: !secret token_remote_sean

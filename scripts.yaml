@@ -112,6 +112,31 @@ time_down_ludovics_ac:
           - 'time_down_ludovics_ac'
 
 
+toggle_ludovics_fan:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'toggle_ludovics_fan'
+
+change_wind_power_ludovics_fan:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'change_wind_power_ludovics_fan'
+
+change_time_ludovics_fan:
+  sequence:
+    - service: remote.send_command
+      entity_id: 'remote.ludovics_remote'
+      data:
+        command:
+          - 'change_time_ludovics_fan'
+
+
 # VACUUM
 vacuum_locate:
   sequence:

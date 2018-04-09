@@ -127,7 +127,24 @@ homeassistant:
           - entity: script.time_down_ludovics_ac
             label: Time down
             column_span: 2
-
+    script.fan_remote_control:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        row_height: 75px
+        column_width: 85px
+        gap: 10px
+        color: '#353B65'
+        entities:
+          - entity: script.toggle_ludovics_fan
+            label: ON/OFF
+            column_span: 2
+          - entity: script.change_wind_power_ludovics_fan
+            label: wind power
+            column_span: 1
+          - entity: script.change_time_ludovics_fan
+            label: time
+            column_span: 1
 
 group:
   ac_set_timer:
@@ -150,6 +167,11 @@ group:
     name: AC Control Panel
     entities:
       - script.ac_remote_control
+
+  fan_control_panel:
+    name: Fan Control Panel
+    entities:
+      - script.fan_remote_control
 
 
 automation:
@@ -233,4 +255,6 @@ automation:
 
 script:
   ac_remote_control:
+    sequence:
+  fan_remote_control:
     sequence:
