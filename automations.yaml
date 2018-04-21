@@ -2,7 +2,7 @@
 # LIVING ROOM #
 ###############
 
-- alias: Double click toggle living room lights
+- alias: Double click toggle sofa lights
   trigger:
     platform: event
     event_type: click
@@ -12,7 +12,7 @@
   action:
     service: light.toggle
     data:
-      entity_id: group.living_room
+      entity_id: light.sofa_lights
 
 - alias: Single click toggle TV lights
   trigger:
@@ -24,7 +24,7 @@
   action:
     service: light.toggle
     data:
-      entity_id: group.tv
+      entity_id: light.tv_lights
 
 
 ###########
@@ -41,7 +41,7 @@
   action:
     service: light.toggle
     data:
-      entity_id: group.kitchen
+      entity_id: light.kitchen_lights
 
 
 ################

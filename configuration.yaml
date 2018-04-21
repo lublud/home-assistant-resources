@@ -24,6 +24,8 @@ http:
   ssl_certificate: !secret ssl_certificate
   ssl_key: !secret ssl_key
   base_url: !secret base_url
+  cors_allowed_origins:
+    - https://reformedreality.com
 
 # Checks for available updates
 updater:
@@ -108,9 +110,13 @@ light:
       192.168.31.184:
         name: TV back
       192.168.31.99:
-        name: Bed T
+        name: Sink Right
       192.168.31.8:
+        name: Sink Left
+      192.168.31.18:
         name: Bed L
+      192.168.31.171:
+        name: Bed T
       192.168.31.17:
         name: Bed under
       192.168.31.222:
@@ -119,10 +125,10 @@ light:
         name: Showeroom
       192.168.31.76:
         name: Bathroom
-      192.168.31.88:
-        name: Justin's bed
-      192.168.31.152:
-        name: Justin's desk
+      192.168.31.11:
+        name: Living room in
+      192.168.31.245:
+        name: Living room out
 
   - platform: group
     name: Bedroom lights
@@ -130,7 +136,28 @@ light:
       - light.bed_t
       - light.bed_l
       - light.bed_under
-
+  - platform: group
+    name: Living room lights
+    entities:
+      - light.living_room_in
+      - light.living_room_out
+      - light.tv_up
+      - light.tv_down
+  - platform: group
+    name: Sofa lights
+    entities:
+      - light.living_room_in
+      - light.living_room_out
+  - platform: group
+    name: TV lights
+    entities:
+      - light.tv_up
+      - light.tv_back
+  - platform: group
+    name: Kitchen lights
+    entities:
+      - light.sink_right
+      - light.sink_left
 
 # Air purifier 2
 fan:

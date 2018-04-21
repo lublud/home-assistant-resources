@@ -7,11 +7,9 @@ default_view:
     - group.bathroom
     - group.kitchen
     - group.seans_bedroom
-    - group.justins_bedroom
     - group.showeroom
     - group.tls_bedroom
     - group.tls_others
-    - group.tv
     - group.living_room
     - group.media_player
     - device_tracker.ludos_phone
@@ -46,29 +44,16 @@ Sean's Bedroom:
     - light.gateway_light_34ce00839441
     - switch.plug_158d000163aec1
 
-Justin's Bedroom:
-  view: no
-  entities:
-    - light.justins_desk
-    - light.justins_bed 
-
 Living Room:
   view: no
   entities:
-    - light.couch_right # couch door
-    - light.hue_color_lamp_1 # couch window
+    - light.sofa_lights
+    - light.tv_lights
 
 Kitchen:
   view: no
   entities:
-    - light.hue_white_lamp_1 # sink 1
-    - light.couch_left # sink 2
-
-TV:
-  view: no
-  entities:
-    - light.tv_back
-    - light.tv_up
+    - light.kitchen_lights
 
 TL's Bedroom:
   view: no
