@@ -4,12 +4,9 @@ default_view:
   entities: 
     - group.presence_detection
     - group.weather
-    - group.bathroom
     - group.kitchen
-    - group.seans_bedroom
     - group.showeroom
-    - group.tls_bedroom
-    - group.tls_others
+    - group.bedroom
     - group.living_room
     - group.media_player
     - device_tracker.ludos_phone
@@ -21,7 +18,6 @@ Media Player:
   view: no
   entities:
     - media_player.bedroom_tv
-    - media_player.nexus_player
 
 Weather: 
   view: no
@@ -34,16 +30,6 @@ Weather:
     - sensor.dark_sky_precip_probability
     - sensor.waqi_zhongshan_taiwan
 
-Sean's Bedroom:
-  view: no
-  entities:
-    - light.desk # desk
-    - light.dresser # dresser
-    - light.hallway # bed
-    - light.main # lamp
-    - light.gateway_light_34ce00839441
-    - switch.plug_158d000163aec1
-
 Living Room:
   view: no
   entities:
@@ -55,7 +41,7 @@ Kitchen:
   entities:
     - light.kitchen_lights
 
-TL's Bedroom:
+Bedroom:
   view: no
   entities:
     - light.bedroom_lights
@@ -64,7 +50,7 @@ TL's Bedroom:
     - light.gateway_light_34ce0083878f
     - fan.mi_air_purifier_2
 
-TL's all:
+All:
   view: no
   entities:
     - light.bed_l
@@ -81,7 +67,6 @@ Sensors:
   icon: mdi:circle-outline
   entities:
     - group.front_door
-    - group.seans_sensors
     - group.ludovics_sensors
 
 Front Door:
@@ -99,23 +84,7 @@ Ludovic's Sensors:
     - binary_sensor.switch_158d0001245482 # TV lights
     - binary_sensor.cube_158d00010f0603
 
-Sean's Sensors:
-  view: no
-  entities:
-    - binary_sensor.cube_158d0001020052 
-    - sensor.illumination_34ce00839441
-    - binary_sensor.switch_158d000122ce3b # Bathroom
-    - binary_sensor.switch_158d0001562c66 # Justin's room
-    - binary_sensor.motion_sensor_158d0001225007 # Bathroom
-
-Sean's Remote:
-  view: yes
-  icon: mdi:remote
-  entities:
-    - script.turn_on_seans_ac
-    - script.turn_off_seans_ac
-
-Ludovic's Remote:
+Remote:
   view: yes
   icon: mdi:air-conditioner
   entities:

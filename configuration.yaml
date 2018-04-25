@@ -76,12 +76,6 @@ group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 
-hue:
-  bridges:
-    - host: 192.168.31.154
-      allow_unreachable: true
-      allow_hue_groups: false
-
 sensor:
 # Weather
   - platform: darksky
@@ -123,8 +117,6 @@ light:
         name: Ludovic's desk
       192.168.31.117:
         name: Showeroom
-      192.168.31.76:
-        name: Bathroom
       192.168.31.11:
         name: Living room in
       192.168.31.245:
@@ -170,9 +162,6 @@ fan:
 xiaomi_aqara:
   discovery_retry: 5
   gateways:
-    - mac: !secret mac_gateway_sean
-      key: !secret key_gateway_sean
-      host: !secret host_gateway_sean
     - mac: !secret mac_gateway_ludo
       key: !secret key_gateway_ludo
       host: !secret host_gateway_ludo
@@ -191,9 +180,6 @@ media_player:
   - name: Chromcast
     platform: cast
     host: !secret host_chromecast
-  - name: Nexus Player
-    platform: cast
-    host: !secret host_nexus_player
 
 # Router
 device_tracker:

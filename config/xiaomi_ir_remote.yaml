@@ -49,17 +49,3 @@
     change_time_ludovics_fan:
       command:
         - !secret change_time_fan_ludo
-- platform: xiaomi_miio
-  host: !secret host_remote_sean
-  token: !secret token_remote_sean
-  slot: 1
-  timeout: 30
-  hidden: false
-  name: Sean's Remote
-  commands:
-     turn_on_seans_ac:
-       command:
-         - !secret turn_on_ac_sean
-     turn_off_seans_ac:
-       command:
-         - !secret turn_off_ac_sean
