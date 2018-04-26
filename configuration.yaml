@@ -27,6 +27,9 @@ http:
   cors_allowed_origins:
     - https://reformedreality.com
 
+tts:
+  platform: google
+
 # Checks for available updates
 updater:
 
@@ -58,19 +61,35 @@ panel_custom:
 
 # Cloud
 cloud:
-  alexa:
+  google_actions:
     filter:
       exclude_entities:
-        - sensor.dark_sky_summary
-        - sensor.dark_sky_daily_high_temperature
-        - sensor.dark_sky_daily_low_temperature
-        - sensor.dark_sky_precip
-        - sensor.dark_sky_precip_probability
-        - sensor.dark_sky_temperature
+        - light.sink_right
+        - light.sink_left
+        - light.tv_up
+        - light.tv_back
+        - light.living_room_in
+        - light.living_room_out
+      exclude_domains:
+        - group
+        - script
+        - device_tracker
+        - sensor
+      include_entities:
+        - script.toggle_ludovics_fan
+        - script.turn_on_ludovics_ac
+        - script.turn_off_ludovics_ac
     entity_config:
-      group.tv:
-        name: TV lights
-        description: Control ledstrips for the TV
+      fan.mi_air_purifier_2:
+        name: Air purifier
+      script.toggle_ludovics_fan:
+        name: fan on
+        aliases:
+          fan off
+      script.turn_on_ludovics_ac:
+        name: ac on
+      script.turn_off_ludovics_ac:
+        name: ac off
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -134,7 +153,7 @@ light:
       - light.living_room_in
       - light.living_room_out
       - light.tv_up
-      - light.tv_down
+      - light.tv_back
   - platform: group
     name: Sofa lights
     entities:
@@ -180,6 +199,12 @@ media_player:
   - name: Chromcast
     platform: cast
     host: !secret host_chromecast
+  - name: Teddy
+    platform: cast
+    host: !secret host_teddy_google_home
+  - name: living room
+    platform: cast
+    host: !secret host_living_room_google_home
 
 # Router
 device_tracker:

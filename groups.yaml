@@ -57,11 +57,6 @@ All:
     - light.bed_t
     - light.bed_under
 
-Bathroom:
-  view: no
-  entities:
-    - light.bathroom
-
 Sensors:
   view: yes
   icon: mdi:circle-outline
