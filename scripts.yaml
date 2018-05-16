@@ -188,3 +188,27 @@ vacuum_remote_control_turn_right_45:
     data:
       velocity: 0
       rotation: -45
+
+vacuum_start_clean:
+  sequence:
+    - service: vacuum.turn_on
+      entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+
+vacuum_stop_clean:
+  sequence:
+    - service: vacuum.turn_off
+      entity_id: 'vacuum.xiaomi_vacuum_cleaner'
+
+tts_bedroom_humidity:
+  sequence:
+  - service: tts.google_say
+    entity_id: media_player.teddy
+    data_template:
+      message: "The humidity in the bedroom is {{states.fan.mi_air_purifier_2.attributes.humidity}} %"
+
+tts_bedroom_temperature:
+  sequence:
+  - service: tts.google_say
+    entity_id: media_player.teddy
+    data_template:
+      message: "The temperature in the bedroom is {{states.fan.mi_air_purifier_2.attributes.temperature}} °C"

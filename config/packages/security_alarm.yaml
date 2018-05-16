@@ -1,0 +1,54 @@
+input_boolean:
+  alarm_enabled:
+    name: Enable alarm
+    initial: off
+    icon: mdi:toggle-switch
+
+group:
+    alarm:
+      name: Alarm
+      entities:
+        - input_boolean.alarm_enabled 
+        - script.control_alarm
+
+automation:
+  - alias: If alarm enabled and door opened start alarm
+    trigger:
+      platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00012153cf
+      from: 'off'
+      to: 'on'
+    condition:
+      - condition: state
+        entity_id: input_boolean.alarm_enabled
+        state: 'on'
+    action:
+      service: xiaomi_aqara.play_ringtone
+      data:
+        gw_mac: !secret mac_gateway_ludo
+        ringtone_id: 2
+        ringtone_vol: 73
+
+script:
+  stop_alarm:
+    sequence:
+      - service: xiaomi_aqara.stop_ringtone
+        data:
+          gw_mac: !secret mac_gateway_ludo
+  control_alarm:
+    sequence:
+
+homeassistant:
+  customize:
+    script.control_alarm:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 2
+        row_height: 75px
+        columen_width: 85px
+        gap: 10px
+        color: '#353B65'
+        entities:
+          - entity: script.stop_alarm
+            icon: mdi:stop
+            column_span: 2

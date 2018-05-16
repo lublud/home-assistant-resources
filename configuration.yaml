@@ -70,6 +70,9 @@ cloud:
         - light.tv_back
         - light.living_room_in
         - light.living_room_out
+        - light.bed_l
+        - light.bed_t
+        - light.bed_under
       exclude_domains:
         - group
         - script
@@ -80,16 +83,26 @@ cloud:
         - script.turn_on_ludovics_ac
         - script.turn_off_ludovics_ac
     entity_config:
+      light.ludovics_desk:
+        name: Desk light
+        aliases:
+          - Desk
+      light.gateway_light_34ce0083878f:
+        name: Gateway light
+        aliases:
+          - Gateway
+      light.shower_room:
+        name: Shower room light
+        aliases:
+          - Shower room
       fan.mi_air_purifier_2:
         name: Air purifier
       script.toggle_ludovics_fan:
-        name: fan on
-        aliases:
-          fan off
+        name: Toggle fan
       script.turn_on_ludovics_ac:
-        name: ac on
+        name: AC on
       script.turn_off_ludovics_ac:
-        name: ac off
+        name: AC off
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -107,6 +120,21 @@ sensor:
       - temperature_min
       - precip_type
       - precip_probability
+# Template
+  - platform: template
+    sensors:
+      bedroom_temperature:
+        friendly_name: "Room temperature"
+        unit_of_measurement: "°C"
+        value_template: "{{ states.fan.mi_air_purifier_2.attributes.temperature}}"
+      bedroom_humidity:
+        friendly_name: "Room Humidity"
+        unit_of_measurement: "%"
+        value_template: "{{ states.fan.mi_air_purifier_2.attributes.humidity}}"
+      bedroom_aqi:
+        friendly_name: "Room polution"
+        unit_of_measurement: "pm2.5"
+        value_template: "{{ states.fan.mi_air_purifier_2.attributes.aqi}}"
 
 # Air quality
   - platform: waqi
@@ -135,7 +163,7 @@ light:
       192.168.31.222:
         name: Ludovic's desk
       192.168.31.117:
-        name: Showeroom
+        name: Shower room
       192.168.31.11:
         name: Living room in
       192.168.31.245:
@@ -143,6 +171,14 @@ light:
 
   - platform: group
     name: Bedroom lights
+    entities:
+      - light.bed_t
+      - light.bed_l
+      - light.bed_under
+      - light.ludovics_desk
+      - light.shower_room
+  - platform: group
+    name: Bed lights
     entities:
       - light.bed_t
       - light.bed_l

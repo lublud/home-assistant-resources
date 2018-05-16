@@ -5,8 +5,8 @@ default_view:
     - group.presence_detection
     - group.weather
     - group.kitchen
-    - group.showeroom
     - group.bedroom
+    - group.bedroom_sensors
     - group.living_room
     - group.media_player
     - device_tracker.ludos_phone
@@ -44,11 +44,18 @@ Kitchen:
 Bedroom:
   view: no
   entities:
-    - light.bedroom_lights
+    - light.bed_lights
     - light.ludovics_desk
-    - light.showeroom
+    - light.shower_room
     - light.gateway_light_34ce0083878f
     - fan.mi_air_purifier_2
+
+Bedroom Sensors:
+  view: no
+  entities:
+    - sensor.bedroom_temperature
+    - sensor.bedroom_humidity
+    - sensor.bedroom_aqi
 
 All:
   view: no
@@ -57,6 +64,11 @@ All:
     - light.bed_t
     - light.bed_under
 
+Security:
+  view: yes
+  icon: mdi:security-home
+  entities:
+    - group.alarm
 Sensors:
   view: yes
   icon: mdi:circle-outline
@@ -90,7 +102,7 @@ Remote:
 
 Vacuum Remote:
   view: yes
-  icon: mdi:roomba
+  icon: mdi:robot-vacuum
   entities:
     - vacuum.xiaomi_vacuum_cleaner
     - group.vacuum_control_panel
