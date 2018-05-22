@@ -116,6 +116,7 @@ sensor:
     monitored_conditions:
       - summary
       - temperature
+      - humidity
       - temperature_max
       - temperature_min
       - precip_type
@@ -132,7 +133,7 @@ sensor:
         unit_of_measurement: "%"
         value_template: "{{ states.fan.mi_air_purifier_2.attributes.humidity}}"
       bedroom_aqi:
-        friendly_name: "Room polution"
+        friendly_name: "Room pollution"
         unit_of_measurement: "pm2.5"
         value_template: "{{ states.fan.mi_air_purifier_2.attributes.aqi}}"
 
@@ -250,6 +251,15 @@ device_tracker:
     password: !secret password_router
     consider_home: 30
     track_new_devices: no
+
+# Camera
+camera:
+  - platform: local_file
+    name: Living Room
+    file_path: !secret file_path_camera
+  - platform: mjpeg
+    name: Living Room Live
+    mjpeg_url: !secret mjpeg_url_camera
 
 # Telegram
 notify:

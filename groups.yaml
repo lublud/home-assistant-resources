@@ -4,9 +4,9 @@ default_view:
   entities: 
     - group.presence_detection
     - group.weather
+    - group.bedroom_sensors
     - group.kitchen
     - group.bedroom
-    - group.bedroom_sensors
     - group.living_room
     - group.media_player
     - device_tracker.ludos_phone
@@ -24,6 +24,7 @@ Weather:
   entities:
     - sensor.dark_sky_summary
     - sensor.dark_sky_temperature
+    - sensor.dark_sky_humidity
     - sensor.dark_sky_daily_high_temperature
     - sensor.dark_sky_daily_low_temperature
     - sensor.dark_sky_precip
@@ -68,20 +69,23 @@ Security:
   view: yes
   icon: mdi:security-home
   entities:
-    - group.alarm
-Sensors:
-  view: yes
-  icon: mdi:circle-outline
-  entities:
     - group.front_door
-    - group.ludovics_sensors
+    - group.alarm
+    - camera.living_room
+    - camera.living_room_live
 
 Front Door:
   view: no
   entities:
     - binary_sensor.door_window_sensor_158d00012153cf
 
-Ludovic's Sensors:
+Sensors:
+  view: yes
+  icon: mdi:circle-outline
+  entities:
+    - group.all_sensors
+
+All sensors:
   view: no
   entities:
     - sensor.illumination_34ce0083878f
@@ -97,6 +101,7 @@ Remote:
   entities:
     - group.ac_set_timer
     - group.ac_set_delay
+    - group.ac_set_time
     - group.ac_control_panel
     - group.fan_control_panel
 
