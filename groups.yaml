@@ -102,6 +102,7 @@ Remote:
     - group.ac_set_timer
     - group.ac_set_delay
     - group.ac_set_time
+    - group.ac_set_time_repeat
     - group.ac_control_panel
     - group.fan_control_panel
 

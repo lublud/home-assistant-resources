@@ -59,6 +59,21 @@ input_number:
     max: 55
     step: 5
 
+  ac_repeat_time:
+    name: Repeat every (minutes)
+    icon: mdi:timer
+    initial: 90
+    min: 00 # min 1 hour
+    max: 180 # max 3 hours
+    step: 1
+  ac_repeat_duration:
+    name: For (minutes)
+    icon: mdi:timer
+    initial: 30
+    min: 0
+    max: 90 # max 1.5 hour
+    step: 1
+
 
 input_boolean:
   ac_timer_enabled:
@@ -72,7 +87,12 @@ input_boolean:
     icon: mdi:toggle-switch
 
   ac_time_enabled:
-    name: Control AC based on time
+    name: Enable time slot (AC)
+    initial: off
+    icon: mdi:toggle-switch
+
+  ac_repeat_enabled:
+    name: Enable AC repeat
     initial: off
     icon: mdi:toggle-switch
 
@@ -104,11 +124,16 @@ sensor:
           00:00:00
         {% endif %}
 
-    time_start:
+    time_slot_start:
       value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.ac_start_hour") | int, states("input_number.ac_start_minute") | int) }}'
 
-    time_stop:
+    time_slot_stop:
       value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.ac_stop_hour") | int, states("input_number.ac_stop_minute") | int) }}'
+
+    time_repeat:
+      value_template: '{{ "%0.02d:%0.02d" | format((states("input_number.ac_repeat_time") | int) / 60, (states("input_number.ac_repeat_time") | int) % 60) }}'
+    time_duration:
+      value_template: '{{ "%0.02d:%0.02d" | format((states("input_number.ac_repeat_duration") | int) / 60, (states("input_number.ac_repeat_duration") | int) % 60) }}'
 
 
 timer:
@@ -118,6 +143,13 @@ timer:
 
   ac_delay:
     name: Delay
+    icon: mdi:timer
+
+  ac_repeat_time_timer:
+    name: Repeat
+    icon: mdi:timer
+  ac_repeat_duration_timer:
+    name: Duration
     icon: mdi:timer
 
 
@@ -213,6 +245,15 @@ group:
       - input_number.ac_stop_minute
       - input_boolean.ac_time_enabled
 
+  ac_set_time_repeat:
+    name: AC Repeat
+    entities:
+      - timer.ac_repeat_time_timer
+      - timer.ac_repeat_duration_timer
+      - input_number.ac_repeat_time
+      - input_number.ac_repeat_duration
+      - input_boolean.ac_repeat_enabled
+
   ac_control_panel:
     name: AC Control Panel
     entities:
@@ -302,6 +343,62 @@ automation:
       - service: timer.cancel
         entity_id: timer.ac_delay
 
+  - alias: AC repeat start
+    trigger:
+      platform: state
+      entity_id: input_boolean.ac_repeat_enabled
+      from: 'off'
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.ac_repeat_time_timer
+        data_template:
+          duration: '{{ states("sensor.time_repeat") }}'
+      - service: timer.start
+        entity_id: timer.ac_repeat_duration_timer
+        data_template:
+          duration: '{{ states("sensor.time_duration") }}'
+      - service: script.turn_on_ludovics_ac
+
+  - alias: AC repeat cancal
+    trigger:
+      platform: state
+      entity_id: input_boolean.ac_repeat_enabled
+      from: 'on'
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.ac_repeat_time_timer
+      - service: timer.cancel
+        entity_id: timer.ac_repeat_duration_timer
+
+  - alias: AC repeat time timer ends
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.ac_repeat_time_timer
+    action:
+      - service: timer.start
+        entity_id: timer.ac_repeat_time_timer
+        data_template:
+          duration: '{{ states("sensor.time_repeat") }}'
+      - service: timer.start
+        entity_id: timer.ac_repeat_duration_timer
+        data_template:
+          duration: '{{ states("sensor.time_duration") }}'
+      - service: script.turn_on_ludovics_ac
+
+  - alias: AC repeat duration timer ends
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.ac_repeat_duration_timer
+    action:
+      - service: script.turn_off_ludovics_ac
+
+
   - alias: AC time start
     trigger:
       - platform: time
@@ -311,7 +408,7 @@ automation:
       condition: and
       conditions:
         - condition: template
-          value_template: '{{ now().time().strftime("%H:%M") == states("sensor.time_start") }}'
+          value_template: '{{ now().time().strftime("%H:%M") == states("sensor.time_slot_start") }}'
         - condition: state
           entity_id: input_boolean.ac_time_enabled
           state: 'on'
@@ -327,7 +424,7 @@ automation:
       condition: and
       conditions:
         - condition: template
-          value_template: '{{ now().time().strftime("%H:%M") == states("sensor.time_stop") }}'
+          value_template: '{{ now().time().strftime("%H:%M") == states("sensor.time_slot_stop") }}'
         - condition: state
           entity_id: input_boolean.ac_time_enabled
           state: 'on'
