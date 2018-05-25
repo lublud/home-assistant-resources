@@ -63,16 +63,16 @@ input_number:
     name: Repeat every (minutes)
     icon: mdi:timer
     initial: 90
-    min: 00 # min 1 hour
+    min: 60 # min 1 hour
     max: 180 # max 3 hours
-    step: 1
+    step: 5
   ac_repeat_duration:
     name: For (minutes)
     icon: mdi:timer
     initial: 30
     min: 0
     max: 90 # max 1.5 hour
-    step: 1
+    step: 5
 
 
 input_boolean:
