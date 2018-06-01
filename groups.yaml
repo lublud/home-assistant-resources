@@ -2,7 +2,6 @@ default_view:
   view: yes
   icon: mdi:home
   entities: 
-    - group.presence_detection
     - group.weather
     - group.bedroom_sensors
     - group.kitchen
@@ -14,57 +13,6 @@ default_view:
     - device_tracker.andrejs_phone
     - device_tracker.phoebes_phone
 
-Media Player:
-  view: no
-  entities:
-    - media_player.bedroom_tv
-
-Weather: 
-  view: no
-  entities:
-    - sensor.dark_sky_summary
-    - sensor.dark_sky_temperature
-    - sensor.dark_sky_humidity
-    - sensor.dark_sky_daily_high_temperature
-    - sensor.dark_sky_daily_low_temperature
-    - sensor.dark_sky_precip
-    - sensor.dark_sky_precip_probability
-    - sensor.waqi_zhongshan_taiwan
-
-Living Room:
-  view: no
-  entities:
-    - light.sofa_lights
-    - light.tv_lights
-
-Kitchen:
-  view: no
-  entities:
-    - light.kitchen_lights
-
-Bedroom:
-  view: no
-  entities:
-    - light.bed_lights
-    - light.ludovics_desk
-    - light.shower_room
-    - light.gateway_light_34ce0083878f
-    - fan.mi_air_purifier_2
-
-Bedroom Sensors:
-  view: no
-  entities:
-    - sensor.bedroom_temperature
-    - sensor.bedroom_humidity
-    - sensor.bedroom_aqi
-
-All:
-  view: no
-  entities:
-    - light.bed_l
-    - light.bed_t
-    - light.bed_under
-
 Security:
   view: yes
   icon: mdi:security-home
@@ -74,26 +22,19 @@ Security:
     - camera.living_room
     - camera.living_room_live
 
-Front Door:
-  view: no
-  entities:
-    - binary_sensor.door_window_sensor_158d00012153cf
-
 Sensors:
   view: yes
   icon: mdi:circle-outline
   entities:
     - group.all_sensors
 
-All sensors:
-  view: no
+All Lights:
+  view: yes
+  icon: mdi:lightbulb-on
   entities:
-    - sensor.illumination_34ce0083878f
-    - binary_sensor.motion_sensor_158d0001225132 # Bedroom
-    - binary_sensor.motion_sensor_158d0001db53b2 # Bathroom
-    - binary_sensor.switch_158d000121d17f # Bedroom lights
-    - binary_sensor.switch_158d0001245482 # TV lights
-    - binary_sensor.cube_158d00010f0603
+    - group.lights_bedroom
+    - group.lights_living_room
+    - group.lights_kitchen
 
 Remote:
   view: yes
@@ -113,6 +54,84 @@ Vacuum Remote:
     - vacuum.xiaomi_vacuum_cleaner
     - group.vacuum_control_panel
 
+
+################
+# DEFAULT VIEW #
+################
+
+Weather: 
+  view: no
+  entities:
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_humidity
+    - sensor.dark_sky_daily_high_temperature
+    - sensor.dark_sky_daily_low_temperature
+    - sensor.dark_sky_precip
+    - sensor.dark_sky_precip_probability
+    - sensor.waqi_zhongshan_taiwan
+
+Bedroom Sensors:
+  view: no
+  entities:
+    - sensor.bedroom_temperature
+    - sensor.bedroom_humidity
+    - sensor.bedroom_aqi
+
+Kitchen:
+  view: no
+  entities:
+    - light.kitchen_lights
+
+Bedroom:
+  view: no
+  entities:
+    - light.bed_lights
+    - light.ludovics_desk
+    - light.shower_room
+    - light.gateway_light_34ce0083878f
+    - fan.mi_air_purifier_2
+
+Living Room:
+  view: no
+  entities:
+    - light.sofa_lights
+    - light.tv_lights
+
+Media Player:
+  view: no
+  entities:
+    - media_player.bedroom_tv
+
+
+############
+# SECURITY #
+############
+
+Front Door:
+  view: no
+  entities:
+    - binary_sensor.door_window_sensor_158d00012153cf
+
+
+###########
+# SENSORS #
+###########
+
+All sensors:
+  view: no
+  entities:
+    - sensor.illumination_34ce0083878f
+    - binary_sensor.motion_sensor_158d0001225132 # Bedroom
+    - binary_sensor.motion_sensor_158d0001db53b2 # Bathroom
+    - binary_sensor.switch_158d000121d17f # Bedroom lights
+    - binary_sensor.switch_158d0001245482 # TV lights
+    - binary_sensor.cube_158d00010f0603
+
+
+##############
+# ALL LIGHTS #
+##############
 
 Lights Bedroom:
   view: no
@@ -137,11 +156,3 @@ Lights Kitchen:
   entities:
     - light.sink_right
     - light.sink_left
-
-All Lights:
-  view: yes
-  icon: mdi:lightbulb-on
-  entities:
-    - group.lights_bedroom
-    - group.lights_living_room
-    - group.lights_kitchen
