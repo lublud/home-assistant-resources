@@ -112,3 +112,36 @@ Vacuum Remote:
   entities:
     - vacuum.xiaomi_vacuum_cleaner
     - group.vacuum_control_panel
+
+
+Lights Bedroom:
+  view: no
+  entities:
+    - light.bed_t
+    - light.bed_l
+    - light.bed_under
+    - light.ludovics_desk
+    - light.shower_room
+
+Lights Living Room:
+  view: no
+  entities:
+    - light.tv_up
+    - light.tv_back
+    - light.living_room_in
+    - light.living_room_out
+    - light.gateway
+
+Lights Kitchen:
+  view: no
+  entities:
+    - light.sink_right
+    - light.sink_left
+
+All Lights:
+  view: yes
+  icon: mdi:lightbulb-on
+  entities:
+    - group.lights_bedroom
+    - group.lights_living_room
+    - group.lights_kitchen
