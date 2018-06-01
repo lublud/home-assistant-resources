@@ -10,9 +10,9 @@ default_view:
     - group.living_room
     - group.media_player
     - device_tracker.ludos_phone
-    - device_tracker.seans_phone
-    - device_tracker.justins_phone
     - device_tracker.taras_phone
+    - device_tracker.andrejs_phone
+    - device_tracker.phoebes_phone
 
 Media Player:
   view: no
