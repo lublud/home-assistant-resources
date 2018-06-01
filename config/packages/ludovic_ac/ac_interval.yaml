@@ -1,0 +1,104 @@
+input_number:
+  ac_interval_time:
+    name: Repeat every (minutes)
+    icon: mdi:timer
+    initial: 90
+    min: 60 # min 1 hour
+    max: 180 # max 3 hours
+    step: 5
+  ac_interval_duration:
+    name: For (minutes)
+    icon: mdi:timer
+    initial: 30
+    min: 0
+    max: 90 # max 1.5 hour
+    step: 5
+
+input_boolean:
+  ac_interval_enabled:
+    name: Enable AC interval
+    initial: off
+    icon: mdi:toggle-switch
+
+timer:
+  ac_interval_time_timer:
+    name: Repeat
+    icon: mdi:timer
+  ac_interval_duration_timer:
+    name: Duration
+    icon: mdi:timer
+
+sensor:
+  platform: template
+  sensors:
+    time_interval:
+      value_template: '{{ "%0.02d:%0.02d" | format((states("input_number.ac_interval_time") | int) / 60, (states("input_number.ac_interval_time") | int) % 60) }}'
+    time_duration:
+      value_template: '{{ "%0.02d:%0.02d" | format((states("input_number.ac_interval_duration") | int) / 60, (states("input_number.ac_interval_duration") | int) % 60) }}'
+
+
+automation:
+  - alias: AC interval starts
+    trigger:
+      platform: state
+      entity_id: input_boolean.ac_interval_enabled
+      from: 'off'
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.ac_interval_time_timer
+        data_template:
+          duration: '{{ states("sensor.time_interval") }}'
+      - service: timer.start
+        entity_id: timer.ac_interval_duration_timer
+        data_template:
+          duration: '{{ states("sensor.time_duration") }}'
+      - service: script.turn_on_ludovics_ac
+
+  - alias: AC inverval canceled
+    trigger:
+      platform: state
+      entity_id: input_boolean.ac_interval_enabled
+      from: 'on'
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.ac_interval_time_timer
+      - service: timer.cancel
+        entity_id: timer.ac_interval_duration_timer
+
+  - alias: AC interval time timer ends
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.ac_interval_time_timer
+    action:
+      - service: timer.start
+        entity_id: timer.ac_interval_time_timer
+        data_template:
+          duration: '{{ states("sensor.time_interval") }}'
+      - service: timer.start
+        entity_id: timer.ac_interval_duration_timer
+        data_template:
+          duration: '{{ states("sensor.time_duration") }}'
+      - service: script.turn_on_ludovics_ac
+
+  - alias: AC interval duration timer ends
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.ac_interval_duration_timer
+    action:
+      - service: script.turn_off_ludovics_ac
+
+group:
+  ac_set_time_interval:
+    name: AC Interval
+    entities:
+      - timer.ac_interval_time_timer
+      - timer.ac_interval_duration_timer
+      - input_number.ac_interval_time
+      - input_number.ac_interval_duration
+      - input_boolean.ac_interval_enabled

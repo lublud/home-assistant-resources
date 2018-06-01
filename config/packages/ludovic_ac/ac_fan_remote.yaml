@@ -1,0 +1,85 @@
+homeassistant:
+  customize:
+    script.ac_remote_control:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        row_height: 75px
+        column_width: 85px
+        gap: 10px
+        color: '#353B65'
+        entities:
+          - entity: script.turn_on_ludovics_ac
+            icon: mdi:play
+            column_span: 2
+          - entity: script.turn_off_ludovics_ac
+            icon: mdi:stop
+            column_span: 2
+          - entity: script.cold_air_mode_ludovics_ac
+            label: AC
+            column_span: 2
+          - entity: script.strong_wind_ludovics_ac
+            label: Strong wind
+            column_span: 2
+          - entity: script.dehumidify_mode_ludovics_ac
+            label: Dehumidify
+            column_span: 2
+          - entity: script.weak_wind_ludovics_ac
+            label: Weak wind
+            column_span: 2
+          - entity: script.blow_air_mode_ludovics_ac
+            label: Blow air
+            column_span: 2
+          - entity: script.breeze_ludovics_ac
+            label: Breeze
+            column_span: 2
+          - entity: script.temperature_up_ludovics_ac
+            label: Temperature up
+            column_span: 2
+          - entity: script.time_up_ludovics_ac
+            label: Time up
+            column_span: 2
+          - entity: script.temperature_down_ludovics_ac
+            label: Temperature down
+            column_span: 2
+          - entity: script.time_down_ludovics_ac
+            label: Time down
+            column_span: 2
+
+    script.fan_remote_control:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        row_height: 75px
+        column_width: 85px
+        gap: 10px
+        color: '#353B65'
+        entities:
+          - entity: script.toggle_ludovics_fan
+            label: ON/OFF
+            column_span: 2
+          - entity: script.change_wind_power_ludovics_fan
+            label: wind power
+            column_span: 1
+          - entity: script.change_time_ludovics_fan
+            label: time
+            column_span: 1
+
+
+group:
+  ac_control_panel:
+    name: AC Control Panel
+    entities:
+      - script.ac_remote_control
+
+  fan_control_panel:
+    name: Fan Control Panel
+    entities:
+      - script.fan_remote_control
+
+
+script:
+  ac_remote_control:
+    sequence:
+  fan_remote_control:
+    sequence:

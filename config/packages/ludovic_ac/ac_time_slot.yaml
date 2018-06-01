@@ -1,0 +1,93 @@
+input_number:
+  ac_start_hour:
+    name: Start Hour
+    icon: mdi:timer
+    initial: 6
+    min: 0
+    max: 23
+    step: 1
+  ac_start_minute:
+    name: Start Minute
+    icon: mdi:timer
+    initial: 0
+    min: 0
+    max: 55
+    step: 5
+
+  ac_stop_hour:
+    name: Stop Hour
+    icon: mdi:timer
+    initial: 7
+    min: 0
+    max: 23
+    step: 1
+  ac_stop_minute:
+    name: Stop Minute
+    icon: mdi:timer
+    initial: 30
+    min: 0
+    max: 55
+    step: 5
+
+input_boolean:
+  ac_time_slot_enabled:
+    name: Enable time slot
+    initial: off
+    icon: mdi:toggle-switch
+
+sensor:
+  platform: template
+  sensors:
+    time_slot_start:
+      value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.ac_start_hour") | int, states("input_number.ac_start_minute") | int) }}'
+
+    time_slot_stop:
+      value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.ac_stop_hour") | int, states("input_number.ac_stop_minute") | int) }}'
+
+    time_repeat:
+      value_template: '{{ "%0.02d:%0.02d" | format((states("input_number.ac_repeat_time") | int) / 60, (states("input_number.ac_repeat_time") | int) % 60) }}'
+    time_duration:
+      value_template: '{{ "%0.02d:%0.02d" | format((states("input_number.ac_repeat_duration") | int) / 60, (states("input_number.ac_repeat_duration") | int) % 60) }}'
+
+automation:
+  - alias: AC time slot start
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      condition: and
+      conditions:
+        - condition: template
+          value_template: '{{ now().time().strftime("%H:%M") == states("sensor.time_slot_start") }}'
+        - condition: state
+          entity_id: input_boolean.ac_time_slot_enabled
+          state: 'on'
+    action:
+      - service: script.turn_on_ludovics_ac
+
+  - alias: AC time slot stop
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      condition: and
+      conditions:
+        - condition: template
+          value_template: '{{ now().time().strftime("%H:%M") == states("sensor.time_slot_stop") }}'
+        - condition: state
+          entity_id: input_boolean.ac_time_slot_enabled
+          state: 'on'
+    action:
+      - service: script.turn_off_ludovics_ac
+
+group:
+  ac_set_time_slot:
+    name: AC Time Slot
+    entities:
+      - input_number.ac_start_hour
+      - input_number.ac_start_minute
+      - input_number.ac_stop_hour
+      - input_number.ac_stop_minute
+      - input_boolean.ac_time_slot_enabled
