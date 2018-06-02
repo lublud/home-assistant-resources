@@ -26,9 +26,10 @@ Sensors:
   view: yes
   icon: mdi:circle-outline
   entities:
-    - group.all_sensors
+    - group.bed_sensors
+    - group.other_sensors
 
-All Lights:
+Lights:
   view: yes
   icon: mdi:lightbulb-on
   entities:
@@ -118,11 +119,10 @@ Front Door:
 # SENSORS #
 ###########
 
-All sensors:
+Other Sensors:
   view: no
   entities:
     - sensor.illumination_34ce0083878f
-    - binary_sensor.motion_sensor_158d0001225132 # Bedroom
     - binary_sensor.motion_sensor_158d0001db53b2 # Bathroom
     - binary_sensor.switch_158d000121d17f # Bedroom lights
     - binary_sensor.switch_158d0001245482 # TV lights

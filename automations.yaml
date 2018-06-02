@@ -122,34 +122,6 @@
     data:
       entity_id: light.shower_room
 
-- alias: Motion detected turn on bedroom lights
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d0001225132
-    from: 'off'
-    to: 'on'
-  condition:
-    condition: time
-    after: '17:00:00'
-    before: '06:00:00'
-  action:
-    service: light.turn_on
-    data:
-      entity_id: light.bed_lights
-
-- alias: No motion for 30 minutes turn off bedroom lights
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d0001225132
-    from: 'on'
-    to: 'off'
-    for:
-      minutes: 30
-  action:
-    service: light.turn_off
-    data:
-      entity_id: light.bed_lights
-
 - alias: Motion detected turn on shower room light
   trigger:
     platform: state

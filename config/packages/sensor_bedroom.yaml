@@ -1,0 +1,73 @@
+input_boolean:
+  bed_light_enabled:
+    name: Enable bed light
+    initial: on
+    icon: mdi:toggle-switch
+  bed_under_light_enabled:
+    name: Enable bed under
+    initial: off
+    icon: mdi:toggle-switch
+
+
+automation:
+  - alias: Motion detected turn on bed light
+    trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001225132
+      from: 'off'
+      to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.bed_light_enabled
+          state: 'on'
+        - condition: time
+          after: '17:00:00'
+          before: '06:00:00'
+    action:
+      service: light.turn_on
+      data:
+        entity_id: light.bed_lights
+
+  - alias: Motion detected turn on bed under light only
+    trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001225132
+      from: 'off'
+      to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.bed_under_light_enabled
+          state: 'on'
+        - condition: time
+          after: '17:00:00'
+          before: '06:00:00'
+    action:
+      service: light.turn_on
+      data:
+        entity_id: light.bed_under
+
+  - alias: No motion for 30 minutes turn off bedroom lights
+    trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001225132
+      from: 'on'
+      to: 'off'
+      for:
+        minutes: 30
+    action:
+      service: light.turn_off
+      data:
+        entity_id: light.bed_lights
+
+
+group:
+  bed_sensors:
+    name: Bed Sensors
+    entities:
+      - binary_sensor.motion_sensor_158d0001225132 # Bedroom
+      - input_boolean.bed_light_enabled
+      - input_boolean.bed_under_light_enabled
