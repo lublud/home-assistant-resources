@@ -7,6 +7,8 @@ homeassistant:
   time_zone: !secret time_zone
   customize: !include customize.yaml
   packages: !include_dir_named config/packages/
+  whitelist_external_dirs:
+    - /tmp
 
 # Enables the frontend
 frontend:
@@ -249,7 +251,7 @@ device_tracker:
     platform: xiaomi
     host: !secret host_router
     password: !secret password_router
-    consider_home: 30
+    consider_home: 180
     track_new_devices: no
 
 # Camera
