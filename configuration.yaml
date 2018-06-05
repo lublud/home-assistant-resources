@@ -265,9 +265,12 @@ camera:
 
 # Telegram
 notify:
-  - name: Telegram
+  - name: telegram
     platform: telegram
     chat_id: !secret chat_id_telegram
+  - name: telegram_admin
+    platform: telegram
+    chat_id: !secret chat_id_telegram_admin
   - name: Push
     platform: html5
     gcm_api_key: !secret gcm_api_key
@@ -278,3 +281,4 @@ telegram_bot:
   api_key: !secret api_key_telegram
   allowed_chat_ids:
     - !secret chat_id_telegram
+    - !secret chat_id_telegram_admin

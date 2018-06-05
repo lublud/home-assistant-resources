@@ -150,6 +150,7 @@
 ##############
 # FRONT DOOR #
 ##############
+
 - alias: Notify when door opened
   trigger:
     platform: state
@@ -157,9 +158,16 @@
     from: 'off'
     to: 'on'
   action:
-    service: notify.Telegram
-    data:
-      message: 'He did not hold the door'
+    - service: notify.telegram
+      data:
+        message: 'He did not hold the door'
+    - service: notify.telegram_admin
+      data:
+        message: "The door has been opened"
+        data:
+          photo:
+            - file: !secret file_path_camera
+              caption: 'The door has been opened'
 
 - alias: Notify if door opened too long
   trigger:
@@ -170,6 +178,6 @@
     for:
       minutes: 10
   action:
-    service: notify.Telegram
+    service: notify.telegram
     data:
       message: 'WARNING: The front door has been opened for 10 minutes'
