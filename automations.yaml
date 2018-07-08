@@ -43,6 +43,49 @@
     data:
       entity_id: light.kitchen_lights
 
+- alias: Turn on kitchen on motion at night time
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00020dc8b6
+    from: 'off'
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: sun
+        after: sunset
+        after_offset: "-01:00:00"
+      - condition: sun
+        before: sunrise
+        before_offset: "-00:30:00"
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.kitchen_lights
+
+- alias: Turn off kitchen after two minutes with no motion
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00020dc8b6
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 2
+  condition:
+    condition: or
+    conditions:
+      - condition: sun
+        after: sunset
+        after_offset: "-01:00:00"
+      - condition: sun
+        before: sunrise
+        before_offset: "-00:30:00"
+  action:
+    service: light.turn_off
+    data:
+      entity_id: light.kitchen_lights
+
+
 
 ###########
 # BEDROOM #
