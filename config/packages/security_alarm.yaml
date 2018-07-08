@@ -8,26 +8,37 @@ group:
     alarm:
       name: Alarm
       entities:
-        - input_boolean.alarm_enabled 
+        - input_boolean.alarm_enabled
         - script.control_alarm
 
 automation:
   - alias: If alarm enabled and door opened start alarm
     trigger:
-      platform: state
-      entity_id: binary_sensor.door_window_sensor_158d00012153cf
-      from: 'off'
-      to: 'on'
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d00012153cf
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d00022c3388
+        from: 'off'
+        to: 'on'
     condition:
       - condition: state
         entity_id: input_boolean.alarm_enabled
         state: 'on'
     action:
-      service: xiaomi_aqara.play_ringtone
-      data:
-        gw_mac: !secret mac_gateway_ludo
-        ringtone_id: 2
-        ringtone_vol: 73
+      - service: xiaomi_aqara.play_ringtone
+        data:
+          gw_mac: !secret mac_gateway_ludo
+          ringtone_id: 2
+          ringtone_vol: 73
+      - service: light.turn_on
+        data:
+          entity_id: group.lights_living_room
+          effect: 'Alarm'
+      - service: notify.telegram
+        data:
+          message: 'Alarm has been triggered!'
 
 script:
   stop_alarm:
@@ -35,6 +46,14 @@ script:
       - service: xiaomi_aqara.stop_ringtone
         data:
           gw_mac: !secret mac_gateway_ludo
+      - service: light.turn_on
+        data:
+          entity_id: group.lights_living_room
+          rgb_color: [255,160, 50]
+      - service: light.turn_off
+        data:
+          entity_id: group.lights_living_room
+
   control_alarm:
     sequence:
 

@@ -118,6 +118,7 @@ sensor:
     monitored_conditions:
       - summary
       - temperature
+      - dew_point
       - humidity
       - temperature_max
       - temperature_min
@@ -282,3 +283,4 @@ telegram_bot:
   allowed_chat_ids:
     - !secret chat_id_telegram
     - !secret chat_id_telegram_admin
+    - !secret chat_id_ludo

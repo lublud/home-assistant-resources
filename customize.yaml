@@ -12,6 +12,8 @@ sensor.dark_sky_summary:
 sensor.dark_sky_temperature:
   friendly_name: Temperature
   homebridge_hidden: true
+sensor.dark_sky_dew_point:
+  friendly_name: Dew Point
 sensor.dark_sky_humidity:
   friendly_name: Humidity
 sensor.dark_sky_daily_high_temperature:
