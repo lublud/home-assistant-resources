@@ -8,6 +8,11 @@ input_boolean:
     initial: off
     icon: mdi:toggle-switch
 
+  bedroom_door_sensor_enabled:
+    name: Enable bedroom door sensor
+    initial: off
+    icon: mdi:toggle-switch
+
 
 automation:
   - alias: Motion detected turn on bed light
@@ -22,9 +27,14 @@ automation:
         - condition: state
           entity_id: input_boolean.bed_light_enabled
           state: 'on'
-        - condition: time
-          after: '17:00:00'
-          before: '06:00:00'
+        - condition: or
+          conditions:
+            - condition: sun
+              after: sunset
+              after_offset: "-01:00:00"
+            - condition: sun
+              before: sunrise
+              before_offset: "-00:30:00"
     action:
       service: light.turn_on
       data:
@@ -42,9 +52,14 @@ automation:
         - condition: state
           entity_id: input_boolean.bed_under_light_enabled
           state: 'on'
-        - condition: time
-          after: '17:00:00'
-          before: '06:00:00'
+        - condition: or
+          conditions:
+            - condition: sun
+              after: sunset
+              after_offset: "-01:00:00"
+            - condition: sun
+              before: sunrise
+              before_offset: "-00:30:00"
     action:
       service: light.turn_on
       data:
@@ -63,6 +78,21 @@ automation:
       data:
         entity_id: light.bed_lights
 
+  - alias: Notify when bedroom door opens
+    trigger:
+      platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00018311c8
+      from: 'off'
+      to: 'on'
+    condition:
+      condition: state
+      entity_id: input_boolean.bedroom_door_sensor_enabled
+      state: 'on'
+    action:
+      - service: notify.telegram_admin
+        data:
+          message: 'Bedroom door opened'
+
 
 group:
   bed_sensors:
@@ -71,3 +101,8 @@ group:
       - binary_sensor.motion_sensor_158d0001225132 # Bedroom
       - input_boolean.bed_light_enabled
       - input_boolean.bed_under_light_enabled
+  bedroom_door:
+    name: Bedroom door
+    entities:
+     - binary_sensor.door_window_sensor_158d00018311c8 # bedroom door
+     - input_boolean.bedroom_door_sensor_enabled
