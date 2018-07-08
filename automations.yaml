@@ -151,7 +151,7 @@
 # FRONT DOOR #
 ##############
 
-- alias: Notify when door opened
+- alias: Turn on gateway light + Notify when door opened
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d00012153cf
@@ -168,6 +168,27 @@
           photo:
             - file: !secret file_path_camera
               caption: 'The door has been opened'
+    - condition: and # if night and light not on
+      conditions:
+        - condition: state
+          entity_id: light.sofa_lights
+          state: 'off'
+        - condition: state
+          entity_id: light.tv_lights
+          state: 'off'
+        - condition: or
+          conditions:
+            - condition: sun
+              after: sunset
+              after_offset: "-01:00:00"
+            - condition: sun
+              before: sunrise
+              before_offset: "-00:30:00"
+    - service: light.turn_on
+      data:
+        entity_id: light.gateway_light_34ce0083878f
+        brightness: 76
+        rgb_color: [227,173,193]
 
 - alias: Notify if door opened too long
   trigger:
@@ -181,3 +202,33 @@
     service: notify.telegram
     data:
       message: 'WARNING: The front door has been opened for 10 minutes'
+
+- alias: Turn off gateway one minute after door closed
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00012153cf
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 1
+  action:
+    service: light.turn_off
+    data:
+      entity_id: light.gateway_light_34ce0083878f
+
+############
+# TELEGRAM #
+############
+
+- alias: Send daily report every day at 8am
+  trigger:
+    platform: time
+    at: '18:43:00'
+  action:
+    service: notify.telegram_admin
+    data_template:
+      message: >
+        Good morning!
+        The date is {{ now().strptime("%d %B %Y") }}
+        HAHAHAHA \n
+        caca
