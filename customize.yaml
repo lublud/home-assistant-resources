@@ -31,7 +31,7 @@ sensor.dark_sky_precip_probability:
 light.gateway_light_34ce00839441:
   friendly_name: Sean's Gateway
 light.gateway_light_34ce0083878f:
-  friendly_name: Ludovic's Gateway
+  friendly_name: Gateway
 switch.plug_158d000163aec1:
   friendly_name: Sean's Plug
   homebridge_hidden: true
@@ -41,15 +41,15 @@ binary_sensor.cube_158d0001020052:
 sensor.Illumination_34ce00839441:
   friendly_name: Sean's Gateway Light Sensor
 sensor.Illumination_34ce0083878f:
-  friendly_name: Ludovic's Gateway Light Sensor
+  friendly_name: Gateway Light Sensor
 binary_sensor.motion_sensor_158d0001225132:
   homebridge_hidden: true
-  friendly_name: Ludovic's Motion Sensor Bedroom
+  friendly_name: Motion Sensor Bedroom
 binary_sensor.motion_sensor_158d0001db53b2:
-  friendly_name: Ludovic's Motion Sensor Bathroom
+  friendly_name: Motion Sensor Bathroom
 binary_sensor.switch_158d000121d17f:
   homebridge_hidden: true
-  friendly_name: Ludovic bedroom switch
+  friendly_name: Bedroom switch
 binary_sensor.switch_158d000122ce3b:
   homebridge_hidden: true
   friendly_name: Switch Bathroom
