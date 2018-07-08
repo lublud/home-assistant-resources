@@ -257,6 +257,11 @@ device_tracker:
 
 # Camera
 camera:
+  # Weather satellite
+  - platform: generic
+    name: Taipei Weather Satellite
+    still_image_url: !secret url_weather_satellite_taipei
+  # Security camera
   - platform: local_file
     name: Living Room
     file_path: !secret file_path_camera

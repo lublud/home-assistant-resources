@@ -73,6 +73,7 @@ Weather:
     - sensor.dark_sky_precip
     - sensor.dark_sky_precip_probability
     - sensor.waqi_zhongshan_taiwan
+    - camera.taipei_weather_satellite
 
 Bedroom Sensors:
   view: no
