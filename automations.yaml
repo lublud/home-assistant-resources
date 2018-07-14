@@ -141,29 +141,29 @@
     service: light.toggle
     entity_id: light.ludovics_desk
 
-- alias: Single click toggle bedroom lights
-  trigger:
-    platform: event
-    event_type: click
-    event_data:
-      entity_id: binary_sensor.switch_158d000121d17f
-      click_type: single
-  action:
-    service: light.toggle
-    data:
-      entity_id: light.bed_lights
-
-- alias: Double click toggle shower room lights
-  trigger:
-    platform: event
-    event_type: click
-    event_data:
-      entity_id: binary_sensor.switch_158d000121d17f
-      click_type: double
-  action:
-    service: light.toggle
-    data:
-      entity_id: light.shower_room
+#- alias: Single click toggle bedroom lights
+#  trigger:
+#    platform: event
+#    event_type: click
+#    event_data:
+#      entity_id: binary_sensor.switch_158d000121d17f
+#      click_type: single
+#  action:
+#    service: light.toggle
+#    data:
+#      entity_id: light.bed_lights
+#
+#- alias: Double click toggle shower room lights
+#  trigger:
+#    platform: event
+#    event_type: click
+#    event_data:
+#      entity_id: binary_sensor.switch_158d000121d17f
+#      click_type: double
+#  action:
+#    service: light.toggle
+#    data:
+#      entity_id: light.shower_room
 
 - alias: Motion detected turn on shower room light
   trigger:
@@ -266,12 +266,14 @@
 - alias: Send daily report every day at 8am
   trigger:
     platform: time
-    at: '18:43:00'
+    at: '08:00:00'
   action:
-    service: notify.telegram_admin
+    service: notify.telegram
     data_template:
-      message: >
-        Good morning!
-        The date is {{ now().strptime("%d %B %Y") }}
-        HAHAHAHA \n
-        caca
+      message: |
+        早安！
+        Today is {{ now().strftime("%B %d, %Y") }}.
+        Currently it is {{ states.sensor.dark_sky_summary.state.lower() }}, {{ states.sensor.dark_sky_temperature.state  }}°C with {{ states.sensor.dark_sky_humidity.state | int }}% humidity in Taipei.
+        The weather will be {{ states.sensor.dark_sky_hourly_summary.state.lower() }}
+        You can expect temperatures between {{ states.sensor.dark_sky_daily_low_temperature.state }} and {{ states.sensor.dark_sky_daily_high_temperature.state }} degrees.
+        Have a nice day :)

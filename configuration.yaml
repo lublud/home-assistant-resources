@@ -117,6 +117,7 @@ sensor:
     units: auto
     monitored_conditions:
       - summary
+      - hourly_summary
       - temperature
       - dew_point
       - humidity
