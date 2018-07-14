@@ -268,12 +268,12 @@
     platform: time
     at: '08:00:00'
   action:
-    service: notify.telegram
+    service: notify.telegram_admin
     data_template:
       message: |
         早安！
         Today is {{ now().strftime("%B %d, %Y") }}.
-        Currently it is {{ states.sensor.dark_sky_summary.state.lower() }}, {{ states.sensor.dark_sky_temperature.state  }}°C with {{ states.sensor.dark_sky_humidity.state | int }}% humidity in Taipei.
+        Currently it is {{ states.sensor.dark_sky_summary.state.lower() }}, {{ states.sensor.dark_sky_temperature.state  }}°C with {{ states.sensor.dark_sky_humidity.state | int }}% humidity and AQI is {{ states.sensor.waqi_zhongshan_taiwan.attributes.pm_2_5 }} pm2.5 Taipei.
         The weather will be {{ states.sensor.dark_sky_hourly_summary.state.lower() }}
         You can expect temperatures between {{ states.sensor.dark_sky_daily_low_temperature.state }} and {{ states.sensor.dark_sky_daily_high_temperature.state }} degrees.
         Have a nice day :)
