@@ -268,7 +268,7 @@
     platform: time
     at: '08:00:00'
   action:
-    service: notify.telegram_admin
+    service: notify.telegram
     data_template:
       message: |
         早安！
