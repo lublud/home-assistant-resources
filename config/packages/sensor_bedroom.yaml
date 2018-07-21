@@ -15,7 +15,7 @@ input_boolean:
 
 
 automation:
-  - alias: Motion detected turn on bed light
+  - id: motion_detected_turn_on_bed_light
     trigger:
       platform: state
       entity_id: binary_sensor.motion_sensor_158d0001225132
@@ -40,7 +40,7 @@ automation:
       data:
         entity_id: light.bed_lights
 
-  - alias: Motion detected turn on bed under light only
+  - id: motion_detected_turn_on_bed_under_light_only
     trigger:
       platform: state
       entity_id: binary_sensor.motion_sensor_158d0001225132
@@ -65,7 +65,7 @@ automation:
       data:
         entity_id: light.bed_under
 
-  - alias: No motion for 30 minutes turn off bedroom lights
+  - id: no_motion_for_30_minutes_turn_off_bedroom_lights
     trigger:
       platform: state
       entity_id: binary_sensor.motion_sensor_158d0001225132
@@ -78,7 +78,7 @@ automation:
       data:
         entity_id: light.bed_lights
 
-  - alias: Notify when bedroom door opens
+  - id: notify_when_bedroom_door_opens
     trigger:
       platform: state
       entity_id: binary_sensor.door_window_sensor_158d00018311c8
