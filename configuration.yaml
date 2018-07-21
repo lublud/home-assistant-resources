@@ -7,8 +7,7 @@ homeassistant:
   time_zone: !secret time_zone
   customize: !include customize.yaml
   packages: !include_dir_named config/packages/
-  whitelist_external_dirs:
-    - /tmp
+  whitelist_external_dirs: !secret whitelisted_ext_dirs
 
 # Enables the frontend
 frontend:
@@ -236,7 +235,8 @@ vacuum:
     token: !secret token_vacuum
 
 # Google cast
-media_player:
+cast:
+  media_player:
   - name: Chromcast
     platform: cast
     host: !secret host_chromecast
@@ -284,7 +284,7 @@ notify:
     gcm_sender_id: !secret gcm_sender_id
 
 telegram_bot:
-  platform: webhooks
+  platform: polling
   api_key: !secret api_key_telegram
   allowed_chat_ids:
     - !secret chat_id_telegram

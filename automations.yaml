@@ -277,3 +277,18 @@
         The weather will be {{ states.sensor.dark_sky_hourly_summary.state.lower() }}
         You can expect temperatures between {{ states.sensor.dark_sky_daily_low_temperature.state }} and {{ states.sensor.dark_sky_daily_high_temperature.state }} degrees.
         Have a nice day :)
+
+- alias: Send logs
+  trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+      command: /logs
+  condition: []
+  action:
+    service: telegram_bot.send_document
+    data:
+      target:
+        - !secret chat_id_telegram_admin
+      file: !secret doc_log
+      disable_notification: true
