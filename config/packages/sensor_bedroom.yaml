@@ -1,10 +1,6 @@
 input_boolean:
-  bed_light_enabled:
-    name: Enable bed light
-    initial: on
-    icon: mdi:toggle-switch
   bed_under_light_enabled:
-    name: Enable bed under
+    name: Enable bed under only
     initial: off
     icon: mdi:toggle-switch
 
@@ -15,55 +11,31 @@ input_boolean:
 
 
 automation:
-  - id: motion_detected_turn_on_bed_light
+  - id: motion_detected_turn_on_bed_lights
     trigger:
       platform: state
       entity_id: binary_sensor.motion_sensor_158d0001225132
       from: 'off'
       to: 'on'
     condition:
-      condition: and
+      condition: or
       conditions:
-        - condition: state
-          entity_id: input_boolean.bed_light_enabled
-          state: 'on'
-        - condition: or
-          conditions:
-            - condition: sun
-              after: sunset
-              after_offset: "-01:00:00"
-            - condition: sun
-              before: sunrise
-              before_offset: "-00:30:00"
+        - condition: sun
+          after: sunset
+          after_offset: "-01:00:00"
+        - condition: sun
+          before: sunrise
+          before_offset: "-00:30:00"
     action:
-      service: light.turn_on
-      data:
-        entity_id: light.bed_lights
-
-  - id: motion_detected_turn_on_bed_under_light_only
-    trigger:
-      platform: state
-      entity_id: binary_sensor.motion_sensor_158d0001225132
-      from: 'off'
-      to: 'on'
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: input_boolean.bed_under_light_enabled
-          state: 'on'
-        - condition: or
-          conditions:
-            - condition: sun
-              after: sunset
-              after_offset: "-01:00:00"
-            - condition: sun
-              before: sunrise
-              before_offset: "-00:30:00"
-    action:
-      service: light.turn_on
-      data:
-        entity_id: light.bed_under
+      - service: light.turn_on
+        data:
+          entity_id: light.bed_under
+      - condition: state
+        entity_id: input_boolean.bed_under_light_enabled
+        state: 'off'
+      - service: light.turn_on
+        data:
+          entity_id: light.bed_lights
 
   - id: no_motion_for_30_minutes_turn_off_bedroom_lights
     trigger:
@@ -99,7 +71,6 @@ group:
     name: Bed Sensors
     entities:
       - binary_sensor.motion_sensor_158d0001225132 # Bedroom
-      - input_boolean.bed_light_enabled
       - input_boolean.bed_under_light_enabled
   bedroom_door:
     name: Bedroom door
