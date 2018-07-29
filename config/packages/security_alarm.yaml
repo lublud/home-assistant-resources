@@ -1,6 +1,10 @@
 input_boolean:
   alarm_enabled:
-    name: Enable alarm
+    name: Enable alarm (doors only)
+    initial: off
+    icon: mdi:toggle-switch
+  alarm_enabled_all:
+    name: Enable alarm (all)
     initial: off
     icon: mdi:toggle-switch
 
@@ -9,17 +13,18 @@ group:
       name: Alarm
       entities:
         - input_boolean.alarm_enabled
+        - input_boolean.alarm_enabled_all
         - script.control_alarm
 
 automation:
-  - alias: If alarm enabled and door opened start alarm
+  - id: start_alarm_when_door_opens
     trigger:
       - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d00012153cf
+        entity_id: binary_sensor.door_window_sensor_158d00012153cf # front door
         from: 'off'
         to: 'on'
       - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d00022c3388
+        entity_id: binary_sensor.door_window_sensor_158d00022c3388 # window balcony
         from: 'off'
         to: 'on'
     condition:
@@ -36,7 +41,47 @@ automation:
         data:
           entity_id: group.lights_living_room
           effect: 'Alarm'
-      - service: notify.telegram
+      - service: notify.telegram_admin
+        data:
+          message: 'Alarm has been triggered!'
+
+  - id: start_alarm_if presence_motion_or_door_is_detected
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d00012153cf # front door
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d00022c3388 # window balcony
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d00018311c8 # bedroom door
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.motion_sensor_158d0001225132 # bedroom motion sensor
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.motion_sensor_158d00020dc8b6 # kitchen motion sensor
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: input_boolean.alarm_enabled_all
+        state: 'on'
+    action:
+      - service: xiaomi_aqara.play_ringtone
+        data:
+          gw_mac: !secret mac_gateway_ludo
+          ringtone_id: 2
+          ringtone_vol: 73
+      - service: light.turn_on
+        data:
+          entity_id: group.lights_living_room
+          effect: 'Alarm'
+      - service: notify.telegram_admin
         data:
           message: 'Alarm has been triggered!'
 
