@@ -46,7 +46,7 @@ sensor:
 
 
 automation:
-  - alias: AC interval starts
+  - id: ac_interval_starts
     trigger:
       platform: state
       entity_id: input_boolean.ac_interval_enabled
@@ -66,7 +66,7 @@ automation:
           duration: '{{ states("sensor.time_duration") }}'
       - service: script.turn_on_ludovics_ac
 
-  - alias: AC inverval canceled
+  - id: ac_inverval_canceled
     trigger:
       platform: state
       entity_id: input_boolean.ac_interval_enabled
@@ -78,7 +78,7 @@ automation:
       - service: timer.cancel
         entity_id: timer.ac_interval_duration_timer
 
-  - alias: AC interval time timer ends
+  - id: ac_interval_time_timer_ends
     trigger:
       platform: event
       event_type: timer.finished
@@ -97,7 +97,7 @@ automation:
           duration: '{{ states("sensor.time_duration") }}'
       - service: script.turn_on_ludovics_ac
 
-  - alias: AC interval duration timer ends
+  - id: ac_interval_duration_timer_ends
     trigger:
       platform: event
       event_type: timer.finished

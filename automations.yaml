@@ -2,7 +2,7 @@
 # LIVING ROOM #
 ###############
 
-- alias: Double click toggle sofa lights
+- id: Double_click_toggle_sofa_lights
   trigger:
     platform: event
     event_type: click
@@ -14,7 +14,7 @@
     data:
       entity_id: light.sofa_lights
 
-- alias: Single click toggle TV lights
+- id: Single_click_toggle_TV_lights
   trigger:
     platform: event
     event_type: click
@@ -31,7 +31,7 @@
 # KITCHEN #
 ###########
 
-- alias: Long press toggle kitchen lights
+- id: Long_press_toggle_kitchen_lights
   trigger:
     platform: event
     event_type: click
@@ -43,7 +43,7 @@
     data:
       entity_id: light.kitchen_lights
 
-- alias: Turn on kitchen on motion at night time
+- id: Turn_on_kitchen_on_motion_at_night_time
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d00020dc8b6
@@ -63,7 +63,7 @@
     data:
       entity_id: light.kitchen_lights
 
-- alias: Turn off kitchen after two minutes with no motion
+- id: Turn_off_kitchen_after_two_minutes_with_no motion
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d00020dc8b6
@@ -91,7 +91,7 @@
 # BEDROOM #
 ###########
 
-- alias: Shake cube toggle lights
+- id: Shake_cube_toggle_lights
   trigger:
     platform: event
     event_type: cube_action
@@ -102,7 +102,7 @@
     service: light.toggle
     entity_id: light.bed_lights
 
-- alias: Tap twice with cube turn on light (white, 100%)
+- id: Tap_twice_with_cube_turn_on_light_(white 100percent)
   trigger:
     platform: event
     event_type: cube_action
@@ -116,7 +116,7 @@
       brightness: 255
       rgb_color: [255,255,255]
 
-- alias: flip180 cube turn on light (orange, 30%)
+- id: flip180_cube_turn_on_light_(orange_30percent)
   trigger:
     platform: event
     event_type: cube_action
@@ -130,7 +130,7 @@
       brightness: 76
       rgb_color: [255,165,0]
 
-- alias: flip90 cube toggle desk light
+- id: flip90_cube_toggle_desk_light
   trigger:
     platform: event
     event_type: cube_action
@@ -141,7 +141,7 @@
     service: light.toggle
     entity_id: light.ludovics_desk
 
-#- alias: Single click toggle bedroom lights
+#- id: Single_click_toggle_bedroom_lights
 #  trigger:
 #    platform: event
 #    event_type: click
@@ -153,7 +153,7 @@
 #    data:
 #      entity_id: light.bed_lights
 #
-#- alias: Double click toggle shower room lights
+#- id: Double_click_toggle_shower_room_lights
 #  trigger:
 #    platform: event
 #    event_type: click
@@ -165,7 +165,7 @@
 #    data:
 #      entity_id: light.shower_room
 
-- alias: Motion detected turn on shower room light
+- id: Motion_detected_turn_on_shower_room_light
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001db53b2
@@ -176,7 +176,7 @@
     data:
       entity_id: light.shower_room
 
-- alias: No motion for 5 minutes turn off shower room light
+- id: No_motion_for_5_minutes_turn_off_shower room light
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001db53b2
@@ -194,7 +194,7 @@
 # FRONT DOOR #
 ##############
 
-- alias: Turn on gateway light + Notify when door opened
+- id: Turn_on_gateway_light_+_Notify_when_door opened
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d00012153cf
@@ -233,7 +233,7 @@
         brightness: 76
         rgb_color: [227,173,193]
 
-- alias: Notify if door opened too long
+- id: Notify_if_door_opened_too_long
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d00012153cf
@@ -246,7 +246,7 @@
     data:
       message: 'WARNING: The front door has been opened for 10 minutes'
 
-- alias: Turn off gateway one minute after door closed
+- id: Turn_off_gateway_one_minute_after_door_closed
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d00012153cf
@@ -259,11 +259,12 @@
     data:
       entity_id: light.gateway_light_34ce0083878f
 
+
 ############
 # TELEGRAM #
 ############
 
-- alias: Send daily report every day at 8am
+- id: Send_daily_report_every_day_at_8am
   trigger:
     platform: time
     at: '08:00:00'
@@ -278,7 +279,7 @@
         You can expect temperatures between {{ states.sensor.dark_sky_daily_low_temperature.state }} and {{ states.sensor.dark_sky_daily_high_temperature.state }} degrees.
         Have a nice day :)
 
-- alias: Send logs
+- id: Send_logs
   trigger:
     platform: event
     event_type: telegram_command
