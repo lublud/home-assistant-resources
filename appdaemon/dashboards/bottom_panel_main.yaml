@@ -1,0 +1,30 @@
+load_main_panel:
+    widget_type: navigate
+    title: Main Panel
+    icon_inactive: fa-home
+    dashboard: main_panel
+    icon_inactive_style: "color: $blue; font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+load_weather_panel:
+    widget_type: navigate
+    title: Weather
+    icon_inactive: fa-cloud
+    icon_inactive_style: "color: $blue"
+    dashboard: weather_panel
+    icon_inactive_style: "font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+load_security_panel:
+    widget_type: navigate
+    title: Security
+    icon_inactive: fa-shield
+    dashboard: security_panel
+    icon_inactive_style: "font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+layout: 
+    - load_main_panel(2x1), load_weather_panel(2x1), load_security_panel(2x1)

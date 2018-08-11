@@ -1,0 +1,62 @@
+#
+# Main arguments, all optional
+#
+title: Security
+widget_dimensions: [154, 154]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 6
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+# Layout
+layout:
+    #- weather_frame (2x2), current_weather_condition, current_temperature, current_humidity, current_pollution
+    #- daily_high_temperature, daily_low_temperature, current_dew_point, current_precipitation_probability
+    - alarm_all, alarm_door, front_door
+    - alarm_stop (2x1)
+    - include: bottom_panel_security
+
+
+alarm_all:
+    widget_type: switch
+    title: Alarm (all)
+    entity: input_boolean.alarm_enabled_all
+    icon_on: mdi-security-home
+    icon_off: mdi-security-off
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    widget_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+alarm_door:
+    widget_type: switch
+    title: Alarm (doors)
+    entity: input_boolean.alarm_enabled
+    icon_on: mdi-security-home
+    icon_off: mdi-security-off
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    widget_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+alarm_stop:
+    widget_type: switch
+    title: Stop alarm
+    entity: script.stop_alarm
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    widget_style: "font-size: 120%"
+
+front_door:
+    widget_type: binary_sensor
+    entity: binary_sensor.door_window_sensor_158d00012153cf
+    title: Front door
+    icon_on: mdi-door-open
+    icon_off: mdi-door-closed
+    icon_style_active: "color: green; font-size: 350%"
+    icon_style_inactive: "color: red; font-size: 350%"

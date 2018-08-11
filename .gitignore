@@ -20,3 +20,4 @@ entity_registry.yaml
 .cloud
 .uuid
 tts/
+.storage

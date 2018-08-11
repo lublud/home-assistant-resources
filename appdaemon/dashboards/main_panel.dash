@@ -1,0 +1,152 @@
+#
+# Main arguments, all optional
+#
+title: Main Panel
+widget_dimensions: [154, 154]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 6
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+# Layout
+layout:
+    - clock(2x1), tv_lights, sofa_lights, kitchen_lights, vacuum_switch
+    -  current_temperature, current_humidity, current_pollution, indoor_temperature, indoor_humidity, indoor_pollution
+    - include: bottom_panel_main
+    #- indoor_humidity, indoor_pollution
+    #- tv_lights, sofa_lights, kitchen_lights, front_door_lock, vacuum_switch
+
+clock:
+    widget_type: clock
+    widget_style: "font-size: 120%"
+    time_style: "color: orange; font-size: 380%"
+    date_style: "font-size: 150%"
+
+current_weather_condition:
+    widget_type: sensor
+    title: Weather condition
+    entity: sensor.dark_sky_summary
+    title_style: "font-size: 120%"
+    widget_style: "color: $blue; font-size: 120%"
+
+current_temperature:
+    widget_type: sensor
+    title: Outside Temperature
+    units: "&deg;C"
+    precision: 0
+    entity: sensor.dark_sky_temperature
+    title_style: "font-size: 120%"
+    widget_style: "color: $blue; font-size: 120%"
+    unit_style: "color: $blue"
+ 
+current_humidity:
+    widget_type: sensor
+    title: Outside Humidity
+    units: "%"
+    precision: 0
+    entity: sensor.dark_sky_humidity
+    title_style: "font-size: 120%"
+    widget_style: "color: $blue; font-size: 120%"
+    unit_style: "color: $blue"
+
+current_pollution:
+    widget_type: sensor
+    title: Outside Pollution
+    units: "pm2.5"
+    precision: 0
+    entity: sensor.waqi_zhongshan_taiwan
+    title_style: "font-size: 120%"
+    widget_style: "color: $blue; font-size: 120%"
+    unit_style: "color: $blue"
+
+indoor_temperature:
+    widget_type: sensor
+    title: Indoor Temperature
+    units: "&deg;C"
+    precision: 0
+    entity: sensor.bedroom_temperature
+    title_style: "font-size: 120%"
+    widget_style: "color: $blue; font-size: 120%"
+    unit_style: "color: $blue"
+    
+indoor_humidity:
+    widget_type: sensor
+    title: Indoor Humidity
+    units: "%"
+    precision: 0
+    entity: sensor.bedroom_humidity
+    title_style: "font-size: 120%"
+    widget_style: "color: $blue; font-size: 120%"
+    unit_style: "color: $blue"
+    
+indoor_pollution:
+    widget_type: sensor
+    title: Indoor Pollution
+    units: "pm2.5"
+    precision: 0
+    entity: sensor.bedroom_aqi
+    title_style: "font-size: 120%"
+    widget_style: "color: $blue; font-size: 120%"
+    unit_style: "color: $blue"
+    
+tv_lights:
+    widget_type: light
+    title: TV Lights
+    entity: light.tv_lights
+    icon_on: mdi-lightbulb
+    icon_off: mdi-lightbulb
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+    text_style: "font-size: 120%"
+    level_style: "font-size: 120%"
+    level_up_style: "font-size: 120%"
+    level_down_style: "font-size: 120%"
+
+sofa_lights:
+    widget_type: light
+    title: Sofa Lights
+    entity: light.sofa_lights
+    icon_on: mdi-lightbulb
+    icon_off: mdi-lightbulb
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+    text_style: "font-size: 120%"
+    level_style: "font-size: 120%"
+    level_up_style: "font-size: 120%"
+    level_down_style: "font-size: 120%"
+
+kitchen_lights:
+    widget_type: light
+    title: Kitchen Lights
+    entity: light.kitchen_lights
+    icon_on: mdi-lightbulb
+    icon_off: mdi-lightbulb
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+    text_style: "font-size: 120%"
+    level_style: "font-size: 120%"
+    level_up_style: "font-size: 120%"
+    level_down_style: "font-size: 120%"
+
+vacuum_switch:
+    widget_type: switch
+    title: Xiaomi Vacuum
+    entity: vacuum.xiaomi_vacuum_cleaner
+    icon_on: mdi-roomba
+    icon_off: mdi-roomba
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"

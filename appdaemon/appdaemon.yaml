@@ -1,0 +1,16 @@
+log:
+  logfile: !secret logfile_path
+  errorfile: !secret errorfile_path
+
+appdaemon:
+  threads: 10
+  app_dir: !secret app_dir_path
+  plugins:
+    HASS:
+      type: hass
+      ha_url: !secret ha_url
+      ha_key: !secret ha_key
+hadashboard:
+  dash_url: !secret dash_url
+  dash_dir: !secret dash_dir_path
+  dash_password: !secret dash_password
