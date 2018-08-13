@@ -75,6 +75,9 @@ cloud:
         - light.bed_t
         - light.bed_under
       exclude_domains:
+        - input_boolean
+        - input_text
+        - input_select
         - group
         - script
         - device_tracker
@@ -108,6 +111,8 @@ cloud:
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+
+mqtt:
 
 sensor:
 # Weather
@@ -247,7 +252,7 @@ cast:
     platform: cast
     host: !secret host_living_room_google_home
 
-# Router
+# Tracker
 device_tracker:
   - name: Router
     platform: xiaomi
@@ -255,6 +260,22 @@ device_tracker:
     password: !secret password_router
     consider_home: 180
     track_new_devices: no
+  - platform: owntracks_http
+    max_gps_accuracy: 50
+
+zone:
+  - name: Home
+    latitude: !secret latitude
+    longitude: !secret longitude
+    radius: 20
+  - name: Carrefour
+    latitude: !secret latitude_carrefour
+    longitude: !secret longitude_carrefour
+    radius: 50
+  - name: PX Mart
+    latitude: !secret latitude_px_mart
+    longitude: !secret longitude_px_mart
+    radius: 50
 
 # Camera
 camera:
