@@ -30,6 +30,16 @@ Sensors:
     - group.bedroom_door
     - group.other_sensors
 
+Shopping:
+  view: yes
+  icon: mdi:cart
+  entities:
+    - group.shopping_kitchen
+    - group.shopping_bathroom
+    - group.shopping_cleaning
+    - group.shopping_food_drink
+    - group.shopping_others
+
 Lights:
   view: yes
   icon: mdi:lightbulb-on
