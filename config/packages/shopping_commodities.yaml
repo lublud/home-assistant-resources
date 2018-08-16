@@ -152,6 +152,7 @@ group:
   shopping_food_drink:
     name: Food & drink
     entities:
+      - input_boolean.orangejuice
       - input_boolean.soymilk
       - input_boolean.milk
       - input_boolean.eggs
@@ -266,6 +267,9 @@ automation:
             {% endif %}
             {% if is_state("input_boolean.glasscleaner", "on") %}
               - {{ states.input_boolean.glasscleaner.name }}
+            {% endif %}
+            {% if is_state("input_boolean.orangejuice", "on") %}
+              - {{ states.input_boolean.orangejuice.name }}
             {% endif %}
             {% if is_state("input_boolean.soymilk", "on") %}
               - {{ states.input_boolean.soymilk.name }}
