@@ -79,3 +79,38 @@ automation:
             Please be careful when going out as the air pollution starts to be serious.
             {% endif %}
             You can visit http://aqicn.org/scale/ for more information about the air quality index scale :)
+      - condition: template
+        value_template: '{{ states.sensor.bedroom_aqi.state > 50 }}'
+      - service: notify.telegram_admin
+        data:
+          message: >-
+            Current pollution level is {{ states.sensor.waqi_zhongshan_taiwan.attributes.pm_2_5 }} outside
+            and {{ states.sensor.bedroom_aqi.state }} in the bedroom.
+            Do you want to take action for the air purifier?
+            data:
+              inline_keyboard:
+                - 'Turn on:/turnon, Turn off:/turnoff'
+
+  - id: telegram_callback_air_purifier_turn_on
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/turnon'
+    action:
+      - service: fan.set_speed
+        entity_id: fan.mi_air_purifier_2
+        data:
+          speed: auto
+
+  - id: telegram_callback_air_purifier_turn_off
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/turnoff'
+    action:
+      - service: fan.set_speed
+        entity_id: fan.mi_air_purifier_2
+        data:
+          speed: idle
