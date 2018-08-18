@@ -68,7 +68,7 @@ automation:
           entity_id: input_select.aqi_level
           option: '{{ states.sensor.aqi_level_sensor.state }}'
       - condition: template
-        value_template: '{{ states.input_select.aqi_level.state != states.input_select.previous_aqi_level }}'
+        value_template: '{{ states.input_select.aqi_level.state != states.input_select.previous_aqi_level.state }}'
       - service: notify.telegram
         data_template:
           message: >-
