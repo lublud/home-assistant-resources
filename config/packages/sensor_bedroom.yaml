@@ -65,6 +65,72 @@ automation:
         data:
           message: 'Bedroom door opened'
 
+  - id: turn_on_bedroom_door_sensor_when_leaving_home
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.taras_phone
+        zone: zone.home
+        event: leave
+      - platform: zone
+        entity_id: device_tracker.ludos_phone
+        zone: zone.home
+        event: leave
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: device_tracker.taras_phone
+          state: 'not_home'
+        - condition: state
+          entity_id: device_tracker.ludos_phone
+          state: 'not_home'
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.bedroom_door_sensor_enabled
+
+  - id: turn_off_bedroom_door_sensor_when_entering_home
+    trigger:
+      - platform: zone
+        entity_id: device_tracker.taras_phone
+        zone: zone.home
+        event: enter
+      - platform: zone
+        entity_id: device_tracker.ludos_phone
+        zone: zone.home
+        event: enter
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: device_tracker.taras_phone
+          state: 'home'
+        - condition: state
+          entity_id: device_tracker.ludos_phone
+          state: 'home'
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.bedroom_door_sensor_enabled
+
+  - id: turn_on_bed_under_light_only_at_23_30
+    trigger:
+      platform: time
+      at: '23:30:00'
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.bed_under_light_enabled
+
+  - id: turn_off_bed_under_light_only_at_08_00
+    trigger:
+      platform: time
+      at: '08:00:00'
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.bed_under_light_enabled
+
 
 group:
   bed_sensors:
