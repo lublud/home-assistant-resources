@@ -7,118 +7,91 @@ input_select:
         - Small
         - Big
         - Both small and big
-      initial: None
 
 input_text:
   other1:
     name: Other 1
-    initial: ""
   other2:
     name: Other 2
-    initial: ""
   other3:
     name: Other 3
-    initial: ""
 
 input_boolean:
 # Kitchen
   dishliquid:
     name: Dish liquid
-    initial: off
     icon: mdi:water
   sponge:
     name: Sponge
-    initial: off
     icon: mdi:water
   papertowel:
     name: Paper towel
-    initial: off
     icon: mdi:water
 
 # bathroom
   bodysoap:
     name: Body soap
-    initial: off
     icon: mdi:shower-head
   shampoo:
     name: Shampoo
-    initial: off
     icon: mdi:shower-head
   handsoap:
     name: Hand soap
-    initial: off
     icon: mdi:shower-head
   toothbrush:
     name: Toothbrush
-    initial: off
     icon: mdi:shower-head
   toothpaste:
     name: Toothpaste
-    initial: off
     icon: mdi:shower-head
   cottonswab:
     name: Cotton swab
-    initial: off
     icon: mdi:shower-head
   toiletpaper:
     name: Toilet paper
-    initial: off
     icon: mdi:toilet
 
 # cleaning
   bakingsoda:
     name: Baking soda
-    initial: off
     icon: mdi:water
   laundrydetergent:
     name: Laundry detergent
-    initial: off
     icon: mdi:water
   floorcleaner:
     name: Floor cleaner
-    initial: off
     icon: mdi:water
   glasscleaner:
     name: Glass cleaner
-    initial: off
     icon: mdi:water
 
 # food & drink
   orangejuice:
     name: Orange juice
-    initial: off
     icon: mdi:food-variant
   soymilk:
     name: Soy milk
-    initial: off
     icon: mdi:food-variant
   milk:
     name: Milk
-    initial: off
     icon: mdi:food-variant
   eggs:
     name: Eggs
-    initial: off
     icon: mdi:food-variant
   cereal:
     name: Cereal
-    initial: off
     icon: mdi:food-variant
   nutella:
     name: Nutella
-    initial: off
     icon: mdi:food-variant
   bread:
     name: Bread
-    initial: off
     icon: mdi:food-variant
   salt:
     name: Salt
-    initial: off
     icon: mdi:food-variant
   pepper:
     name: Pepper
-    initial: off
     icon: mdi:food-variant
 
 
