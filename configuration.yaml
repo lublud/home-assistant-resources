@@ -25,8 +25,10 @@ http:
   ssl_certificate: !secret ssl_certificate
   ssl_key: !secret ssl_key
   base_url: !secret base_url
-  cors_allowed_origins:
-    - https://reformedreality.com
+  ip_ban_enabled: True
+  login_attempts_threshold: 5
+#  cors_allowed_origins:
+#    - https://reformedreality.com
 
 tts:
   platform: google
@@ -284,9 +286,6 @@ camera:
     name: Taiwan Weather Satellite
     still_image_url: !secret url_weather_satellite_taipei
   # Security camera
-  - platform: local_file
-    name: Living Room
-    file_path: !secret file_path_camera
   - platform: mjpeg
     name: Living Room Live
     mjpeg_url: !secret mjpeg_url_camera

@@ -19,7 +19,6 @@ Security:
   entities:
     - group.security_sensor
     - group.alarm
-    - camera.living_room
     - camera.living_room_live
 
 Sensors:

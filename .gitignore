@@ -13,10 +13,11 @@
 *.db-wal
 *.swp
 .HA_VERSION
-known_devices.yaml
 www/images
 secrets.yaml
+known_devices.yaml
 entity_registry.yaml
+ip_bans.yaml
 .cloud
 .uuid
 tts/
