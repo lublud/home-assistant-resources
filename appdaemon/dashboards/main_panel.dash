@@ -15,8 +15,6 @@ layout:
     - clock(2x1), tv_lights, sofa_lights, kitchen_lights, vacuum_switch
     -  current_temperature, current_humidity, current_pollution, indoor_temperature, indoor_humidity, indoor_pollution
     - include: bottom_panel_main
-    #- indoor_humidity, indoor_pollution
-    #- tv_lights, sofa_lights, kitchen_lights, front_door_lock, vacuum_switch
 
 clock:
     widget_type: clock

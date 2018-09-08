@@ -13,9 +13,7 @@ global_parameters:
 
 # Layout
 layout:
-    #- weather_frame (2x2), current_weather_condition, current_temperature, current_humidity, current_pollution
-    #- daily_high_temperature, daily_low_temperature, current_dew_point, current_precipitation_probability
-    - alarm_all, alarm_door, front_door
+    - alarm_all, alarm_door, front_door, security_camera(3x2)
     - alarm_stop (2x1)
     - include: bottom_panel_security
 
@@ -60,3 +58,9 @@ front_door:
     icon_off: mdi-door-closed
     icon_style_active: "color: green; font-size: 350%"
     icon_style_inactive: "color: red; font-size: 350%"
+
+security_camera:
+    widget_type: camera
+    refresh: 2
+    frame_style: ""
+    entity_picture: !secret mjpeg_url_camera
