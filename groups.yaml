@@ -7,7 +7,6 @@ default_view:
     - group.kitchen
     - group.bedroom
     - group.living_room
-    - group.media_player
     - device_tracker.ludos_phone
     - device_tracker.taras_phone
     - device_tracker.andrejs_phone
@@ -20,6 +19,14 @@ Security:
     - group.security_sensor
     - group.alarm
     - camera.living_room_live
+
+Google:
+  view: yes
+  icon: mdi:google-home
+  entities:
+    - media_player.tv
+    - media_player.teddy
+    - media_player.living_room_speaker
 
 Sensors:
   view: yes
@@ -102,7 +109,6 @@ Bedroom:
     - light.bed_lights
     - light.ludovics_desk
     - light.shower_room
-    - light.gateway_light_34ce0083878f
     - fan.mi_air_purifier_2
 
 Living Room:
@@ -110,11 +116,7 @@ Living Room:
   entities:
     - light.sofa_lights
     - light.tv_lights
-
-Media Player:
-  view: no
-  entities:
-    - media_player.bedroom_tv
+    - light.gateway_light_34ce0083878f
 
 
 ############
@@ -136,8 +138,10 @@ Other Sensors:
   view: no
   entities:
     - sensor.illumination_34ce0083878f
+    - switch.smart_plug
     - binary_sensor.motion_sensor_158d0001db53b2 # Bathroom
     - binary_sensor.motion_sensor_158d00020dc8b6 # Kitchen
+    - binary_sensor.camera
     - binary_sensor.switch_158d000121d17f # Bedroom lights
     - binary_sensor.switch_158d0001245482 # TV lights
     - binary_sensor.cube_158d00010f0603

@@ -49,7 +49,7 @@ logbook:
       - group.all_automations
 
 # Enables a map showing the location of tracked devices
-#map:
+map:
 
 # Track the sun
 #sun:
@@ -115,6 +115,10 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 
 mqtt:
+  broker: localhost
+  username: !secret mosquitto_username
+  password: !secret mosquitto_password
+  port: 8883
 
 sensor:
 # Weather
@@ -232,6 +236,13 @@ xiaomi_aqara:
       key: !secret key_gateway_ludo
       host: !secret host_gateway_ludo
 
+# Switch
+switch:
+  - platform: xiaomi_miio
+    name: Smart Plug
+    host: !secret host_smart_plug
+    token: !secret token_smart_plug
+
 # IR Remote
 remote: !include config/xiaomi_ir_remote.yaml
 
@@ -250,9 +261,9 @@ cast:
   - name: Teddy
     platform: cast
     host: !secret host_teddy_google_home
-  - name: living room
+  - name: Bobby
     platform: cast
-    host: !secret host_living_room_google_home
+    host: !secret host_bobby_google_home
 
 # Tracker
 device_tracker:
@@ -283,6 +294,14 @@ camera:
   - platform: mjpeg
     name: Living Room Live
     mjpeg_url: !secret mjpeg_url_camera
+
+# MQTT binary sensor
+binary_sensor:
+  - name: camera
+    icon: cctv
+    platform: mqtt
+    state_topic: "living_room/camera"
+    sensor_class: motion
 
 # Telegram
 notify:

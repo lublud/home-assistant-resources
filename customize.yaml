@@ -53,6 +53,8 @@ binary_sensor.switch_158d000121d17f:
 binary_sensor.switch_158d000122ce3b:
   homebridge_hidden: true
   friendly_name: Switch Bathroom
+binary_sensor.camera:
+  icon: mdi:cctv
 binary_sensor.switch_158d0001245482:
   homebridge_hidden: true
   friendly_name: TV switch
