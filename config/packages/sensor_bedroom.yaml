@@ -61,6 +61,10 @@ automation:
       entity_id: input_boolean.bedroom_door_sensor_enabled
       state: 'on'
     action:
+      - service:  light.turn_on
+        data:
+          entity_id: light.bedroom_lights
+          effect: 'Alarm'
       - service: notify.telegram_admin
         data:
           message: 'Bedroom door opened'
@@ -85,6 +89,9 @@ automation:
           entity_id: device_tracker.ludos_phone
           state: 'not_home'
     action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.smart_plug_thick
       - service: input_boolean.turn_on
         data:
           entity_id: input_boolean.bedroom_door_sensor_enabled
@@ -109,6 +116,9 @@ automation:
           entity_id: device_tracker.ludos_phone
           state: 'home'
     action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.smart_plug_thick
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.bedroom_door_sensor_enabled
