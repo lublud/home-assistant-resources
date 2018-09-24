@@ -27,6 +27,18 @@ input_boolean:
   papertowel:
     name: Paper towel
     icon: mdi:water
+  aluminumfoil:
+    name: Aluminum foil
+    icon: mdi:water
+  bakingpaper:
+    name: Baking paper
+    icon: mdi:water
+  cookingpaper:
+    name: Cooking paper
+    icon: mdi:water
+  plasticwrap:
+    name: Plastic wrap
+    icon: mdi:water
 
 # bathroom
   bodysoap:
@@ -78,6 +90,9 @@ input_boolean:
   eggs:
     name: Eggs
     icon: mdi:food-variant
+  rice:
+    name: Rice
+    icon: mdi:food-variant
   cereal:
     name: Cereal
     icon: mdi:food-variant
@@ -102,6 +117,10 @@ group:
       - input_boolean.dishliquid
       - input_boolean.sponge
       - input_boolean.papertowel
+      - input_boolean.aluminumfoil
+      - input_boolean.bakingpaper
+      - input_boolean.cookingpaper
+      - input_boolean.plasticwrap
 
   shopping_bathroom:
     name: Bathroom
@@ -129,6 +148,7 @@ group:
       - input_boolean.soymilk
       - input_boolean.milk
       - input_boolean.eggs
+      - input_boolean.rice
       - input_boolean.cereal
       - input_boolean.nutella
       - input_boolean.bread
@@ -202,6 +222,18 @@ automation:
             {% if is_state("input_boolean.papertowel", "on") %}
               - {{ states.input_boolean.papertowel.name }}
             {% endif %}
+            {% if is_state("input_boolean.aluminumfoil", "on") %}
+              - {{ states.input_boolean.aluminumfoil.name }}
+            {% endif %}
+            {% if is_state("input_boolean.bakingpaper", "on") %}
+              - {{ states.input_boolean.bakingpaper.name }}
+            {% endif %}
+            {% if is_state("input_boolean.cookingpaper", "on") %}
+              - {{ states.input_boolean.cookingpaper.name }}
+            {% endif %}
+            {% if is_state("input_boolean.plasticwrap", "on") %}
+              - {{ states.input_boolean.plasticwrap.name }}
+            {% endif %}
             {% if is_state("input_boolean.bodysoap", "on") %}
               - {{ states.input_boolean.bodysoap.name }}
             {% endif %}
@@ -246,6 +278,9 @@ automation:
             {% endif %}
             {% if is_state("input_boolean.eggs", "on") %}
               - {{ states.input_boolean.eggs.name }}
+            {% endif %}
+            {% if is_state("input_boolean.rice", "on") %}
+              - {{ states.input_boolean.rice.name }}
             {% endif %}
             {% if is_state("input_boolean.cereal", "on") %}
               - {{ states.input_boolean.cereal.name }}
