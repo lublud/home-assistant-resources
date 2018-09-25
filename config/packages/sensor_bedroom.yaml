@@ -89,7 +89,7 @@ automation:
           entity_id: device_tracker.ludos_phone
           state: 'not_home'
     action:
-      - service: switch.turn_off
+      - service: switch.turn_on
         data:
           entity_id: switch.smart_plug_thick
       - service: input_boolean.turn_on
