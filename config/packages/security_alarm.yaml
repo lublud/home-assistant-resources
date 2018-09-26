@@ -1,11 +1,9 @@
 input_boolean:
   alarm_enabled:
     name: Enable alarm (doors only)
-    initial: off
     icon: mdi:toggle-switch
   alarm_enabled_all:
     name: Enable alarm (all)
-    initial: off
     icon: mdi:toggle-switch
 
 group:

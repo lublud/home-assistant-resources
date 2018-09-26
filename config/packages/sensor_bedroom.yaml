@@ -6,7 +6,6 @@ input_boolean:
 
   bedroom_door_sensor_enabled:
     name: Enable bedroom door sensor
-    initial: off
     icon: mdi:toggle-switch
 
 
