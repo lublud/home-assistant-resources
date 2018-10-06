@@ -36,10 +36,10 @@ My HA is an Hassbian install on a Raspberry Pi 3
   * Google Home Mini (x2)
 * Other Hardware
   * Pi 3 (Home Assistant)
+  * Pi 1 (Security Camera)
 
 # Presence
 Tracking with:
-* Router
 * Owntracks
 
 # Other Projects Used
