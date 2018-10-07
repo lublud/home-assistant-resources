@@ -9,8 +9,6 @@ default_view:
     - group.living_room
     - device_tracker.ludos_phone
     - device_tracker.taras_phone
-    - device_tracker.andrejs_phone
-    - device_tracker.phoebes_phone
 
 Security:
   view: yes
