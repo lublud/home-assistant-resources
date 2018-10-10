@@ -175,14 +175,14 @@ script:
         data:
           entity_id: light.ludovics_desk
       - condition:
-        condition: and
-        conditions:
-          - condition: sun
-            after: sunrise
-            after_offset: "-00:30:00"
-          - condition: sun
-            before: sunset
-            before_offset: "-01:00:00"
+          condition: and
+          conditions:
+            - condition: sun
+              after: sunrise
+              after_offset: "-00:30:00"
+            - condition: sun
+              before: sunset
+              before_offset: "-01:00:00"
       - service: light.turn_off
         data:
           entity_id: light.bed_lights
