@@ -149,11 +149,30 @@ automation:
         entity_id: binary_sensor.switch_158d000121d17f
         click_type: long_click_press
     action:
-      service: script.reset_bedroom_lights
+      - service: script.set_bedroom_lights_default_values
+      - delay: '00:00:01'
+      - service: light.turn_off
+        data:
+          entity_id: light.shower_room
+      - service: light.turn_off
+        data:
+          entity_id: light.ludovics_desk
+      - condition:
+        condition: and
+        conditions:
+          - condition: sun
+            after: sunrise
+            after_offset: "-00:30:00"
+          - condition: sun
+            before: sunset
+            before_offset: "-01:00:00"
+      - service: light.turn_off
+        data:
+          entity_id: light.bed_lights
 
 
 script:
-  reset_bedroom_lights:
+  set_bedroom_lights_default_values:
     sequence:
       - service: light.turn_on
         data:
@@ -167,25 +186,7 @@ script:
         data:
           entity_id: light.ludovics_desk
           rgb_color: [255,146, 228]
-      - delay: '00:00:01'
-      - service: light.turn_off
-        data:
-          entity_id: light.shower_room
-      - service: light.turn_off
-        data:
-          entity_id: light.ludovics_desk
-      - condition:
-          condition: and
-          conditions:
-            - condition: sun
-              after: sunrise
-              after_offset: "-00:30:00"
-            - condition: sun
-              before: sunset
-              before_offset: "-01:00:00"
-      - service: light.turn_off
-        data:
-          entity_id: light.bed_lights
+
 group:
   bed_sensors:
     name: Bed Sensors
