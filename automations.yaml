@@ -194,7 +194,7 @@
 # FRONT DOOR #
 ##############
 
-- id: Turn_on_gateway_light_+_Notify_when_door opened
+- id: Notify_when_door_opens_and_turn_light_at_night
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d00012153cf
@@ -204,13 +204,13 @@
     - service: notify.telegram
       data:
         message: 'He did not hold the door'
-    - service: notify.telegram_admin
-      data:
-        message: "The door has been opened"
-        data:
-          photo:
-            - file: !secret file_path_camera
-              caption: 'The door has been opened'
+#    - service: notify.telegram_admin
+#      data:
+#        message: "The door has been opened"
+#        data:
+#          photo:
+#            - file: !secret file_path_camera
+#              caption: 'The door has been opened'
     - condition: and # if night and light not on
       conditions:
         - condition: state
