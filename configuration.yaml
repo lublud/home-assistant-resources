@@ -303,6 +303,10 @@ binary_sensor:
     state_topic: "living_room/camera"
     sensor_class: motion
 
+# IFTTT
+ifttt:
+  key: !secret ifttt_key
+
 # Telegram
 notify:
   - name: telegram
