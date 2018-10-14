@@ -1,0 +1,132 @@
+#
+# Main arguments, all optional
+#
+title: Vacuum Panel
+widget_dimensions: [154, 154]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 6
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+
+# Layout
+layout:
+    - toggle_vacuum(2x1), start_remote_vacuum, left_turn_45, right_turn_45, move_quick
+    - return_base(2x1), stop_remote_vacuum, left_turn_15, right_turn_15, move_slow
+    - include: bottom_panel_main
+
+toggle_vacuum:
+    widget_type: switch
+    title: Start vacuum
+    entity: script.vacuum_start_clean
+    icon_on: mdi-roomba
+    icon_off: mdi-roomba
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+return_base:
+    widget_type: switch
+    title: Return to base
+    entity: script.vacuum_return_to_base
+    icon_on: fa-arrow-circle-left
+    icon_off: fa-arrow-circle-left
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+start_remote_vacuum:
+    widget_type: switch
+    title: Start Remote
+    entity: script.vacuum_remote_control_start
+    icon_on: mdi-play
+    icon_off: mdi-play
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+stop_remote_vacuum:
+    widget_type: switch
+    title: Stop Remote
+    entity: script.vacuum_remote_control_stop
+    icon_on: mdi-stop
+    icon_off: mdi-stop
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+left_turn_15:
+    widget_type: switch
+    entity: script.vacuum_remote_control_turn_left_15
+    icon_on: mdi-chevron-left
+    icon_off: mdi-chevron-left
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+right_turn_15:
+    widget_type: switch
+    entity: script.vacuum_remote_control_turn_right_15
+    icon_on: mdi-chevron-right
+    icon_off: mdi-chevron-right
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+left_turn_45:
+    widget_type: switch
+    entity: script.vacuum_remote_control_turn_left_45
+    icon_on: mdi-rotate-left
+    icon_off: mdi-rotate-left
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+right_turn_45:
+    widget_type: switch
+    entity: script.vacuum_remote_control_turn_right_45
+    icon_on: mdi-rotate-right
+    icon_off: mdi-rotate-right
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+move_quick:
+    widget_type: switch
+    entity: script.vacuum_remote_control_move_foward_fast
+    icon_on: mdi-chevron-double-up
+    icon_off: mdi-chevron-double-up
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+
+move_slow:
+    widget_type: switch
+    entity: script.vacuum_remote_control_move_foward_slow
+    icon_on: mdi-chevron-up
+    icon_off: mdi-chevron-up
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 120%"
+    title2_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"

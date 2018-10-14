@@ -12,8 +12,8 @@ global_parameters:
     use_hass_icon: 1
 # Layout
 layout:
-    - clock(2x1), tv_lights, sofa_lights, kitchen_lights, vacuum_switch
-    -  current_temperature, current_humidity, current_pollution, indoor_temperature, indoor_humidity, indoor_pollution
+    - clock(2x1), tv_lights, sofa_lights, kitchen_lights, vacuum_panel
+    - current_temperature, current_humidity, current_pollution, indoor_temperature, indoor_humidity, indoor_pollution
     - include: bottom_panel_main
 
 clock:
@@ -137,14 +137,11 @@ kitchen_lights:
     level_up_style: "font-size: 120%"
     level_down_style: "font-size: 120%"
 
-vacuum_switch:
-    widget_type: switch
-    title: Xiaomi Vacuum
-    entity: vacuum.xiaomi_vacuum_cleaner
-    icon_on: mdi-roomba
-    icon_off: mdi-roomba
-    widget_style: "font-size: 120%"
-    title_style: "font-size: 120%"
-    title2_style: "font-size: 120%"
-    icon_style_active: "font-size: 350%"
-    icon_style_inactive: "font-size: 350%"
+vacuum_panel:
+    widget_type: navigate
+    title: Vacuum Panel
+    icon_inactive: mdi-roomba
+    dashboard: vacuum_panel
+    icon_active_style: "font-size: 350%"
+    icon_inactive_style: "font-size: 350%"
+    title_style: "font-size: 160%"

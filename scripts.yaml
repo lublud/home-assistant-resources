@@ -126,7 +126,7 @@ vacuum_locate:
   - service: vacuum.locate
     entity_id: 'vacuum.xiaomi_vacuum_cleaner'
 
-vacuum_return_to_home:
+vacuum_return_to_base:
   sequence:
   - service: vacuum.return_to_base
     entity_id: 'vacuum.xiaomi_vacuum_cleaner'

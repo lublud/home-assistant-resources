@@ -12,7 +12,7 @@ homeassistant:
 #          - entity: script.vacuum_locate
 #            icon: mdi:magnify
 #            column_span: 2
-#          - entity: script.vacuum_return_to_home
+#          - entity: script.vacuum_return_to_base
 #            icon: mdi:home
 #            column_span: 2
           - entity: script.vacuum_remote_control_start
