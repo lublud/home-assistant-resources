@@ -283,6 +283,14 @@ zone:
     latitude: !secret latitude_px_mart
     longitude: !secret longitude_px_mart
     radius: 50
+  - name: Wellcome
+    latitude: !secret latitude_wellcome
+    longitude: !secret longitude_wellcome
+    radius: 50
+  - name: Office Ludovic
+    latitude: !secret latitude_office_ludo
+    longitude: !secret longitude_office_ludo
+    radius: 20
 
 # Camera
 camera:
