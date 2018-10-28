@@ -67,6 +67,8 @@ Vacuum Remote:
   view: yes
   icon: mdi:robot-vacuum
   entities:
+    - group.vacuum_schedule_weekdays
+    - group.vacuum_schedule_weekend
     - vacuum.xiaomi_vacuum_cleaner
     - group.vacuum_control_panel
 

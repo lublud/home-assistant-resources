@@ -1,3 +1,4 @@
+# Control Panel
 homeassistant:
   customize:
     script.vacuum_remote_control:
@@ -40,12 +41,106 @@ homeassistant:
             icon: mdi:chevron-up
             column_span: 2
 
+# Automatic Control
+input_boolean:
+  vacuum_schedule_weekdays:
+    name: Enabled
+    icon: mdi:toggle-switch
+  vacuum_schedule_weekend:
+    name: Enabled
+    icon: mdi:toggle-switch
+
+input_number:
+  vacuum_schedule_weekdays_hour:
+    name: Hour
+    icon: mdi:clock-outline
+    min: 0
+    max: 23
+    step: 1
+  vacuum_schedule_weekdays_minute:
+    name: Minute
+    icon: mdi:clock-outline
+    min: 0
+    max: 45
+    step: 15
+  vacuum_schedule_weekend_hour:
+    name: Hour
+    icon: mdi:clock-outline
+    min: 0
+    max: 23
+    step: 1
+  vacuum_schedule_weekend_minute:
+    name: Minute
+    icon: mdi:clock-outline
+    min: 0
+    max: 45
+    step: 15
+
+script:
+  vacuum_remote_control:
+    sequence:
 
 group:
   vacuum_control_panel:
     name: Vacuum Control Panel
     entities:
       - script.vacuum_remote_control
-script:
-  vacuum_remote_control:
-    sequence:
+  vacuum_schedule_weekdays:
+    name: Georgie's Schedule (Weekdays)
+    entities:
+      - sensor.vacuum_schedule_weekdays_template
+      - input_boolean.vacuum_schedule_weekdays
+      - input_number.vacuum_schedule_weekdays_hour
+      - input_number.vacuum_schedule_weekdays_minute
+  vacuum_schedule_weekend:
+    name: Georgie's Schedule (Weekend)
+    entities:
+      - sensor.vacuum_schedule_weekend_template
+      - input_boolean.vacuum_schedule_weekend
+      - input_number.vacuum_schedule_weekend_hour
+      - input_number.vacuum_schedule_weekend_minute
+
+sensor:
+  - platform: template
+    sensors:
+      vacuum_schedule_weekdays_template:
+        friendly_name: 'Time'
+        icon_template: "{{ 'mdi:timer' if is_state('input_boolean.vacuum_schedule_weekdays', 'on') else 'mdi:close-circle' }}"
+        value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.vacuum_schedule_weekdays_hour") | int, states("input_number.vacuum_schedule_weekdays_minute") | int) }}'
+      vacuum_schedule_weekend_template:
+        friendly_name: 'Time'
+        icon_template: "{{ 'mdi:timer' if is_state('input_boolean.vacuum_schedule_weekend', 'on') else 'mdi:close-circle' }}"
+        value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.vacuum_schedule_weekend_hour") | int, states("input_number.vacuum_schedule_weekend_minute") | int) }}'
+
+
+automation:
+  - alias: vacuum_schedule
+    trigger:
+      - platform: time
+        minutes: '/15'
+        seconds: 00
+    condition:
+      condition: or
+      conditions:
+        - condition: and
+          conditions:
+          - condition: template
+            value_template: '{{ now().time().strftime("%H:%M") == states.sensor.vacuum_schedule_weekdays_template.state }}'
+          - condition: state
+            entity_id: input_boolean.vacuum_schedule_weekdays
+            state: 'on'
+          - condition: state
+            entity_id: binary_sensor.workday_sensor
+            state: 'on'
+        - condition: and
+          conditions:
+          - condition: template
+            value_template: '{{ now().time().strftime("%H:%M") == states.sensor.vacuum_schedule_weekend_template.state }}'
+          - condition: state
+            entity_id: input_boolean.vacuum_schedule_weekend
+            state: 'on'
+          - condition: state
+            entity_id: binary_sensor.workday_sensor
+            state: 'off'
+    action:
+      - service: script.vacuum_start_clean
