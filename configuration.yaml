@@ -303,13 +303,17 @@ camera:
     name: Living Room Live
     mjpeg_url: !secret mjpeg_url_camera
 
-# MQTT binary sensor
 binary_sensor:
+# MQTT binary sensor
   - name: camera
     icon: cctv
     platform: mqtt
     state_topic: "living_room/camera"
     sensor_class: motion
+# Workday
+  - platform: workday
+    country: !secret wd_country_code
+    excludes: holiday
 
 # IFTTT
 ifttt:
