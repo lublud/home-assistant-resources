@@ -290,7 +290,7 @@ zone:
   - name: Office Ludovic
     latitude: !secret latitude_office_ludo
     longitude: !secret longitude_office_ludo
-    radius: 20
+    radius: 35
 
 # Camera
 camera:
