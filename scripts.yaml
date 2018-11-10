@@ -201,14 +201,32 @@ vacuum_stop_clean:
 
 tts_bedroom_humidity:
   sequence:
+  - service: media_player.volume_set
+    entity_id: media_player.teddy
+    data:
+      volume_level: 0.3
   - service: tts.google_say
     entity_id: media_player.teddy
     data_template:
       message: "The humidity in the bedroom is {{states.fan.mi_air_purifier_2.attributes.humidity}} %"
+  - delay: '00:00:05'
+  - service: media_player.volume_set
+    entity_id: media_player.teddy
+    data:
+      volume_level: 0.2
 
 tts_bedroom_temperature:
   sequence:
+  - service: media_player.volume_set
+    entity_id: media_player.teddy
+    data:
+      volume_level: 0.3
   - service: tts.google_say
     entity_id: media_player.teddy
     data_template:
       message: "The temperature in the bedroom is {{states.fan.mi_air_purifier_2.attributes.temperature}} °C"
+  - delay: '00:00:05'
+  - service: media_player.volume_set
+    entity_id: media_player.teddy
+    data:
+      volume_level: 0.2
