@@ -1,0 +1,117 @@
+input_boolean:
+  front_door_opened_long:
+
+automation:
+  - id: Notify_when_door_opens_and_turn_light_at_night
+    trigger:
+      platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00012153cf
+      from: 'off'
+      to: 'on'
+    action:
+      - service: notify.telegram
+        data:
+          message: 'He did not hold the door'
+  #    - service: notify.telegram_admin
+  #      data:
+  #        message: "The door has been opened"
+  #        data:
+  #          photo:
+  #            - file: !secret file_path_camera
+  #              caption: 'The door has been opened'
+      - condition: and # if night and light not on
+        conditions:
+          - condition: state
+            entity_id: light.sofa_lights
+            state: 'off'
+          - condition: state
+            entity_id: light.tv_lights
+            state: 'off'
+          - condition: or
+            conditions:
+              - condition: sun
+                after: sunset
+                after_offset: "-01:00:00"
+              - condition: sun
+                before: sunrise
+                before_offset: "-00:30:00"
+      - service: light.turn_on
+        data:
+          entity_id: light.gateway_light_34ce0083878f
+          brightness: 76
+          rgb_color: [227,173,193]
+
+  - id: Notify_if_door_opened_too_long
+    trigger:
+      platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00012153cf
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 10
+    action:
+      - service: notify.telegram
+        data:
+          message: 'WARNING: The front door has been opened for 10 minutes'
+      - service: light.turn_on
+        data:
+          entity_id: light.gateway_light_34ce0083878f
+          brightness: 76
+          rgb_color: [255,0,0]
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.front_door_opened_long
+      - service: script.tts_door_opened_10_minutes
+
+  - id: Turn_off_gateway_one_minute_after_door_closed
+    trigger:
+      platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00012153cf
+      from: 'on'
+      to: 'off'
+      for:
+        minutes: 1
+    action:
+      service: light.turn_off
+      data:
+        entity_id: light.gateway_light_34ce0083878f
+
+  - id: Reset_gateway_when_door_closes_after_long_opening
+    trigger:
+      platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00012153cf
+      from: 'on'
+      to: 'off'
+    condition:
+      condition: state
+      entity_id: input_boolean.front_door_opened_long
+      state: 'on'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.gateway_light_34ce0083878f
+          brightness: 76
+          rgb_color: [227,173,193]
+      - delay: '00:00:01'
+      - service: light.turn_off
+        data:
+          entity_id: light.gateway_light_34ce0083878f
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.front_door_opened_long
+
+
+script:
+  tts_door_opened_10_minutes:
+    sequence:
+    - service: media_player.volume_set
+      entity_id: media_player.bobby
+      data:
+        volume_level: 0.5
+    - service: tts.google_say
+      entity_id: media_player.bobby
+      data:
+        message: "The front door has been opened for 10 minutes, don't forget to close it!"
+    - delay: '00:00:05'
+    - service: media_player.volume_set
+      entity_id: media_player.bobby
+      data:
+        volume_level: 0.4
