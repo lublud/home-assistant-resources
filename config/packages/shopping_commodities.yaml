@@ -180,15 +180,15 @@ automation:
         zone: zone.wellcome
         event: enter
       - platform: zone
-        entity_id: device_tracker.ludos_phone
+        entity_id: device_tracker.ludovic_mia1
         zone: zone.carrefour
         event: enter
       - platform: zone
-        entity_id: device_tracker.ludos_phone
+        entity_id: device_tracker.ludovic_mia1
         zone: zone.px_mart
         event: enter
       - platform: zone
-        entity_id: device_tracker.ludos_phone
+        entity_id: device_tracker.ludovic_mia1
         zone: zone.wellcome
         event: enter
     condition:

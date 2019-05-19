@@ -1,7 +1,7 @@
 turn_on_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'turn_on_ludovics_ac'
@@ -9,7 +9,7 @@ turn_on_ludovics_ac:
 turn_off_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'turn_off_ludovics_ac'
@@ -17,7 +17,7 @@ turn_off_ludovics_ac:
 strong_wind_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'strong_wind_ludovics_ac'
@@ -25,7 +25,7 @@ strong_wind_ludovics_ac:
 weak_wind_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'weak_wind_ludovics_ac'
@@ -33,7 +33,7 @@ weak_wind_ludovics_ac:
 breeze_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'breeze_ludovics_ac'
@@ -41,7 +41,7 @@ breeze_ludovics_ac:
 cold_air_mode_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'cold_air_mode_ludovics_ac'
@@ -49,7 +49,7 @@ cold_air_mode_ludovics_ac:
 dehumidify_mode_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'dehumidify_mode_ludovics_ac'
@@ -57,7 +57,7 @@ dehumidify_mode_ludovics_ac:
 blow_air_mode_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'blow_air_mode_ludovics_ac'
@@ -65,7 +65,7 @@ blow_air_mode_ludovics_ac:
 temperature_up_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'temperature_up_ludovics_ac'
@@ -73,7 +73,7 @@ temperature_up_ludovics_ac:
 temperature_down_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'temperature_down_ludovics_ac'
@@ -81,7 +81,7 @@ temperature_down_ludovics_ac:
 time_up_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'time_up_ludovics_ac'
@@ -89,7 +89,7 @@ time_up_ludovics_ac:
 time_down_ludovics_ac:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'time_down_ludovics_ac'
@@ -98,7 +98,7 @@ time_down_ludovics_ac:
 toggle_ludovics_fan:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'toggle_ludovics_fan'
@@ -106,7 +106,7 @@ toggle_ludovics_fan:
 change_wind_power_ludovics_fan:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'change_wind_power_ludovics_fan'
@@ -114,7 +114,7 @@ change_wind_power_ludovics_fan:
 change_time_ludovics_fan:
   sequence:
     - service: remote.send_command
-      entity_id: 'remote.ludovics_remote'
+      entity_id: 'remote.ludovic_s_remote'
       data:
         command:
           - 'change_time_ludovics_fan'

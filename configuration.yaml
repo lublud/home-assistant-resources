@@ -1,5 +1,9 @@
 homeassistant:
   name: TechVille
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks: !secret http_trusted_network
   latitude: !secret latitude
   longitude: !secret longitude
   elevation: !secret elevation
@@ -20,8 +24,9 @@ frontend:
 # Enables configuration UI
 config:
 
+system_health:
+
 http:
-  api_password: !secret http_password
   ssl_certificate: !secret ssl_certificate
   ssl_key: !secret ssl_key
   base_url: !secret base_url
@@ -31,7 +36,8 @@ http:
 #    - https://reformedreality.com
 
 tts:
-  platform: google
+  - platform: google_translate
+    service_name: google_say
 
 # Checks for available updates
 updater:
@@ -47,6 +53,10 @@ logbook:
       - sensor.dark_sky_daily_high_temperature
       - sensor.dark_sky_daily_low_temperature
       - group.all_automations
+
+discovery:
+  ignore:
+    - yeelight
 
 # Enables a map showing the location of tracked devices
 map:
@@ -120,21 +130,13 @@ mqtt:
   password: !secret mosquitto_password
   port: 8883
 
-sensor:
-# Weather
+weather:
   - platform: darksky
     api_key: !secret darksky_api
     units: auto
-    monitored_conditions:
-      - summary
-      - hourly_summary
-      - temperature
-      - dew_point
-      - humidity
-      - temperature_max
-      - temperature_min
-      - precip_type
-      - precip_probability
+    mode: daily
+
+sensor:
 # Template
   - platform: template
     sensors:
@@ -158,32 +160,32 @@ sensor:
       - Zhongshan, Taiwan
 
 # Yeelight
-light:
-  - platform: yeelight
-    devices:
-      192.168.31.81:
-        name: TV up
-      192.168.31.184:
-        name: TV back
-      192.168.31.99:
-        name: Sink Right
-      192.168.31.8:
-        name: Sink Left
-      192.168.31.18:
-        name: Bed L
-      192.168.31.171:
-        name: Bed T
-      192.168.31.17:
-        name: Bed under
-      192.168.31.222:
-        name: Ludovic's desk
-      192.168.31.117:
-        name: Shower room
-      192.168.31.11:
-        name: Living room in
-      192.168.31.245:
-        name: Living room out
+yeelight:
+  devices:
+    192.168.31.81:
+      name: TV up
+    192.168.31.184:
+      name: TV back
+    192.168.31.99:
+      name: Sink Right
+    192.168.31.8:
+      name: Sink Left
+    192.168.31.18:
+      name: Bed L
+    192.168.31.171:
+      name: Bed T
+    192.168.31.17:
+      name: Bed under
+    192.168.31.222:
+      name: Ludovics desk
+    192.168.31.117:
+      name: Shower room
+    192.168.31.11:
+      name: Living room in
+    192.168.31.245:
+      name: Living room out
 
+light:
   - platform: group
     name: Bedroom lights
     entities:
@@ -305,11 +307,11 @@ camera:
 
 binary_sensor:
 # MQTT binary sensor
-  - name: camera
-    icon: cctv
-    platform: mqtt
-    state_topic: "living_room/camera"
-    sensor_class: motion
+#  - name: camera
+#    icon: cctv
+#    platform: mqtt
+#    state_topic: "living_room/camera"
+#    sensor_class: motion
 # Workday
   - platform: workday
     country: !secret wd_country_code
@@ -327,10 +329,10 @@ notify:
   - name: telegram_admin
     platform: telegram
     chat_id: !secret chat_id_telegram_admin
-  - name: Push
-    platform: html5
-    gcm_api_key: !secret gcm_api_key
-    gcm_sender_id: !secret gcm_sender_id
+#  - name: Push
+#    platform: html5
+#    gcm_api_key: !secret gcm_api_key
+#    gcm_sender_id: !secret gcm_sender_id
 
 telegram_bot:
   platform: polling

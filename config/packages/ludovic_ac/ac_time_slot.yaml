@@ -44,15 +44,11 @@ sensor:
     time_slot_stop:
       value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.ac_stop_hour") | int, states("input_number.ac_stop_minute") | int) }}'
 
-    time_repeat:
-      value_template: '{{ "%0.02d:%0.02d" | format((states("input_number.ac_repeat_time") | int) / 60, (states("input_number.ac_repeat_time") | int) % 60) }}'
-    time_duration:
-      value_template: '{{ "%0.02d:%0.02d" | format((states("input_number.ac_repeat_duration") | int) / 60, (states("input_number.ac_repeat_duration") | int) % 60) }}'
 
 automation:
-  - id: ac _ime_slot_start
+  - id: ac_time_slot_start
     trigger:
-      - platform: time
+      - platform: time_pattern
         minutes: '/1'
         seconds: 00
     condition:
@@ -68,7 +64,7 @@ automation:
 
   - id: ac_time_slot_stop
     trigger:
-      - platform: time
+      - platform: time_pattern
         minutes: '/1'
         seconds: 00
     condition:

@@ -55,7 +55,7 @@ sensor:
 automation:
   - id: update_aqi_every_hour
     trigger:
-      platform: time
+      platform: time_pattern
       minutes: '/60'
       seconds: 0
     action:

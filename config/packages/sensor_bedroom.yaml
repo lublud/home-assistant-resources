@@ -76,7 +76,7 @@ automation:
         zone: zone.home
         event: leave
       - platform: zone
-        entity_id: device_tracker.ludos_phone
+        entity_id: device_tracker.ludovic_mia1
         zone: zone.home
         event: leave
     condition:
@@ -86,7 +86,7 @@ automation:
           entity_id: device_tracker.taras_phone
           state: 'not_home'
         - condition: state
-          entity_id: device_tracker.ludos_phone
+          entity_id: device_tracker.ludovic_mia1
           state: 'not_home'
     action:
       - service: switch.turn_on
@@ -103,7 +103,7 @@ automation:
         zone: zone.home
         event: enter
       - platform: zone
-        entity_id: device_tracker.ludos_phone
+        entity_id: device_tracker.ludovic_mia1
         zone: zone.home
         event: enter
     condition:
@@ -113,7 +113,7 @@ automation:
           entity_id: device_tracker.taras_phone
           state: 'home'
         - condition: state
-          entity_id: device_tracker.ludos_phone
+          entity_id: device_tracker.ludovic_mia1
           state: 'home'
     action:
       - service: switch.turn_off
@@ -144,7 +144,7 @@ automation:
   - id: reset_bedroom_light
     trigger:
       platform:  event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d000121d17f
         click_type: long_click_press
@@ -157,8 +157,7 @@ automation:
       - service: light.turn_off
         data:
           entity_id: light.ludovics_desk
-      - condition:
-        condition: and
+      - condition: and
         conditions:
           - condition: sun
             after: sunrise

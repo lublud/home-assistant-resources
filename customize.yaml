@@ -124,7 +124,7 @@ group.front_door:
   homebridge_hidden: true
 automation.long_press_toggle_kitchen_lights:
   homebridge_hidden: true
-remote.ludovics_remote:
+remote.bedroom_remote:
   homebridge_hidden: true
 group.ludovics_sensors:
   homebridge_hidden: true

@@ -2,7 +2,7 @@
   host: !secret host_remote_ludo
   token: !secret token_remote_ludo
   hidden: false
-  name: Ludovic's Remote
+  name: "Bedroom Remote"
   commands:
     turn_on_ludovics_ac:
       command:

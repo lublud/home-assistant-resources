@@ -5,7 +5,7 @@
 - id: Double_click_toggle_sofa_lights
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d0001245482
       click_type: double
@@ -17,7 +17,7 @@
 - id: Single_click_toggle_TV_lights
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d0001245482
       click_type: single
@@ -34,7 +34,7 @@
 - id: Long_press_toggle_kitchen_lights
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d0001245482
       click_type: long_click_press
@@ -94,7 +94,7 @@
 - id: Shake_cube_toggle_lights
   trigger:
     platform: event
-    event_type: cube_action
+    event_type: xiaomi_aqara.cube_action
     event_data:
       entity_id: binary_sensor.cube_158d00010f0603
       action_type: shake_air
@@ -105,7 +105,7 @@
 - id: Tap_twice_with_cube_turn_on_light_(white 100percent)
   trigger:
     platform: event
-    event_type: cube_action
+    event_type: xiaomi_aqara.cube_action
     event_data:
       entity_id: binary_sensor.cube_158d00010f0603
       action_type: tap_twice
@@ -119,7 +119,7 @@
 - id: flip180_cube_turn_on_light_(orange_30percent)
   trigger:
     platform: event
-    event_type: cube_action
+    event_type: xiaomi_aqara.cube_action
     event_data:
       entity_id: binary_sensor.cube_158d00010f0603
       action_type: flip180
@@ -133,7 +133,7 @@
 - id: flip90_cube_toggle_desk_light
   trigger:
     platform: event
-    event_type: cube_action
+    event_type: xiaomi_aqara.cube_action
     event_data:
       entity_id: binary_sensor.cube_158d00010f0603
       action_type: flip90
@@ -144,7 +144,7 @@
 #- id: Single_click_toggle_bedroom_lights
 #  trigger:
 #    platform: event
-#    event_type: click
+#    event_type: xiaomi_aqara.click
 #    event_data:
 #      entity_id: binary_sensor.switch_158d000121d17f
 #      click_type: single
@@ -156,7 +156,7 @@
 #- id: Double_click_toggle_shower_room_lights
 #  trigger:
 #    platform: event
-#    event_type: click
+#    event_type: xiaomi_aqara.click
 #    event_data:
 #      entity_id: binary_sensor.switch_158d000121d17f
 #      click_type: double
@@ -223,3 +223,17 @@
         - !secret chat_id_telegram_admin
       file: !secret doc_log
       disable_notification: true
+
+
+############
+# TELEGRAM #
+############
+
+- id: fire_ifttt_event
+  trigger:
+    platform: event
+    event_type: ifttt_webhook_received
+    event_data:
+      action: call_service
+  action:
+    service_template: '{{ trigger.event.data.service }}'

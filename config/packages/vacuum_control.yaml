@@ -76,6 +76,13 @@ input_number:
     max: 45
     step: 15
 
+input_datetime:
+  only_time:
+    name: TEST
+    has_date: false
+    has_time: true
+
+
 script:
   vacuum_remote_control:
     sequence:
@@ -92,6 +99,7 @@ group:
       - input_boolean.vacuum_schedule_weekdays
       - input_number.vacuum_schedule_weekdays_hour
       - input_number.vacuum_schedule_weekdays_minute
+      - input_datetime.only_time
   vacuum_schedule_weekend:
     name: Georgie's Schedule (Weekend)
     entities:
@@ -116,7 +124,7 @@ sensor:
 automation:
   - alias: vacuum_schedule
     trigger:
-      - platform: time
+      - platform: time_pattern
         minutes: '/15'
         seconds: 00
     condition:
