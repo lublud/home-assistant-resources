@@ -42,6 +42,7 @@ sensor:
 
 automation:
   - id: start_ac_delay
+    alias: 'Start AC Delay'
     trigger:
       platform: state
       entity_id: input_boolean.ac_delay_enabled
@@ -61,6 +62,7 @@ automation:
           duration: '{{ states("sensor.delay_duration") }}'
 
   - id: ac_delay_finished
+    alias: 'AC Delay Finished'
     trigger:
       platform: event
       event_type: timer.finished
@@ -70,6 +72,7 @@ automation:
       - service: script.turn_off_ludovics_ac
 
   - id: cancel_ac_delay
+    alias: 'Cancel AC Delay'
     trigger:
       platform: state
       entity_id: input_boolean.ac_delay_enabled

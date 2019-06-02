@@ -11,6 +11,7 @@ input_boolean:
 
 automation:
   - id: motion_detected_turn_on_bed_lights
+    alias: 'Motion Detected Turn ON Bed Lights'
     trigger:
       platform: state
       entity_id: binary_sensor.motion_sensor_158d0001225132
@@ -38,6 +39,7 @@ automation:
           entity_id: light.bed_lights
 
   - id: no_motion_for_30_minutes_turn_off_bedroom_lights
+    alias: 'No Motion For 30 Minutes Turn OFF Bedroom Lights'
     trigger:
       platform: state
       entity_id: binary_sensor.motion_sensor_158d0001225132
@@ -51,6 +53,7 @@ automation:
         entity_id: light.bed_lights
 
   - id: notify_when_bedroom_door_opens
+    alias: 'Notify when Bedroom Door Opens'
     trigger:
       platform: state
       entity_id: binary_sensor.door_window_sensor_158d00018311c8
@@ -70,6 +73,7 @@ automation:
           message: 'Bedroom door opened'
 
   - id: turn_on_bedroom_door_sensor_when_leaving_home
+    alias: 'Turn ON Bedroom Door Sensor When Leaving Home'
     trigger:
       - platform: zone
         entity_id: device_tracker.tara_mia2
@@ -97,6 +101,7 @@ automation:
           entity_id: input_boolean.bedroom_door_sensor_enabled
 
   - id: turn_off_bedroom_door_sensor_when_entering_home
+    alias: 'Turn OFF Bedroom Door Sensor When Entering Home'
     trigger:
       - platform: zone
         entity_id: device_tracker.tara_mia2
@@ -124,6 +129,7 @@ automation:
           entity_id: input_boolean.bedroom_door_sensor_enabled
 
   - id: turn_on_bed_under_light_only_at_23_30
+    alias: 'Turn ON Bed Under Light Only At 23h30'
     trigger:
       platform: time
       at: '23:30:00'
@@ -133,6 +139,7 @@ automation:
           entity_id: input_boolean.bed_under_light_enabled
 
   - id: turn_off_bed_under_light_only_at_08_00
+    alias: 'Turn OFF Bed Under Light Only At 08h00'
     trigger:
       platform: time
       at: '08:00:00'
@@ -142,6 +149,7 @@ automation:
           entity_id: input_boolean.bed_under_light_enabled
 
   - id: reset_bedroom_light
+    alias: 'Reset Bedroom Light'
     trigger:
       platform:  event
       event_type: xiaomi_aqara.click

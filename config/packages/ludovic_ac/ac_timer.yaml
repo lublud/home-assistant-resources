@@ -42,6 +42,7 @@ sensor:
 
 automation:
   - id: start_ac_timer
+    alias: 'Start AC Timer'
     trigger:
       platform: state
       entity_id: input_boolean.ac_timer_enabled
@@ -61,7 +62,8 @@ automation:
         data_template:
           duration: '{{ states("sensor.timer_duration") }}'
 
-  - id: stops_ac
+  - id: stop_ac
+    alias: 'Stop AC'
     trigger:
       platform: event
       event_type: timer.finished
@@ -71,6 +73,7 @@ automation:
       - service: script.turn_off_ludovics_ac
 
   - id: cancel_ac_timer
+    alias: 'Cancel AC Timer'
     trigger:
       platform: state
       entity_id: input_boolean.ac_timer_enabled

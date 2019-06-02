@@ -166,6 +166,7 @@ group:
 
 automation:
   - id: shopping
+    alias: 'Shopping'
     trigger:
       - platform: zone
         entity_id: device_tracker.tara_mia2

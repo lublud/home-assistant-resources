@@ -3,6 +3,7 @@ input_boolean:
 
 automation:
   - id: Notify_when_door_opens_and_turn_light_at_night
+    alias: 'Notify When Door Opens and Turn Light At Night'
     trigger:
       platform: state
       entity_id: binary_sensor.door_window_sensor_158d00012153cf
@@ -42,6 +43,7 @@ automation:
           rgb_color: [227,173,193]
 
   - id: Notify_if_door_opened_too_long
+    alias: 'Notify If Door Opened Too Long'
     trigger:
       platform: state
       entity_id: binary_sensor.door_window_sensor_158d00012153cf
@@ -63,6 +65,7 @@ automation:
       - service: script.tts_door_opened_10_minutes
 
   - id: Turn_off_gateway_one_minute_after_door_closed
+    alias: 'Turn OFF Gateway One Minute After Door Closed'
     trigger:
       platform: state
       entity_id: binary_sensor.door_window_sensor_158d00012153cf
@@ -76,6 +79,7 @@ automation:
         entity_id: light.gateway_light_34ce0083878f
 
   - id: Reset_gateway_when_door_closes_after_long_opening
+    alias: 'Reset Gateway When Door Closes After Long Opening'
     trigger:
       platform: state
       entity_id: binary_sensor.door_window_sensor_158d00012153cf

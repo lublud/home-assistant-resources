@@ -123,6 +123,7 @@ sensor:
 
 automation:
   - alias: vacuum_schedule
+    alias: 'Vacuum Schedule'
     trigger:
       - platform: time_pattern
         minutes: '/15'

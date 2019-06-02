@@ -47,6 +47,7 @@ sensor:
 
 automation:
   - id: ac_interval_starts
+    alias: 'AC Interval Starts'
     trigger:
       platform: state
       entity_id: input_boolean.ac_interval_enabled
@@ -67,6 +68,7 @@ automation:
       - service: script.turn_on_ludovics_ac
 
   - id: ac_inverval_canceled
+    alias: 'AC Interval Canceled'
     trigger:
       platform: state
       entity_id: input_boolean.ac_interval_enabled
@@ -79,6 +81,7 @@ automation:
         entity_id: timer.ac_interval_duration_timer
 
   - id: ac_interval_time_timer_ends
+    alias: 'AC Interval Time Timer Ends'
     trigger:
       platform: event
       event_type: timer.finished
@@ -98,6 +101,7 @@ automation:
       - service: script.turn_on_ludovics_ac
 
   - id: ac_interval_duration_timer_ends
+    alias: 'AC Interval Duration Timer Ends'
     trigger:
       platform: event
       event_type: timer.finished

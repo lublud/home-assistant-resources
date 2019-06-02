@@ -54,6 +54,7 @@ sensor:
 
 automation:
   - id: update_aqi_every_hour
+    alias: 'Update AQI Every Hour'
     trigger:
       platform: time_pattern
       minutes: '/60'
@@ -91,6 +92,7 @@ automation:
                 - 'Turn on:/turnon, Turn off:/turnoff'
 
   - id: telegram_callback_air_purifier_turn_on
+    alias: 'Telegram Callback Turn ON Air Purifier'
     trigger:
       platform: event
       event_type: telegram_callback
@@ -103,6 +105,7 @@ automation:
           speed: auto
 
   - id: telegram_callback_air_purifier_turn_off
+    alias: 'Telegram Callback Turn OFF Air Purifier'
     trigger:
       platform: event
       event_type: telegram_callback

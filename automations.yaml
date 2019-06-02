@@ -3,6 +3,7 @@
 ###############
 
 - id: Double_click_toggle_sofa_lights
+  alias: 'Double Click Toggle Sofa Lights'
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
@@ -15,6 +16,7 @@
       entity_id: light.sofa_lights
 
 - id: Single_click_toggle_TV_lights
+  alias: 'Single Click Toggle TV Lights'
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
@@ -32,6 +34,7 @@
 ###########
 
 - id: Long_press_toggle_kitchen_lights
+  alias: 'Long Press Toggle Kitchen Lights'
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
@@ -44,6 +47,7 @@
       entity_id: light.kitchen_lights
 
 - id: Turn_on_kitchen_on_motion_at_night_time
+  alias: 'Turn ON Kitchen On Motion At Night Time'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d00020dc8b6
@@ -64,6 +68,7 @@
       entity_id: light.kitchen_lights
 
 - id: Turn_off_kitchen_after_two_minutes_with_no motion
+  alias: 'Turn OFF Kitchen After Two Minutes With No Motion'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d00020dc8b6
@@ -92,6 +97,7 @@
 ###########
 
 - id: Shake_cube_toggle_lights
+  alias: 'Shake Cube Toggle Bed Lights'
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
@@ -102,7 +108,8 @@
     service: light.toggle
     entity_id: light.bed_lights
 
-- id: Tap_twice_with_cube_turn_on_light_(white 100percent)
+- id: Tap_twice_with_cube_turn_on_light_white_100percent
+  alias: 'Tap Twice With Cube Turn ON Light (White - 100 percent)'
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
@@ -117,6 +124,7 @@
       rgb_color: [255,255,255]
 
 - id: flip180_cube_turn_on_light_(orange_30percent)
+  alias: 'Flip 180 Cube Turn ON Light (Orange - 30 percent)'
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
@@ -131,6 +139,7 @@
       rgb_color: [255,165,0]
 
 - id: flip90_cube_toggle_desk_light
+  alias: 'Flip 90 Cube Toggle Desk Light'
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
@@ -142,6 +151,7 @@
     entity_id: light.ludovics_desk
 
 #- id: Single_click_toggle_bedroom_lights
+#  alias: 'Single Click Toggle Bedroom Lights'
 #  trigger:
 #    platform: event
 #    event_type: xiaomi_aqara.click
@@ -153,7 +163,8 @@
 #    data:
 #      entity_id: light.bed_lights
 #
-#- id: Double_click_toggle_shower_room_lights
+#- id: Double_click_toggle_shower_room_light
+#  alias: 'Double Click Toggle Shower Room Light
 #  trigger:
 #    platform: event
 #    event_type: xiaomi_aqara.click
@@ -166,6 +177,7 @@
 #      entity_id: light.shower_room
 
 - id: Motion_detected_turn_on_shower_room_light
+  alias: 'Motion Detected Turn ON Shower Room Light'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001db53b2
@@ -177,6 +189,7 @@
       entity_id: light.shower_room
 
 - id: No_motion_for_5_minutes_turn_off_shower room light
+  alias: 'No Motion For 5 Minutes Turn OFF Shower Room Light'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001db53b2
@@ -194,7 +207,8 @@
 # TELEGRAM #
 ############
 
-- id: Send_daily_report_every_day_at_8am
+- id: Send_daily_report_at_8am
+  alias: 'Send Daily Report At 8am'
   trigger:
     platform: time
     at: '08:00:00'
@@ -209,20 +223,21 @@
         You can expect temperatures between {{ states.sensor.dark_sky_daily_low_temperature.state }} and {{ states.sensor.dark_sky_daily_high_temperature.state }} degrees.
         Have a nice day :)
 
-- id: Send_logs
-  trigger:
-    platform: event
-    event_type: telegram_command
-    event_data:
-      command: /logs
-  condition: []
-  action:
-    service: telegram_bot.send_document
-    data:
-      target:
-        - !secret chat_id_telegram_admin
-      file: !secret doc_log
-      disable_notification: true
+#- id: Send_logs
+#  alias: 'Send Logs'
+#  trigger:
+#    platform: event
+#    event_type: telegram_command
+#    event_data:
+#      command: /logs
+#  condition: []
+#  action:
+#    service: telegram_bot.send_document
+#    data:
+#      target:
+#        - !secret chat_id_telegram_admin
+#      file: !secret doc_log
+#      disable_notification: true
 
 
 ############
@@ -230,6 +245,7 @@
 ############
 
 - id: fire_ifttt_event
+  alias: 'Fire IFTTT Event'
   trigger:
     platform: event
     event_type: ifttt_webhook_received

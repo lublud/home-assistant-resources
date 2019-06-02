@@ -47,6 +47,7 @@ sensor:
 
 automation:
   - id: ac_time_slot_start
+    alias: 'AC Time slot Start'
     trigger:
       - platform: time_pattern
         minutes: '/1'
@@ -63,6 +64,7 @@ automation:
       - service: script.turn_on_ludovics_ac
 
   - id: ac_time_slot_stop
+    alias: 'AC Time Slot Stop'
     trigger:
       - platform: time_pattern
         minutes: '/1'

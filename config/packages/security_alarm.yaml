@@ -16,6 +16,7 @@ group:
 
 automation:
   - id: start_alarm_when_door_opens
+    alias: 'Start alarm When Door Opens'
     trigger:
       - platform: state
         entity_id: binary_sensor.door_window_sensor_158d00012153cf # front door
@@ -44,6 +45,7 @@ automation:
           message: 'Alarm has been triggered!'
 
   - id: start_alarm_if presence_motion_or_door_is_detected
+    alias: 'Start Alarm If Presence Motion Or Door Is Detected'
     trigger:
       - platform: state
         entity_id: binary_sensor.door_window_sensor_158d00012153cf # front door
