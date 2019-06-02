@@ -67,18 +67,17 @@ automation:
         data_template:
           entity_id: input_select.aqi_level
           option: '{{ states.sensor.aqi_level_sensor.state }}'
-      - condition: template
-        value_template: '{{ states.input_select.aqi_level.state != states.input_select.previous_aqi_level.state }}'
+      - condition: and
+        conditions:
+          - condition: template
+            value_template: '{{ states.input_select.aqi_level.state != states.input_select.previous_aqi_level.state }}'
+          - condition: template
+            value_template: '{{ states.sensor.waqi_zhongshan_taiwan.attributes.pm_2_5 | int > 100 }}'
       - service: notify.telegram
         data_template:
           message: >-
-            Just a little message to inform you of the current pollution in Taipei.
-            With a AQI of {{ states.sensor.waqi_zhongshan_taiwan.attributes.pm_2_5 }}, the current
-            condition is {{ states.sensor.aqi_level_text.state }}!
-            {% if states.sensor.waqi_zhongshan_taiwan.attributes.pm_2_5 > 100 %}
-            Please be careful when going out as the air pollution starts to be serious.
-            {% endif %}
-            You can visit http://aqicn.org/scale/ for more information about the air quality index scale :)
+            Air Quality in Taipei is {{ states.sensor.aqi_level_text.state }}
+            (AQI {{ states.sensor.waqi_zhongshan_taiwan.attributes.pm_2_5 }} pm2.5)
       - condition: template
         value_template: '{{ states.sensor.bedroom_aqi.state | int > 50 }}'
       - service: notify.telegram_admin
