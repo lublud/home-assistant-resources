@@ -2,8 +2,8 @@ homeassistant:
   name: TechVille
   auth_providers:
     - type: homeassistant
-    - type: trusted_networks
-      trusted_networks: !secret http_trusted_network
+#    - type: trusted_networks
+#      trusted_networks: !secret http_trusted_network
   latitude: !secret latitude
   longitude: !secret longitude
   elevation: !secret elevation
@@ -162,28 +162,28 @@ sensor:
 # Yeelight
 yeelight:
   devices:
-    192.168.31.81:
-      name: TV up
-    192.168.31.184:
-      name: TV back
-    192.168.31.99:
-      name: Sink Right
-    192.168.31.8:
-      name: Sink Left
-    192.168.31.18:
-      name: Bed L
-    192.168.31.171:
-      name: Bed T
-    192.168.31.17:
+    192.168.31.121:
       name: Bed under
-    192.168.31.222:
+    192.168.31.122:
+      name: Bed L
+    192.168.31.123:
+      name: Bed T
+    192.168.31.124:
       name: Ludovics desk
-    192.168.31.117:
+    192.168.31.125:
       name: Shower room
-    192.168.31.11:
+    192.168.31.130:
+      name: TV up
+    192.168.31.131:
+      name: TV back
+    192.168.31.132:
       name: Living room in
-    192.168.31.245:
+    192.168.31.133:
       name: Living room out
+    192.168.31.134:
+      name: Sink Left
+    192.168.31.135:
+      name: Sink Right
 
 light:
   - platform: group

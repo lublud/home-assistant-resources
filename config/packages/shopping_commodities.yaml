@@ -168,15 +168,15 @@ automation:
   - id: shopping
     trigger:
       - platform: zone
-        entity_id: device_tracker.taras_phone
+        entity_id: device_tracker.tara_mia2
         zone: zone.carrefour
         event: enter
       - platform: zone
-        entity_id: device_tracker.taras_phone
+        entity_id: device_tracker.tara_mia2
         zone: zone.px_mart
         event: enter
       - platform: zone
-        entity_id: device_tracker.taras_phone
+        entity_id: device_tracker.tara_mia2
         zone: zone.wellcome
         event: enter
       - platform: zone

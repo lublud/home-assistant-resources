@@ -72,7 +72,7 @@ automation:
   - id: turn_on_bedroom_door_sensor_when_leaving_home
     trigger:
       - platform: zone
-        entity_id: device_tracker.taras_phone
+        entity_id: device_tracker.tara_mia2
         zone: zone.home
         event: leave
       - platform: zone
@@ -83,7 +83,7 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: device_tracker.taras_phone
+          entity_id: device_tracker.tara_mia2
           state: 'not_home'
         - condition: state
           entity_id: device_tracker.ludovic_mia1
@@ -99,7 +99,7 @@ automation:
   - id: turn_off_bedroom_door_sensor_when_entering_home
     trigger:
       - platform: zone
-        entity_id: device_tracker.taras_phone
+        entity_id: device_tracker.tara_mia2
         zone: zone.home
         event: enter
       - platform: zone
@@ -110,7 +110,7 @@ automation:
       condition: or
       conditions:
         - condition: state
-          entity_id: device_tracker.taras_phone
+          entity_id: device_tracker.tara_mia2
           state: 'home'
         - condition: state
           entity_id: device_tracker.ludovic_mia1

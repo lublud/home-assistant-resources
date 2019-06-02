@@ -80,7 +80,7 @@ automation:
             {% endif %}
             You can visit http://aqicn.org/scale/ for more information about the air quality index scale :)
       - condition: template
-        value_template: '{{ states.sensor.bedroom_aqi.state > 50 }}'
+        value_template: '{{ states.sensor.bedroom_aqi.state | int > 50 }}'
       - service: notify.telegram_admin
         data:
           message: >-
