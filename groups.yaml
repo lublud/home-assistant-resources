@@ -81,7 +81,7 @@ Weather:
   view: no
   entities:
     - weather.dark_sky
-    - sensor.waqi_zhongshan_taiwan
+    - sensor.waqi_zhongshan_taiwan_tai_wan_zhong_shan
     - camera.taiwan_weather_satellite
 
 Bedroom Sensors:
