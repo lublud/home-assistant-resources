@@ -133,8 +133,9 @@ Other Sensors:
     - sensor.illumination_34ce0083878f
     - switch.smart_plug_thick
     - switch.smart_plug_thin
-    - binary_sensor.motion_sensor_158d0001db53b2 # Bathroom
+    - binary_sensor.motion_sensor_158d0001db53b2 # Shower room NOT WORKING
     - binary_sensor.motion_sensor_158d00020dc8b6 # Kitchen
+    - binary_sensor.motion_sensor_158d00023666d9 # Shower room
     #- binary_sensor.camera
     - binary_sensor.switch_158d000121d17f # Bedroom lights
     - binary_sensor.switch_158d0001245482 # TV lights

@@ -150,6 +150,11 @@
     service: light.toggle
     entity_id: light.ludovics_desk
 
+
+###############
+# Shower Room #
+###############
+
 #- id: Single_click_toggle_bedroom_lights
 #  alias: 'Single Click Toggle Bedroom Lights'
 #  trigger:
@@ -180,7 +185,7 @@
   alias: 'Motion Detected Turn ON Shower Room Light'
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_158d0001db53b2
+    entity_id: binary_sensor.motion_sensor_158d00023666d9
     from: 'off'
     to: 'on'
   action:
@@ -192,7 +197,7 @@
   alias: 'No Motion For 5 Minutes Turn OFF Shower Room Light'
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_158d0001db53b2
+    entity_id: binary_sensor.motion_sensor_158d00023666d9
     from: 'on'
     to: 'off'
     for:

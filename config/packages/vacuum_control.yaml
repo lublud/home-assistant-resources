@@ -122,7 +122,7 @@ sensor:
 
 
 automation:
-  - alias: vacuum_schedule
+  - id: vacuum_schedule
     alias: 'Vacuum Schedule'
     trigger:
       - platform: time_pattern

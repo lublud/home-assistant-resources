@@ -1,3 +1,7 @@
+device_tracker.ludovic_mia1:
+  entity_picture: "/local/images/ludo.png"
+device_tracker.tara_mia2:
+  entity_picture: "/local/images/tara.jpg"
 fan.mi_air_purifier_2: {}
 group.all_fans:
   homebridge_hidden: true
@@ -32,21 +36,24 @@ light.gateway_light_34ce00839441:
   friendly_name: Sean's Gateway
 light.gateway_light_34ce0083878f:
   friendly_name: Gateway
-switch.plug_158d000163aec1:
-  friendly_name: Sean's Plug
-  homebridge_hidden: true
-binary_sensor.cube_158d0001020052:
-  friendly_name: Sean's Cube
+binary_sensor.cube_158d00010f0603:
+  friendly_name: Cube
   homebridge_hidden: true
 sensor.Illumination_34ce00839441:
   friendly_name: Sean's Gateway Light Sensor
 sensor.Illumination_34ce0083878f:
   friendly_name: Gateway Light Sensor
+binary_sensor.motion_sensor_158d0001225007:
+  friendly_name: Motion sensor bathroom
 binary_sensor.motion_sensor_158d0001225132:
   homebridge_hidden: true
   friendly_name: Motion Sensor Bedroom
 binary_sensor.motion_sensor_158d0001db53b2:
-  friendly_name: Motion Sensor Bathroom
+  friendly_name: Motion Sensor Shower Room NOT WORKING
+binary_sensor.motion_sensor_158d00020dc8b6:
+  friendly_name: Motion Sensor Kitchen
+binary_sensor.motion_sensor_158d00023666d9:
+  friendly_name: Motion Sensor Shower Room
 binary_sensor.switch_158d000121d17f:
   homebridge_hidden: true
   friendly_name: Bedroom switch
@@ -60,6 +67,10 @@ binary_sensor.switch_158d0001245482:
   friendly_name: TV switch
 binary_sensor.door_window_sensor_158d00012153cf:
   friendly_name: Front Door
+binary_sensor.door_window_sensor_158d00022c3388:
+  friendly_name: Window Balcony
+binary_sensor.door_window_sensor_158d00018311c8:
+  friendly_name: Door Bedroom
 example_sensor.blah_blah:
   custom_ui_state_card: state-card-tiles
   config:
@@ -112,8 +123,6 @@ example_sensor.blah_blah:
 binary_sensor.switch_158d0001562c66:
   homebridge_hidden: true
   friendly_name: Switch Justin
-binary_sensor.motion_sensor_158d0001225007:
-  friendly_name: Motion sensor bathroom
 group.all_automations:
   homebridge_hidden: true
 group.all_remotes:
