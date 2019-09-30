@@ -95,7 +95,7 @@ automation:
     action:
       - service: switch.turn_on
         data:
-          entity_id: switch.smart_plug_thick
+          entity_id: switch.smart_plug
       - service: input_boolean.turn_on
         data:
           entity_id: input_boolean.bedroom_door_sensor_enabled
@@ -123,7 +123,7 @@ automation:
     action:
       - service: switch.turn_off
         data:
-          entity_id: switch.smart_plug_thick
+          entity_id: switch.smart_plug
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.bedroom_door_sensor_enabled

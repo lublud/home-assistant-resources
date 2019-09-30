@@ -43,13 +43,17 @@ sensor.Illumination_34ce00839441:
   friendly_name: Sean's Gateway Light Sensor
 sensor.Illumination_34ce0083878f:
   friendly_name: Gateway Light Sensor
+switch.smart_plug:
+  friendly_name: Smart Plug Bedroom
+switch.plug_158d000163aec1:
+  friendly_name: Smart Plug Other
 binary_sensor.motion_sensor_158d0001225007:
   friendly_name: Motion sensor bathroom
 binary_sensor.motion_sensor_158d0001225132:
   homebridge_hidden: true
   friendly_name: Motion Sensor Bedroom
 binary_sensor.motion_sensor_158d0001db53b2:
-  friendly_name: Motion Sensor Shower Room NOT WORKING
+  friendly_name: Motion Sensor NOT WORKING
 binary_sensor.motion_sensor_158d00020dc8b6:
   friendly_name: Motion Sensor Kitchen
 binary_sensor.motion_sensor_158d00023666d9:
