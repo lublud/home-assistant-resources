@@ -4,7 +4,6 @@ default_view:
   entities: 
     - group.weather
     - group.bedroom_sensors
-    - group.kitchen
     - group.bedroom
     - group.living_room
     - device_tracker.ludovic_mi9t
@@ -107,8 +106,9 @@ Bedroom:
 Living Room:
   view: no
   entities:
-    - light.sofa_lights
+    #- light.sofa_lights
     - light.tv_lights
+    - light.living_room_table
     - light.gateway_light_34ce0083878f
 
 
@@ -162,10 +162,11 @@ Lights Living Room:
     - light.tv_back
     - light.living_room_in
     - light.living_room_out
+    - light.living_room_table
     - light.gateway_light_34ce0083878f
 
 Lights Kitchen:
   view: no
   entities:
     - light.sink_right
-    - light.sink_left
+    #- light.sink_left

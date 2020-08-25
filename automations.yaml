@@ -33,8 +33,8 @@
 # KITCHEN #
 ###########
 
-- id: Long_press_toggle_kitchen_lights
-  alias: 'Long Press Toggle Kitchen Lights'
+- id: Long_press_toggle_living_room_lights
+  alias: 'Long Press Toggle living room table'
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
@@ -44,10 +44,10 @@
   action:
     service: light.toggle
     data:
-      entity_id: light.kitchen_lights
+      entity_id: light.living_room_table
 
-- id: Turn_on_kitchen_on_motion_at_night_time
-  alias: 'Turn ON Kitchen On Motion At Night Time'
+- id: Turn_on_living_room_table_on_motion_at_night_time
+  alias: 'Turn ON living room On Motion At Night Time'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d00020dc8b6
@@ -65,10 +65,10 @@
   action:
     service: light.turn_on
     data:
-      entity_id: light.kitchen_lights
+      entity_id: light.living_room_table
 
-- id: Turn_off_kitchen_after_two_minutes_with_no motion
-  alias: 'Turn OFF Kitchen After Two Minutes With No Motion'
+- id: Turn_off_living_room_after_two_minutes_with_no motion
+  alias: 'Turn OFF living room After Two Minutes With No Motion'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d00020dc8b6
@@ -88,7 +88,7 @@
   action:
     service: light.turn_off
     data:
-      entity_id: light.kitchen_lights
+      entity_id: light.living_room_table
 
 
 
