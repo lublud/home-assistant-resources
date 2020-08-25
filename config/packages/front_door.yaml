@@ -20,27 +20,49 @@ automation:
   #          photo:
   #            - file: !secret file_path_camera
   #              caption: 'The door has been opened'
-      - condition: and # if night and light not on
+#      - condition: and # if night and light not on
+#        conditions:
+#          - condition: state
+#            entity_id: light.sofa_lights
+#            state: 'off'
+#          - condition: state
+#            entity_id: light.tv_lights
+#            state: 'off'
+#          - condition: or
+#            conditions:
+#              - condition: sun
+#                after: sunset
+#                after_offset: "-01:00:00"
+#              - condition: sun
+#                before: sunrise
+#                before_offset: "-00:30:00"
+      - condition: or
         conditions:
-          - condition: state
-            entity_id: light.sofa_lights
-            state: 'off'
-          - condition: state
-            entity_id: light.tv_lights
-            state: 'off'
-          - condition: or
-            conditions:
-              - condition: sun
-                after: sunset
-                after_offset: "-01:00:00"
-              - condition: sun
-                before: sunrise
-                before_offset: "-00:30:00"
+          - condition: sun
+            after: sunset
+            after_offset: "-01:00:00"
+          - condition: sun
+            before: sunrise
+            before_offset: "-00:30:00"
       - service: light.turn_on
         data:
           entity_id: light.gateway_light_34ce0083878f
           brightness: 76
           rgb_color: [227,173,193]
+
+  - id: send_notif_door_not_locked_5_minutes
+    alias: "send a notification if door is not locked after 5 minutes being unlocked"
+    trigger:
+      platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00022c3388 # lock
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 5
+    action:
+      - service: notify.telegram
+        data:
+          message: 'Oh no, it looks like someone did not lock the door'
 
   - id: Notify_if_door_opened_too_long
     alias: 'Notify If Door Opened Too Long'
