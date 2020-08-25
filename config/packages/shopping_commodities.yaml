@@ -181,15 +181,15 @@ automation:
         zone: zone.wellcome
         event: enter
       - platform: zone
-        entity_id: device_tracker.ludovic_mia1
+        entity_id: device_tracker.ludovic_mi9t
         zone: zone.carrefour
         event: enter
       - platform: zone
-        entity_id: device_tracker.ludovic_mia1
+        entity_id: device_tracker.ludovic_mi9t
         zone: zone.px_mart
         event: enter
       - platform: zone
-        entity_id: device_tracker.ludovic_mia1
+        entity_id: device_tracker.ludovic_mi9t
         zone: zone.wellcome
         event: enter
     condition:

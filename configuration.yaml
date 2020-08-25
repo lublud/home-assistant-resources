@@ -27,9 +27,6 @@ config:
 system_health:
 
 http:
-  ssl_certificate: !secret ssl_certificate
-  ssl_key: !secret ssl_key
-  base_url: !secret base_url
   ip_ban_enabled: True
   login_attempts_threshold: 5
 #  cors_allowed_origins:
@@ -163,27 +160,27 @@ sensor:
 # Yeelight
 yeelight:
   devices:
-    192.168.31.121:
+    192.168.1.121:
       name: Bed under
-    192.168.31.122:
+    192.168.1.122:
       name: Bed L
-    192.168.31.123:
+    192.168.1.123:
       name: Bed T
-    192.168.31.124:
+    192.168.1.124:
       name: Ludovics desk
-    192.168.31.125:
+    192.168.1.125:
       name: Shower room
-    192.168.31.130:
+    192.168.1.130:
       name: TV up
-    192.168.31.131:
+    192.168.1.131:
       name: TV back
-    192.168.31.132:
+    192.168.1.132:
       name: Living room in
-    192.168.31.133:
+    192.168.1.133:
       name: Living room out
-    192.168.31.134:
+    192.168.1.134:
       name: Sink Left
-    192.168.31.135:
+    192.168.1.135:
       name: Sink Right
 
 light:
@@ -267,6 +264,28 @@ cast:
   - name: Bobby
     platform: cast
     host: !secret host_bobby_google_home
+
+zone:
+  - name: Carrefour
+    latitude: !secret latitude_carrefour
+    longitude: !secret longitude_carrefour
+    radius: 50
+  - name: RT Mart
+    latitude: !secret latitude_rt_mart
+    longitude: !secret longitude_rt_mart
+    radius: 50
+  - name: PX Mart
+    latitude: !secret latitude_px_mart
+    longitude: !secret longitude_px_mart
+    radius: 50
+  - name: Wellcome
+    latitude: !secret latitude_wellcome
+    longitude: !secret longitude_wellcome
+    radius: 50
+  - name: Office Ludovic
+    latitude: !secret latitude_office_ludo
+    longitude: !secret longitude_office_ludo
+    radius: 40
 
 # Camera
 camera:

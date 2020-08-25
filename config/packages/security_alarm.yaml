@@ -22,10 +22,6 @@ automation:
         entity_id: binary_sensor.door_window_sensor_158d00012153cf # front door
         from: 'off'
         to: 'on'
-      - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d00022c3388 # window balcony
-        from: 'off'
-        to: 'on'
     condition:
       - condition: state
         entity_id: input_boolean.alarm_enabled
@@ -49,10 +45,6 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.door_window_sensor_158d00012153cf # front door
-        from: 'off'
-        to: 'on'
-      - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d00022c3388 # window balcony
         from: 'off'
         to: 'on'
       - platform: state

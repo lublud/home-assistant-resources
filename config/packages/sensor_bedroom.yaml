@@ -80,7 +80,7 @@ automation:
         zone: zone.home
         event: leave
       - platform: zone
-        entity_id: device_tracker.ludovic_mia1
+        entity_id: device_tracker.ludovic_mi9t
         zone: zone.home
         event: leave
     condition:
@@ -90,7 +90,7 @@ automation:
           entity_id: device_tracker.tara_mia2
           state: 'not_home'
         - condition: state
-          entity_id: device_tracker.ludovic_mia1
+          entity_id: device_tracker.ludovic_mi9t
           state: 'not_home'
     action:
       - service: switch.turn_on
@@ -108,7 +108,7 @@ automation:
         zone: zone.home
         event: enter
       - platform: zone
-        entity_id: device_tracker.ludovic_mia1
+        entity_id: device_tracker.ludovic_mi9t
         zone: zone.home
         event: enter
     condition:
@@ -118,7 +118,7 @@ automation:
           entity_id: device_tracker.tara_mia2
           state: 'home'
         - condition: state
-          entity_id: device_tracker.ludovic_mia1
+          entity_id: device_tracker.ludovic_mi9t
           state: 'home'
     action:
       - service: switch.turn_off
