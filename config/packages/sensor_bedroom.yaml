@@ -1,12 +1,12 @@
-input_boolean:
-  bed_under_light_enabled:
-    name: Enable bed under only
-    initial: off
-    icon: mdi:toggle-switch
-
-  bedroom_door_sensor_enabled:
-    name: Enable bedroom door sensor
-    icon: mdi:toggle-switch
+#input_boolean:
+#  bed_under_light_enabled:
+#    name: Enable bed under only
+#    initial: off
+#    icon: mdi:toggle-switch
+#
+#  bedroom_door_sensor_enabled:
+#    name: Enable bedroom door sensor
+#    icon: mdi:toggle-switch
 
 
 automation:
@@ -14,194 +14,187 @@ automation:
     alias: 'Motion Detected Turn ON Bed Lights'
     trigger:
       platform: state
-      entity_id: binary_sensor.motion_sensor_158d0001225132
+      entity_id: binary_sensor.bedroom_motion_occupancy
       from: 'off'
       to: 'on'
     condition:
-      condition: or
+      condition: and
       conditions:
         - condition: sun
           after: sunset
           after_offset: "-01:00:00"
-        - condition: sun
-          before: sunrise
-          before_offset: "-00:30:00"
+        - condition: time
+          before: '23:30:00'
     action:
       - service: light.turn_on
         data:
-          entity_id: light.bed_under
+          entity_id: light.bed
           brightness: 255
-      - condition: state
-        entity_id: input_boolean.bed_under_light_enabled
-        state: 'off'
-      - service: light.turn_on
-        data:
-          entity_id: light.bed_lights
 
-  - id: no_motion_for_30_minutes_turn_off_bedroom_lights
-    alias: 'No Motion For 30 Minutes Turn OFF Bedroom Lights'
+  - id: no_motion_for_10_minutes_turn_off_bedroom_lights
+    alias: 'No Motion For 10 Minutes Turn OFF Bedroom Lights'
     trigger:
       platform: state
-      entity_id: binary_sensor.motion_sensor_158d0001225132
+      entity_id: binary_sensor.bedroom_motion_occupancy
       from: 'on'
       to: 'off'
       for:
-        minutes: 30
+        minutes: 10
     action:
       service: light.turn_off
       data:
         entity_id: light.bed_lights
 
-  - id: notify_when_bedroom_door_opens
-    alias: 'Notify when Bedroom Door Opens'
-    trigger:
-      platform: state
-      entity_id: binary_sensor.door_window_sensor_158d00018311c8
-      from: 'off'
-      to: 'on'
-    condition:
-      condition: state
-      entity_id: input_boolean.bedroom_door_sensor_enabled
-      state: 'on'
-    action:
-      - service:  light.turn_on
-        data:
-          entity_id: light.bedroom_lights
-          effect: 'Alarm'
-      - service: notify.telegram_admin
-        data:
-          message: 'Bedroom door opened'
+#  - id: notify_when_bedroom_door_opens
+#    alias: 'Notify when Bedroom Door Opens'
+#    trigger:
+#      platform: state
+#      entity_id: binary_sensor.door_window_sensor_158d00018311c8
+#      from: 'off'
+#      to: 'on'
+#    condition:
+#      condition: state
+#      entity_id: input_boolean.bedroom_door_sensor_enabled
+#      state: 'on'
+#    action:
+#      - service:  light.turn_on
+#        data:
+#          entity_id: light.bedroom_lights
+#          effect: 'Alarm'
+#      - service: notify.telegram_admin
+#        data:
+#          message: 'Bedroom door opened'
 
-  - id: turn_on_bedroom_door_sensor_when_leaving_home
-    alias: 'Turn ON Bedroom Door Sensor When Leaving Home'
-    trigger:
-      - platform: zone
-        entity_id: device_tracker.tara_mia2
-        zone: zone.home
-        event: leave
-      - platform: zone
-        entity_id: device_tracker.ludovic_mi9t
-        zone: zone.home
-        event: leave
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: device_tracker.tara_mia2
-          state: 'not_home'
-        - condition: state
-          entity_id: device_tracker.ludovic_mi9t
-          state: 'not_home'
-    action:
-      - service: switch.turn_on
-        data:
-          entity_id: switch.smart_plug
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.bedroom_door_sensor_enabled
+#  - id: turn_on_bedroom_door_sensor_when_leaving_home
+#    alias: 'Turn ON Bedroom Door Sensor When Leaving Home'
+#    trigger:
+#      - platform: zone
+#        entity_id: device_tracker.tara_mia2
+#        zone: zone.home
+#        event: leave
+#      - platform: zone
+#        entity_id: device_tracker.ludovic_mi9t
+#        zone: zone.home
+#        event: leave
+#    condition:
+#      condition: and
+#      conditions:
+#        - condition: state
+#          entity_id: device_tracker.tara_mia2
+#          state: 'not_home'
+#        - condition: state
+#          entity_id: device_tracker.ludovic_mi9t
+#          state: 'not_home'
+#    action:
+#      - service: switch.turn_on
+#        data:
+#          entity_id: switch.smart_plug
+#      - service: input_boolean.turn_on
+#        data:
+#          entity_id: input_boolean.bedroom_door_sensor_enabled
 
-  - id: turn_off_bedroom_door_sensor_when_entering_home
-    alias: 'Turn OFF Bedroom Door Sensor When Entering Home'
-    trigger:
-      - platform: zone
-        entity_id: device_tracker.tara_mia2
-        zone: zone.home
-        event: enter
-      - platform: zone
-        entity_id: device_tracker.ludovic_mi9t
-        zone: zone.home
-        event: enter
-    condition:
-      condition: or
-      conditions:
-        - condition: state
-          entity_id: device_tracker.tara_mia2
-          state: 'home'
-        - condition: state
-          entity_id: device_tracker.ludovic_mi9t
-          state: 'home'
-    action:
-      - service: switch.turn_off
-        data:
-          entity_id: switch.smart_plug
-      - service: input_boolean.turn_off
-        data:
-          entity_id: input_boolean.bedroom_door_sensor_enabled
+#  - id: turn_off_bedroom_door_sensor_when_entering_home
+#    alias: 'Turn OFF Bedroom Door Sensor When Entering Home'
+#    trigger:
+#      - platform: zone
+#        entity_id: device_tracker.tara_mia2
+#        zone: zone.home
+#        event: enter
+#      - platform: zone
+#        entity_id: device_tracker.ludovic_mi9t
+#        zone: zone.home
+#        event: enter
+#    condition:
+#      condition: or
+#      conditions:
+#        - condition: state
+#          entity_id: device_tracker.tara_mia2
+#          state: 'home'
+#        - condition: state
+#          entity_id: device_tracker.ludovic_mi9t
+#          state: 'home'
+#    action:
+#      - service: switch.turn_off
+#        data:
+#          entity_id: switch.smart_plug
+#      - service: input_boolean.turn_off
+#        data:
+#          entity_id: input_boolean.bedroom_door_sensor_enabled
 
-  - id: turn_on_bed_under_light_only_at_23_30
-    alias: 'Turn ON Bed Under Light Only At 23h30'
-    trigger:
-      platform: time
-      at: '23:30:00'
-    action:
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.bed_under_light_enabled
+#  - id: turn_on_bed_under_light_only_at_23_30
+#    alias: 'Turn ON Bed Under Light Only At 23h30'
+#    trigger:
+#      platform: time
+#      at: '23:30:00'
+#    action:
+#      - service: input_boolean.turn_on
+#        data:
+#          entity_id: input_boolean.bed_under_light_enabled
 
-  - id: turn_off_bed_under_light_only_at_08_00
-    alias: 'Turn OFF Bed Under Light Only At 08h00'
-    trigger:
-      platform: time
-      at: '08:00:00'
-    action:
-      - service: input_boolean.turn_off
-        data:
-          entity_id: input_boolean.bed_under_light_enabled
+#  - id: turn_off_bed_under_light_only_at_08_00
+#    alias: 'Turn OFF Bed Under Light Only At 08h00'
+#    trigger:
+#      platform: time
+#      at: '08:00:00'
+#    action:
+#      - service: input_boolean.turn_off
+#        data:
+#          entity_id: input_boolean.bed_under_light_enabled
 
-  - id: reset_bedroom_light
-    alias: 'Reset Bedroom Light'
-    trigger:
-      platform:  event
-      event_type: xiaomi_aqara.click
-      event_data:
-        entity_id: binary_sensor.switch_158d000121d17f
-        click_type: long_click_press
-    action:
-      - service: script.set_bedroom_lights_default_values
-      - delay: '00:00:01'
-      - service: light.turn_off
-        data:
-          entity_id: light.shower_room
-      - service: light.turn_off
-        data:
-          entity_id: light.ludovics_desk
-      - condition: and
-        conditions:
-          - condition: sun
-            after: sunrise
-            after_offset: "-00:30:00"
-          - condition: sun
-            before: sunset
-            before_offset: "-01:00:00"
-      - service: light.turn_off
-        data:
-          entity_id: light.bed_lights
+#  - id: reset_bedroom_light
+#    alias: 'Reset Bedroom Light'
+#    trigger:
+#      platform:  event
+#      event_type: xiaomi_aqara.click
+#      event_data:
+#        entity_id: binary_sensor.switch_158d000121d17f
+#        click_type: long_click_press
+#    action:
+#      - service: script.set_bedroom_lights_default_values
+#      - delay: '00:00:01'
+#      - service: light.turn_off
+#        data:
+#          entity_id: light.shower_room
+#      - service: light.turn_off
+#        data:
+#          entity_id: light.ludovics_desk
+#      - condition: and
+#        conditions:
+#          - condition: sun
+#            after: sunrise
+#            after_offset: "-00:30:00"
+#          - condition: sun
+#            before: sunset
+#            before_offset: "-01:00:00"
+#      - service: light.turn_off
+#        data:
+#          entity_id: light.bed_lights
 
 
-script:
-  set_bedroom_lights_default_values:
-    sequence:
-      - service: light.turn_on
-        data:
-          entity_id: light.bed_lights
-          rgb_color: [255,128, 0]
-      - service: light.turn_on
-        data:
-          entity_id: light.shower_room
-          rgb_color: [255,128, 0]
-      - service: light.turn_on
-        data:
-          entity_id: light.ludovics_desk
-          rgb_color: [255,146, 228]
+#script:
+#  set_bedroom_lights_default_values:
+#    sequence:
+#      - service: light.turn_on
+#        data:
+#          entity_id: light.bed_lights
+#          rgb_color: [255,128, 0]
+#      - service: light.turn_on
+#        data:
+#          entity_id: light.shower_room
+#          rgb_color: [255,128, 0]
+#      - service: light.turn_on
+#        data:
+#          entity_id: light.ludovics_desk
+#          rgb_color: [255,146, 228]
 
 group:
   bed_sensors:
     name: Bed Sensors
     entities:
-      - binary_sensor.motion_sensor_158d0001225132 # Bedroom
-      - input_boolean.bed_under_light_enabled
-  bedroom_door:
-    name: Bedroom door
-    entities:
-     - binary_sensor.door_window_sensor_158d00018311c8 # bedroom door
-     - input_boolean.bedroom_door_sensor_enabled
+      - binary_sensor.bedroom_motion_occupancy
+#      - input_boolean.bed_under_light_enabled
+#  bedroom_door:
+#    name: Bedroom door
+#    entities:
+#     - binary_sensor.door_window_sensor_158d00018311c8 # bedroom door
+#     - input_boolean.bedroom_door_sensor_enabled

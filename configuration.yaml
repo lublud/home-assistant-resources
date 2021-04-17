@@ -11,20 +11,23 @@ homeassistant:
   time_zone: !secret time_zone
   customize: !include customize.yaml
   packages: !include_dir_named config/packages/
-  whitelist_external_dirs: !secret whitelisted_ext_dirs
+  allowlist_external_dirs: !secret allowlist_ext_dirs
 
 # Enables the frontend
-frontend:
-  themes: !include themes.yaml
-  extra_html_url:
-    - /local/custom_ui/state-card-tiles.html
-  extra_html_url_es5:
-    - /local/custom_ui/state-card-tiles_es5.html
+#frontend:
+#  themes: !include themes.yaml
+#  extra_html_url:
+#    - /local/custom_ui/state-card-tiles.html
+#  extra_html_url_es5:
+#    - /local/custom_ui/state-card-tiles_es5.html
 
 # Enables configuration UI
 config:
 
 system_health:
+
+lovelace:
+  mode: yaml
 
 http:
   ip_ban_enabled: True
@@ -41,6 +44,10 @@ updater:
 
 # Enables support for tracking state changes over time
 history:
+
+# Logger - log level
+logger:
+  default: warning
 
 # View all events in a logbook
 logbook:
@@ -61,12 +68,12 @@ map:
 # Track the sun
 #sun:
 
-panel_custom:
-  - name: floorplan
-    sidebar_title: Floorplan
-    sidebar_icon: mdi:floor-plan
-    url_path: floorplan
-    config: !include config/floorplan.yaml
+#panel_custom:
+#  - name: floorplan
+#    sidebar_title: Floorplan
+#    sidebar_icon: mdi:floor-plan
+#    url_path: floorplan
+#    config: !include config/floorplan.yaml
 
 
 # Cloud
@@ -80,9 +87,9 @@ cloud:
         - light.tv_back
         - light.living_room_in
         - light.living_room_out
-        - light.bed_l
-        - light.bed_t
-        - light.bed_under
+#        - light.bed_l
+#        - light.bed_t
+        - light.bed
       exclude_domains:
         - input_boolean
         - input_text
@@ -123,6 +130,7 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 
 mqtt:
+  discovery: true
   broker: localhost
   username: !secret mosquitto_username
   password: !secret mosquitto_password
@@ -155,19 +163,19 @@ sensor:
   - platform: waqi
     token: !secret token_waqi
     locations:
-      - Zhongshan, Taiwan
+      - Taipei
 
 # Yeelight
 yeelight:
   devices:
     192.168.1.121:
-      name: Bed under
-    192.168.1.122:
-      name: Bed L
-    192.168.1.123:
-      name: Bed T
-    192.168.1.124:
-      name: Ludovics desk
+      name: Bed
+#    192.168.1.122:
+#      name: Bed L
+#    192.168.1.123:
+#      name: Bed T
+#    192.168.1.124:
+#      name: Ludovics desk
     192.168.1.125:
       name: Shower room
     192.168.1.130:
@@ -175,53 +183,47 @@ yeelight:
     192.168.1.131:
       name: TV back
     192.168.1.132:
-      name: Living room in
-    192.168.1.133:
-      name: Living room out
+      name: Living room main
+#    192.168.1.133:
+#      name: Living room out
     192.168.1.134:
       name: Living room table
 #      name: Sink Left
-    192.168.1.135:
-      name: Sink Right
+#    192.168.1.135:
+#      name: Sink Right
 
 light:
   - platform: group
     name: Bedroom lights
     entities:
-      - light.bed_t
-      - light.bed_l
-      - light.bed_under
-      - light.ludovics_desk
-      - light.shower_room
+#      - light.bed_t
+#      - light.bed_l
+      - light.bed
+#      - light.ludovics_desk
+#      - light.shower_room
   - platform: group
     name: Bed lights
     entities:
-      - light.bed_t
-      - light.bed_l
-      - light.bed_under
+#      - light.bed_t
+#      - light.bed_l
+      - light.bed
   - platform: group
     name: Living room lights
     entities:
       #- light.living_room_in
       #- light.living_room_out
+      - light.living_room_main
       - light.living_room_table
       - light.tv_up
       - light.tv_back
-  - platform: group
-    name: Sofa lights
-    entities:
-      - light.living_room_in
-      - light.living_room_out
   - platform: group
     name: TV lights
     entities:
       - light.tv_up
       - light.tv_back
   - platform: group
-    name: Kitchen lights
+    name: Dining room lights
     entities:
-      #- light.sink_right
-      #- light.sink_left
       - light.living_room_table
 
 # Air purifier 2
@@ -247,7 +249,7 @@ switch:
     token: !secret token_smart_plug
 
 # IR Remote
-remote: !include config/xiaomi_ir_remote.yaml
+#remote: !include config/xiaomi_ir_remote.yaml
 
 # Xiaomi Vacuum
 vacuum:
@@ -256,50 +258,50 @@ vacuum:
     token: !secret token_vacuum
 
 # Google cast
-cast:
-  media_player:
-  - name: Chromcast
-    platform: cast
-    host: !secret host_chromecast
-  - name: Teddy
-    platform: cast
-    host: !secret host_teddy_google_home
-  - name: Bobby
-    platform: cast
-    host: !secret host_bobby_google_home
+#cast:
+#  media_player:
+#  - name: Chromcast
+#    platform: cast
+#    host: !secret host_chromecast
+#  - name: Teddy
+#    platform: cast
+#    host: !secret host_teddy_google_home
+#  - name: Bobby
+#    platform: cast
+#    host: !secret host_bobby_google_home
 
 zone:
-  - name: Carrefour
-    latitude: !secret latitude_carrefour
-    longitude: !secret longitude_carrefour
-    radius: 50
-  - name: RT Mart
-    latitude: !secret latitude_rt_mart
-    longitude: !secret longitude_rt_mart
-    radius: 50
-  - name: PX Mart
-    latitude: !secret latitude_px_mart
-    longitude: !secret longitude_px_mart
-    radius: 50
-  - name: Wellcome
-    latitude: !secret latitude_wellcome
-    longitude: !secret longitude_wellcome
-    radius: 50
+#  - name: Carrefour
+#    latitude: !secret latitude_carrefour
+#    longitude: !secret longitude_carrefour
+#    radius: 50
+#  - name: RT Mart
+#    latitude: !secret latitude_rt_mart
+#    longitude: !secret longitude_rt_mart
+#    radius: 50
+#  - name: PX Mart
+#    latitude: !secret latitude_px_mart
+#    longitude: !secret longitude_px_mart
+#    radius: 50
+#  - name: Wellcome
+#    latitude: !secret latitude_wellcome
+#    longitude: !secret longitude_wellcome
+#    radius: 50
   - name: Office Ludovic
     latitude: !secret latitude_office_ludo
     longitude: !secret longitude_office_ludo
     radius: 40
 
 # Camera
-camera:
+#camera:
   # Weather satellite
-  - platform: generic
-    name: Taiwan Weather Satellite
-    still_image_url: !secret url_weather_satellite_taipei
+#  - platform: generic
+#    name: Taiwan Weather Satellite
+#    still_image_url: !secret url_weather_satellite_taipei
   # Security camera
-  - platform: mjpeg
-    name: Living Room Live
-    mjpeg_url: !secret mjpeg_url_camera
+#  - platform: mjpeg
+#    name: Living Room Live
+#    mjpeg_url: !secret mjpeg_url_camera
 
 binary_sensor:
 # MQTT binary sensor
@@ -314,8 +316,8 @@ binary_sensor:
     excludes: holiday
 
 # IFTTT
-ifttt:
-  key: !secret ifttt_key
+#ifttt:
+#  key: !secret ifttt_key
 
 # Telegram
 notify:
@@ -330,8 +332,9 @@ notify:
 #    gcm_api_key: !secret gcm_api_key
 #    gcm_sender_id: !secret gcm_sender_id
 
+# platform broadcast instead of polling: https://github.com/home-assistant/core/issues/18271
 telegram_bot:
-  platform: polling
+  platform: broadcast 
   api_key: !secret api_key_telegram
   allowed_chat_ids:
     - !secret chat_id_telegram

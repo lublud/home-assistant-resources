@@ -2,120 +2,133 @@
 # LIVING ROOM #
 ###############
 
-- id: Double_click_toggle_sofa_lights
-  alias: 'Double Click Toggle Sofa Lights'
+# cube - sides
+# 0: up of 'mi' side
+# 1: right of 'mi' side
+# 2: opposite of 'mi' side
+# 3: down of 'mi' side (battery)
+# 4: left of 'mi' side
+# 5: 'mi' side
+
+- id: Shake_turn_off_living_room_lights
+  alias: 'Shake turn off living room lights'
   trigger:
-    platform: event
-    event_type: xiaomi_aqara.click
-    event_data:
-      entity_id: binary_sensor.switch_158d0001245482
-      click_type: double
-  action:
-    service: light.toggle
-    data:
-      entity_id: light.sofa_lights
-
-- id: Single_click_toggle_TV_lights
-  alias: 'Single Click Toggle TV Lights'
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.click
-    event_data:
-      entity_id: binary_sensor.switch_158d0001245482
-      click_type: single
-  action:
-    service: light.toggle
-    data:
-      entity_id: light.tv_lights
-
-
-###########
-# KITCHEN #
-###########
-
-- id: Long_press_toggle_living_room_lights
-  alias: 'Long Press Toggle living room table'
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.click
-    event_data:
-      entity_id: binary_sensor.switch_158d0001245482
-      click_type: long_click_press
-  action:
-    service: light.toggle
-    data:
-      entity_id: light.living_room_table
-
-- id: Turn_on_living_room_table_on_motion_at_night_time
-  alias: 'Turn ON living room On Motion At Night Time'
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d00020dc8b6
-    from: 'off'
-    to: 'on'
+    platform: mqtt
+    topic: zigbee2mqtt/living_room_cube
   condition:
-    condition: or
-    conditions:
-      - condition: sun
-        after: sunset
-        after_offset: "-01:00:00"
-      - condition: sun
-        before: sunrise
-        before_offset: "-00:30:00"
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "shake" }}'
+  action:
+    service: light.turn_off
+    entity_id: light.living_room_lights
+
+- id: Tap_toggle_living_room_lights
+  alias: 'Tap Toggle living room lights'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/living_room_cube
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "tap" }}'
+  action:
+    service: light.toggle
+    data_template:
+      entity_id: >-
+        {% if trigger.payload_json.side == 0 %}
+          light.tv_lights
+        {% elif trigger.payload_json.side == 1 %}
+          light.living_room_main
+        {% elif trigger.payload_json.side == 4 %}
+          light.living_room_table
+        {% elif trigger.payload_json.side == 5 %}
+          light.living_room_lights
+        {% endif %}
+
+- id: Rotate_Right_incr_brightness_living_room_lights
+  alias: 'Rotate Right Incr Brightness living room lights'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/living_room_cube
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "rotate_right" }}'
   action:
     service: light.turn_on
-    data:
-      entity_id: light.living_room_table
+    data_template:
+      entity_id: >-
+        {% if trigger.payload_json.side == 0 %}
+          light.tv_lights
+        {% elif trigger.payload_json.side == 1 %}
+          light.living_room_main
+        {% elif trigger.payload_json.side == 4 %}
+          light.living_room_table
+        {% elif trigger.payload_json.side == 5 %}
+          light.living_room_lights
+        {% endif %}
+      brightness_step_pct: 10
 
-- id: Turn_off_living_room_after_two_minutes_with_no motion
-  alias: 'Turn OFF living room After Two Minutes With No Motion'
+- id: Rotate_Left_decr_brightness_living_room_lights
+  alias: 'Rotate Left Decr Brightness living room lights'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/living_room_cube
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "rotate_left" }}'
+  action:
+    service: light.turn_on
+    data_template:
+      entity_id: >-
+        {% if trigger.payload_json.side == 0 %}
+          light.tv_lights
+        {% elif trigger.payload_json.side == 1 %}
+          light.living_room_main
+        {% elif trigger.payload_json.side == 4 %}
+          light.living_room_table
+        {% elif trigger.payload_json.side == 5 %}
+          light.living_room_lights
+        {% endif %}
+      brightness_step_pct: "-10"
+
+- id: Turn_off_living_room_after_60_minutes_inactive
+  alias: 'Turn off living room after 60 minutes inactive'
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_158d00020dc8b6
-    from: 'on'
+    entity_id: binary_sensor.living_room_motion_occupancy
     to: 'off'
     for:
-      minutes: 2
-  condition:
-    condition: or
-    conditions:
-      - condition: sun
-        after: sunset
-        after_offset: "-01:00:00"
-      - condition: sun
-        before: sunrise
-        before_offset: "-00:30:00"
+      minutes: 60
   action:
     service: light.turn_off
     data:
-      entity_id: light.living_room_table
-
+      entity_id: light.living_room_lights
+  
 
 
 ###########
 # BEDROOM #
 ###########
 
-- id: Shake_cube_toggle_lights
-  alias: 'Shake Cube Toggle Bed Lights'
+- id: single_press_toggle_lights
+  alias: 'Single Press Toggle Bed Lights'
   trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube_158d00010f0603
-      action_type: shake_air
+    platform: mqtt
+    topic: zigbee2mqtt/bedroom_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "single" }}'
   action:
     service: light.toggle
     entity_id: light.bed_lights
 
-- id: Tap_twice_with_cube_turn_on_light_white_100percent
-  alias: 'Tap Twice With Cube Turn ON Light (White - 100 percent)'
+- id: Long_Press_turn_on_light_white_100percent
+  alias: 'Long Press Turn ON Light (White - 100 percent)'
   trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube_158d00010f0603
-      action_type: tap_twice
+    platform: mqtt
+    topic: zigbee2mqtt/bedroom_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "hold" }}'
   action:
     service: light.turn_on
     entity_id: light.bed_lights
@@ -123,14 +136,14 @@
       brightness: 255
       rgb_color: [255,255,255]
 
-- id: flip180_cube_turn_on_light_(orange_30percent)
-  alias: 'Flip 180 Cube Turn ON Light (Orange - 30 percent)'
+- id: Double_press_turn_on_light_(orange_30percent)
+  alias: 'Double Press Turn ON Light (Orange - 30 percent)'
   trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube_158d00010f0603
-      action_type: flip180
+    platform: mqtt
+    topic: zigbee2mqtt/bedroom_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "double" }}'
   action:
     service: light.turn_on
     entity_id: light.bed_lights
@@ -138,54 +151,28 @@
       brightness: 76
       rgb_color: [255,165,0]
 
-- id: flip90_cube_toggle_desk_light
-  alias: 'Flip 90 Cube Toggle Desk Light'
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube_158d00010f0603
-      action_type: flip90
-  action:
-    service: light.toggle
-    entity_id: light.ludovics_desk
+#- id: flip90_cube_toggle_desk_light
+#  alias: 'Flip 90 Cube Toggle Desk Light'
+#  trigger:
+#    platform: mqtt
+#    topic: zigbee2mqtt/living_room_cube
+#  condition:
+#    - condition: template
+#      value_template: '{{ trigger.payload_json.action == "flip90" }}'
+#  action:
+#    service: light.toggle
+#    entity_id: light.ludovics_desk
 
 
 ###############
 # Shower Room #
 ###############
 
-#- id: Single_click_toggle_bedroom_lights
-#  alias: 'Single Click Toggle Bedroom Lights'
-#  trigger:
-#    platform: event
-#    event_type: xiaomi_aqara.click
-#    event_data:
-#      entity_id: binary_sensor.switch_158d000121d17f
-#      click_type: single
-#  action:
-#    service: light.toggle
-#    data:
-#      entity_id: light.bed_lights
-#
-#- id: Double_click_toggle_shower_room_light
-#  alias: 'Double Click Toggle Shower Room Light
-#  trigger:
-#    platform: event
-#    event_type: xiaomi_aqara.click
-#    event_data:
-#      entity_id: binary_sensor.switch_158d000121d17f
-#      click_type: double
-#  action:
-#    service: light.toggle
-#    data:
-#      entity_id: light.shower_room
-
 - id: Motion_detected_turn_on_shower_room_light
   alias: 'Motion Detected Turn ON Shower Room Light'
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_158d00023666d9
+    entity_id: binary_sensor.shower_room_motion_occupancy
     from: 'off'
     to: 'on'
   action:
@@ -193,20 +180,54 @@
     data:
       entity_id: light.shower_room
 
-- id: No_motion_for_5_minutes_turn_off_shower room light
-  alias: 'No Motion For 5 Minutes Turn OFF Shower Room Light'
+- id: No_motion_for_2_minutes_turn_off_shower room light
+  alias: 'No Motion For 2 Minutes Turn OFF Shower Room Light'
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_158d00023666d9
+    entity_id: binary_sensor.shower_room_motion_occupancy
     from: 'on'
     to: 'off'
     for:
-      minutes: 5
+      minutes: 2
+  condition:
+    - condition: state
+      entity_id: binary_sensor.shower_room_door_contact
+      state: 'on'
   action:
     service: light.turn_off
     data:
       entity_id: light.shower_room
 
+
+###########
+# KITCHEN #
+###########
+
+- id: turn_on_kitchen_switch_when_motion_detected
+  alias: 'Turn on kitchen switch when motion detected'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    to: 'on'
+  action:
+    service: switch.turn_on
+    data:
+      entity_id: switch.thin_power_switch
+
+- id: turn_off_kitchen_switch_when_no_motion_for_a_minute
+  alias: 'Turn off kitchen switch when no motion for a minute'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 1
+  action:
+    service: switch.turn_off
+    data:
+      entity_id: switch.thin_power_switch
+      
 
 ############
 # TELEGRAM #
@@ -243,18 +264,3 @@
 #        - !secret chat_id_telegram_admin
 #      file: !secret doc_log
 #      disable_notification: true
-
-
-############
-# TELEGRAM #
-############
-
-- id: fire_ifttt_event
-  alias: 'Fire IFTTT Event'
-  trigger:
-    platform: event
-    event_type: ifttt_webhook_received
-    event_data:
-      action: call_service
-  action:
-    service_template: '{{ trigger.event.data.service }}'

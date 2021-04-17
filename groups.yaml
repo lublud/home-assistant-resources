@@ -1,16 +1,12 @@
-default_view:
-  view: yes
+People:
+  #view: yes
   icon: mdi:home
-  entities: 
-    - group.weather
-    - group.bedroom_sensors
-    - group.bedroom
-    - group.living_room
+  entities:
     - device_tracker.ludovic_mi9t
     - device_tracker.tara_mia2
 
 Security:
-  view: yes
+  #view: yes
   icon: mdi:shield-home
   entities:
     - group.security_sensor
@@ -18,98 +14,84 @@ Security:
     - camera.living_room_live
 
 Google:
-  view: yes
+  #view: yes
   icon: mdi:google-home
   entities:
     - media_player.tv_chomecast
     - media_player.teddy
     - media_player.bobby
 
-Sensors:
-  view: yes
-  icon: mdi:circle-outline
-  entities:
-    - group.bed_sensors
-    - group.bedroom_door
-    - group.other_sensors
+#Sensors:
+#  #view: yes
+#  icon: mdi:circle-outline
+#  entities:
+#    - group.bed_sensors
+#    - group.bedroom_door
+#    - group.other_sensors
 
-Shopping:
-  view: yes
-  icon: mdi:cart
-  entities:
-    - group.shopping_kitchen
-    - group.shopping_bathroom
-    - group.shopping_cleaning
-    - group.shopping_food_drink
-    - group.shopping_others
+#Lights:
+#  #view: yes
+#  icon: mdi:lightbulb-on
+#  entities:
+#    - group.lights_bedroom
+#    - group.lights_living_room
+#    - group.lights_kitchen
 
-Lights:
-  view: yes
-  icon: mdi:lightbulb-on
-  entities:
-    - group.lights_bedroom
-    - group.lights_living_room
-    - group.lights_kitchen
-
-Remote:
-  view: yes
-  icon: mdi:air-conditioner
-  entities:
-    - group.ac_set_timer
-    - group.ac_set_delay
-    - group.ac_set_time_slot
-    - group.ac_set_time_interval
-    - group.ac_control_panel
-    - group.fan_control_panel
+#Remote:
+#  #view: yes
+#  icon: mdi:air-conditioner
+#  entities:
+#    - group.ac_set_timer
+#    - group.ac_set_delay
+#    - group.ac_set_time_slot
+#    - group.ac_set_time_interval
+#    - group.ac_control_panel
+#    - group.fan_control_panel
 
 Vacuum Remote:
-  view: yes
+  #view: yes
   icon: mdi:robot-vacuum
   entities:
     - group.vacuum_schedule_weekdays
     - group.vacuum_schedule_weekend
     - vacuum.xiaomi_vacuum_cleaner
-    - group.vacuum_control_panel
+    #- group.vacuum_control_panel
 
 
 ################
 # DEFAULT VIEW #
 ################
 
-Weather: 
-  view: no
+Weather:
+  #view: no
   entities:
     - weather.dark_sky
-    - sensor.waqi_zhongshan_taiwan_tai_wan_zhong_shan
-    - camera.taiwan_weather_satellite
+    - sensor.waqi_guting_taiwan_tai_wan_gu_ting
+    #- camera.taiwan_weather_satellite
 
 Bedroom Sensors:
-  view: no
+  #view: no
   entities:
     - sensor.bedroom_temperature
     - sensor.bedroom_humidity
     - sensor.bedroom_aqi
 
-Kitchen:
-  view: no
-  entities:
-    - light.kitchen_lights
-
-Bedroom:
-  view: no
+Lights:
+  #view: no
   entities:
     - light.bed_lights
-    - light.ludovics_desk
+    #- light.ludovics_desk
     - light.shower_room
-    - fan.mi_air_purifier_2
-
-Living Room:
-  view: no
-  entities:
-    #- light.sofa_lights
     - light.tv_lights
     - light.living_room_table
-    - light.gateway_light_34ce0083878f
+    - light.living_room_main
+
+Living Room:
+  entities:
+    - light.tv_lights
+    - light.living_room_table
+    - light.living_room_main
+    - fan.mi_air_purifier_2
 
 
 ############
@@ -117,29 +99,29 @@ Living Room:
 ############
 
 Security Sensor:
-  view: no
+  #view: no
   entities:
-    - binary_sensor.door_window_sensor_158d00012153cf # door
-    - binary_sensor.door_window_sensor_158d00022c3388 # lock
+    - binary_sensor.front_door_contact
+    - binary_sensor.front_door_lock_contact
 
 
 ###########
 # SENSORS #
 ###########
 
-Other Sensors:
-  view: no
-  entities:
-    - sensor.illumination_34ce0083878f
-    - switch.smart_plug # Bedroom
-    - switch.plug_158d000163aec1 # Other
-    - binary_sensor.motion_sensor_158d0001db53b2 # NOT WORKING
-    - binary_sensor.motion_sensor_158d00020dc8b6 # Kitchen
-    - binary_sensor.motion_sensor_158d00023666d9 # Shower room
-    #- binary_sensor.camera
-    - binary_sensor.switch_158d000121d17f # Bedroom lights
-    - binary_sensor.switch_158d0001245482 # TV lights
-    - binary_sensor.cube_158d00010f0603
+#Other Sensors:
+#  #view: no
+#  entities:
+#    - sensor.illumination_34ce0083878f
+#    - switch.smart_plug # Bedroom
+#    - switch.plug_158d000163aec1 # Other
+#    - binary_sensor.motion_sensor_158d0001db53b2 # NOT WORKING
+#    - binary_sensor.motion_sensor_158d00020dc8b6 # Kitchen
+#    - binary_sensor.motion_sensor_158d00023666d9 # Shower room
+#    #- binary_sensor.camera
+#    - binary_sensor.switch_158d000121d17f # Bedroom lights
+#    - binary_sensor.switch_158d0001245482 # TV lights
+#    - binary_sensor.cube_158d00010f0603
 
 
 ##############
@@ -147,26 +129,20 @@ Other Sensors:
 ##############
 
 Lights Bedroom:
-  view: no
+  #view: no
   entities:
-    - light.bed_t
-    - light.bed_l
-    - light.bed_under
-    - light.ludovics_desk
+#    - light.bed_t
+#    - light.bed_l
+    - light.bed
+    #- light.ludovics_desk
     - light.shower_room
 
-Lights Living Room:
-  view: no
-  entities:
-    - light.tv_up
-    - light.tv_back
-    - light.living_room_in
-    - light.living_room_out
-    - light.living_room_table
-    - light.gateway_light_34ce0083878f
-
-Lights Kitchen:
-  view: no
-  entities:
-    - light.sink_right
-    #- light.sink_left
+#Lights Living Room:
+#  #view: no
+#  entities:
+#    - light.tv_up
+#    - light.tv_back
+#    #- light.living_room_in
+#    #- light.living_room_out
+#    - light.living_room_table
+#    - light.living_room_main

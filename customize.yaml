@@ -74,7 +74,7 @@ binary_sensor.door_window_sensor_158d00012153cf:
 binary_sensor.door_window_sensor_158d00022c3388:
   friendly_name: Front Door Lock
 binary_sensor.door_window_sensor_158d00018311c8:
-  friendly_name: Door Bedroom
+  friendly_name: Door Shower
 example_sensor.blah_blah:
   custom_ui_state_card: state-card-tiles
   config:

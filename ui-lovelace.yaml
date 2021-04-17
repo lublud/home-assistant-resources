@@ -1,0 +1,265 @@
+title: TechVille
+views:
+  - path: home
+    title: Home
+    cards:
+      - type: grid
+        title: Indoor
+        columns: 1
+        square: false
+        cards:
+          - type: sensor
+            name: Temperature
+            entity: sensor.bedroom_temperature
+            graph: line
+          - type: sensor
+            name: Humidity
+            entity: sensor.bedroom_humidity
+            graph: line
+          - type: sensor
+            name: Air Quality
+            graph: line
+            entity: sensor.bedroom_aqi
+      - type: grid
+        title: Outdoor
+        columns: 1
+        square: false
+        cards:
+          - type: sensor
+            name: Temperature
+            entity: sensor.openweathermap_temperature
+            graph: line
+          - type: sensor
+            name: Humidity
+            entity: sensor.openweathermap_humidity
+            graph: line
+          - type: sensor
+            name: Air Quality
+            #entity: sensor.waqi_north_taipei_city_sinyi_taiwan
+            entity: sensor.waqi_north_taipei_city_daan_taiwan
+            graph: line
+      - type: iframe
+        title: Weather radar
+        aspect_ratio: 80%
+        url: https://embed.windy.com/?24.727,121.393,8
+      - type: weather-forecast
+        entity: weather.openweathermap
+      - type: grid
+        title: Lights
+        columns: 3
+        square: false
+        cards:
+          - type: light
+            entity: light.living_room_table
+          - type: light
+            entity: light.tv_lights
+          - type: light
+            entity: light.living_room_main
+          - type: light
+            entity: light.bed
+          - type: light
+            entity: light.shower_room
+      - type: grid
+        title: Sensors
+        columns: 1
+        square: false
+        cards:
+          - type: glance
+            title: Security
+            entities:
+              - binary_sensor.front_door_contact
+              - binary_sensor.front_door_lock_contact
+          - type: glance
+            title: Occupancy
+            entities:
+              - binary_sensor.bedroom_motion_occupancy
+              - binary_sensor.living_room_motion_occupancy
+              - binary_sensor.shower_room_motion_occupancy
+              - binary_sensor.kitchen_motion_occupancy
+              - binary_sensor.broken_motion_occupancy
+          - type: glance
+            title: Others
+            entities:
+              - sensor.living_room_cube_action
+              - sensor.bedroom_switch_action
+              - binary_sensor.shower_room_door_contact
+              - vacuum.xiaomi_vacuum_cleaner
+  - path: all_view
+    title: All
+    cards:
+      - type: grid
+        title: Power switch
+        columns: 2
+        cards:
+          - type: sensor
+            name: switch energy
+            entity: sensor.thin_power_switch_energy
+            graph: line
+          - type: sensor
+            name: switch power
+            entity: sensor.thin_power_switch_power
+            graph: line
+          - type: sensor
+            name: switch temperature
+            entity: sensor.thin_power_switch_temperature
+            graph: line
+          - type: button
+            name: switch
+            entity: switch.thin_power_switch
+      - type: entities
+        entities:
+          - device_tracker.ludovic_mi9t
+          - device_tracker.tara_mia2
+        title: People
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - entity: group.security_sensor
+            name: Sensor
+          - group.alarm
+        title: Security
+        show_header_toggle: true
+      - type: picture-entity
+        entity: camera.living_room_live
+      - type: media-control
+        entity: media_player.tv_chomecast
+      - type: media-control
+        entity: media_player.teddy
+      - type: media-control
+        entity: media_player.bobby
+      - type: entities
+        entities:
+          - light.bed_lights
+          - light.shower_room
+          - light.tv_lights
+          - light.living_room_table
+          - light.living_room_main
+        title: Lights
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - group.vacuum_schedule_weekdays
+          - group.vacuum_schedule_weekend
+          - vacuum.xiaomi_vacuum_cleaner
+        title: Vacuum Remote
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - sensor.waqi_guting_taiwan_tai_wan_gu_ting
+        title: Weather
+        show_header_toggle: true
+      - type: weather-forecast
+        entity: weather.dark_sky
+        show_forecast: false
+      - type: entities
+        entities:
+          - sensor.bedroom_temperature
+          - sensor.bedroom_humidity
+          - sensor.bedroom_aqi
+        title: Bedroom Sensors
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - light.tv_lights
+          - light.living_room_table
+          - light.living_room_main
+          - fan.mi_air_purifier_2
+        title: Living Room
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - binary_sensor.front_door_contact
+          - binary_sensor.front_door_lock_contact
+        title: Security Sensor
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - light.bed
+          - light.shower_room
+        title: Lights Bedroom
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - binary_sensor.bedroom_motion_occupancy
+        title: Bed Sensors
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - sensor.vacuum_schedule_weekdays_template
+          - input_boolean.vacuum_schedule_weekdays
+          - input_number.vacuum_schedule_weekdays_hour
+          - input_number.vacuum_schedule_weekdays_minute
+          - input_datetime.only_time
+        title: Georgie's Schedule (Weekdays)
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - sensor.vacuum_schedule_weekend_template
+          - input_boolean.vacuum_schedule_weekend
+          - input_number.vacuum_schedule_weekend_hour
+          - input_number.vacuum_schedule_weekend_minute
+        title: Georgie's Schedule (Weekend)
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - binary_sensor.remote_ui
+          - binary_sensor.updater
+          - binary_sensor.workday_sensor
+          - binary_sensor.living_room_motion_occupancy
+          - binary_sensor.shower_room_door_contact
+          - binary_sensor.shower_room_motion_occupancy
+        title: Binary sensor
+      - type: entities
+        entities:
+          - input_boolean.ac_interval_enabled
+          - input_boolean.alarm_enabled_all
+          - input_boolean.alarm_enabled
+          - input_boolean.ac_delay_enabled
+          - input_boolean.ac_time_slot_enabled
+          - input_boolean.ac_timer_enabled
+          - input_boolean.front_door_opened_long
+        title: Input boolean
+      - type: entities
+        entities:
+          - input_number.ac_interval_duration
+          - input_number.ac_delay_hour
+          - input_number.ac_timer_hour
+          - input_number.ac_interval_min_temp
+          - input_number.ac_delay_minute
+          - input_number.ac_timer_minute
+          - input_number.ac_interval_time
+          - input_number.ac_start_hour
+          - input_number.ac_start_minute
+          - input_number.ac_stop_hour
+          - input_number.ac_stop_minute
+        title: Input number
+      - type: entities
+        entities:
+          - light.bedroom_lights
+          - light.dining_room_lights
+          - light.living_room_lights
+          - light.tv_back
+          - light.tv_up
+        title: Light
+      - type: entities
+        entities:
+          - remote.bedroom_remote
+        title: remote
+      - type: entities
+        entities:
+          - sensor.living_room_cube_action
+          - sensor.living_room_cube_linkquality
+          - sensor.bedroom_motion_linkquality
+          - sensor.front_door_linkquality
+          - sensor.front_door_lock_linkquality
+          - sensor.living_room_motion_linkquality
+          - sensor.shower_room_door_linkquality
+          - sensor.shower_room_motion_linkquality
+          - sensor.bedroom_switch_action
+          - sensor.bedroom_switch_linkquality
+        title: Sensor
+      - type: entities
+        entities:
+          - switch.smart_plug
+        title: Switch
+
