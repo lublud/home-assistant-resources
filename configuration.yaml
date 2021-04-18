@@ -136,12 +136,6 @@ mqtt:
   password: !secret mosquitto_password
   port: 8883
 
-weather:
-  - platform: darksky
-    api_key: !secret darksky_api
-    units: auto
-    mode: daily
-
 sensor:
 # Template
   - platform: template
@@ -226,13 +220,6 @@ light:
     entities:
       - light.living_room_table
 
-# Air purifier 2
-fan:
-  - platform: xiaomi_miio
-    name: Mi Air Purifier 2
-    host: !secret host_air_purifier
-    token: !secret token_air_purifier
-
 # Gateway
 xiaomi_aqara:
   discovery_retry: 5
@@ -241,21 +228,8 @@ xiaomi_aqara:
       key: !secret key_gateway_ludo
       host: !secret host_gateway_ludo
 
-# Switch
-switch:
-  - platform: xiaomi_miio
-    name: Smart Plug
-    host: !secret host_smart_plug
-    token: !secret token_smart_plug
-
 # IR Remote
 #remote: !include config/xiaomi_ir_remote.yaml
-
-# Xiaomi Vacuum
-vacuum:
-  - platform: xiaomi_miio
-    host: !secret host_vacuum
-    token: !secret token_vacuum
 
 # Google cast
 #cast:
