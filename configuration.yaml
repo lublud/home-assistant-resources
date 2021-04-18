@@ -131,7 +131,7 @@ script: !include scripts.yaml
 
 mqtt:
   discovery: true
-  broker: localhost
+  broker: !secret mosquitto_ip
   username: !secret mosquitto_username
   password: !secret mosquitto_password
   port: 8883
@@ -160,10 +160,10 @@ sensor:
         value_template: "{{ states.fan.mi_air_purifier_2.attributes.aqi}}"
 
 # Air quality
-  - platform: waqi
-    token: !secret token_waqi
-    locations:
-      - Taipei
+#  - platform: waqi
+#    token: !secret token_waqi
+#    locations:
+#      - Taipei
 
 # Yeelight
 yeelight:
