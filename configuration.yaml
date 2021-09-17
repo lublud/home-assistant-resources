@@ -32,6 +32,9 @@ lovelace:
 http:
   ip_ban_enabled: True
   login_attempts_threshold: 5
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - ::1
 #  cors_allowed_origins:
 #    - https://reformedreality.com
 
@@ -88,7 +91,7 @@ cloud:
         - light.living_room_in
         - light.living_room_out
 #        - light.bed_l
-#        - light.bed_t
+        - light.small_room
         - light.bed
       exclude_domains:
         - input_boolean
@@ -166,8 +169,8 @@ yeelight:
       name: Bed
 #    192.168.1.122:
 #      name: Bed L
-#    192.168.1.123:
-#      name: Bed T
+    192.168.1.123:
+      name: Small room
 #    192.168.1.124:
 #      name: Ludovics desk
     192.168.1.125:
