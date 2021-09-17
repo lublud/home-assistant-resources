@@ -25,6 +25,9 @@ automation:
           after_offset: "-01:00:00"
         - condition: time
           before: '23:30:00'
+        - condition: state
+          entity_id: light.bed
+          state: 'off'
     action:
       - service: light.turn_on
         data:
