@@ -109,7 +109,7 @@
 # BEDROOM #
 ###########
 
-- id: single_press_toggle_lights
+- id: single_press_toggle_bed_lights
   alias: 'Single Press Toggle Bed Lights'
   trigger:
     platform: mqtt
@@ -121,8 +121,8 @@
     service: light.toggle
     entity_id: light.bed_lights
 
-- id: Long_Press_turn_on_light_white_100percent
-  alias: 'Long Press Turn ON Light (White - 100 percent)'
+- id: Hold_Press_turn_on_light_orange_1percent
+  alias: 'Hold Press Turn ON Light (Orange - 1 percent)'
   trigger:
     platform: mqtt
     topic: zigbee2mqtt/bedroom_switch
@@ -133,8 +133,8 @@
     service: light.turn_on
     entity_id: light.bed_lights
     data:
-      brightness: 255
-      rgb_color: [255,255,255]
+      brightness: 1
+      rgb_color: [255,115,0]
 
 - id: Double_press_turn_on_light_(orange_30percent)
   alias: 'Double Press Turn ON Light (Orange - 30 percent)'
@@ -151,6 +151,21 @@
       brightness: 76
       rgb_color: [255,165,0]
 
+- id: Triple_Press_turn_on_light_white_100percent
+  alias: 'Triple Press Turn ON Light (White - 100 percent)'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/bedroom_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "triple" }}'
+  action:
+    service: light.turn_on
+    entity_id: light.bed_lights
+    data:
+      brightness: 255
+      rgb_color: [255,255,255]
+
 #- id: flip90_cube_toggle_desk_light
 #  alias: 'Flip 90 Cube Toggle Desk Light'
 #  trigger:
@@ -163,6 +178,21 @@
 #    service: light.toggle
 #    entity_id: light.ludovics_desk
 
+##############
+# SMALL ROOM #
+##############
+
+- id: single_press_toggle_small_room_light
+  alias: 'Single Press Toggle Small Room Light'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/small_room_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "single" }}'
+  action:
+    service: light.toggle
+    entity_id: light.small_room
 
 ###############
 # Shower Room #
@@ -233,21 +263,21 @@
 # TELEGRAM #
 ############
 
-- id: Send_daily_report_at_8am
-  alias: 'Send Daily Report At 8am'
-  trigger:
-    platform: time
-    at: '08:00:00'
-  action:
-    service: notify.telegram
-    data_template:
-      message: |
-        早安！
-        Today is {{ now().strftime("%B %d, %Y") }}.
-        Currently it is {{ states.sensor.dark_sky_summary.state.lower() }}, {{ states.sensor.dark_sky_temperature.state  }}°C with {{ states.sensor.dark_sky_humidity.state | int }}% humidity and AQI is {{ states.sensor.waqi_zhongshan_taiwan.attributes.pm_2_5 }} pm2.5 Taipei.
-        The weather will be {{ states.sensor.dark_sky_hourly_summary.state.lower() }}
-        You can expect temperatures between {{ states.sensor.dark_sky_daily_low_temperature.state }} and {{ states.sensor.dark_sky_daily_high_temperature.state }} degrees.
-        Have a nice day :)
+#- id: Send_daily_report_at_8am
+#  alias: 'Send Daily Report At 8am'
+#  trigger:
+#    platform: time
+#    at: '08:00:00'
+#  action:
+#    service: notify.telegram
+#    data_template:
+#      message: |
+#        早安！
+#        Today is {{ now().strftime("%B %d, %Y") }}.
+#        Currently it is {{ states.sensor.dark_sky_summary.state.lower() }}, {{ states.sensor.dark_sky_temperature.state  }}°C with {{ states.sensor.dark_sky_humidity.state | int }}% humidity and AQI is {{ states.sensor.waqi_zhongshan_taiwan.attributes.pm_2_5 }} pm2.5 Taipei.
+#        The weather will be {{ states.sensor.dark_sky_hourly_summary.state.lower() }}
+#        You can expect temperatures between {{ states.sensor.dark_sky_daily_low_temperature.state }} and {{ states.sensor.dark_sky_daily_high_temperature.state }} degrees.
+#        Have a nice day :)
 
 #- id: Send_logs
 #  alias: 'Send Logs'
