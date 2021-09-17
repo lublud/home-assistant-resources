@@ -47,8 +47,8 @@ automation:
       - service: light.turn_on
         data:
           entity_id: light.living_room_main
-          brightness: 76
-          rgb_color: [227,173,193]
+#          brightness: 76
+#          rgb_color: [227,173,193]
 
   - id: send_notif_door_not_locked_2_minutes
     alias: "send a notification if door is not locked after 2 minutes being unlocked"
@@ -80,7 +80,7 @@ automation:
       - service: light.turn_on
         data:
           entity_id: light.living_room_main
-          brightness: 76
+          brightness: 255
           rgb_color: [255,0,0]
       - service: input_boolean.turn_on
         entity_id: input_boolean.front_door_opened_long
@@ -125,7 +125,7 @@ automation:
         data:
           entity_id: light.living_room_main
           brightness: 76
-          rgb_color: [227,173,193]
+          rgb_color: [220,220,220]
       - delay: '00:00:01'
       - service: light.turn_off
         data:
