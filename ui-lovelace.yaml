@@ -1,4 +1,9 @@
 title: TechVille
+resources:
+  - url: /local/vertical-stack-in-card.js?v=0.4.1
+    type: js
+  - url: /local/button-card.js
+    type: module
 views:
   - path: home
     title: Home
@@ -8,14 +13,54 @@ views:
         columns: 1
         square: false
         cards:
-          - type: sensor
-            name: Temperature
-            entity: sensor.bedroom_temperature
-            graph: line
-          - type: sensor
-            name: Humidity
-            entity: sensor.bedroom_humidity
-            graph: line
+          - type: grid
+            title: Temperature
+            columns: 3
+            square: false
+            cards:
+              - type: sensor
+                name: Living room
+                entity: sensor.bedroom_temperature
+                graph: line
+              - type: sensor
+                name: Bedroom
+                entity: sensor.bedroom_humidity_temp_sensor_temperature
+                graph: line
+              - type: sensor
+                name: Small room
+                entity: sensor.small_room_humidity_temp_sensor_temperature
+                graph: line
+          - type: grid
+            title: Humidity
+            columns: 3
+            square: false
+            cards:
+              - type: sensor
+                name: Living room
+                icon: mdi:water-percent
+                entity: sensor.bedroom_humidity
+                graph: line
+              - type: sensor
+                name: Bedroom
+                entity: sensor.bedroom_humidity_temp_sensor_humidity
+                graph: line
+              - type: sensor
+                name: Small room
+                entity: sensor.small_room_humidity_temp_sensor_humidity
+                graph: line
+          - type: grid
+            title: Pressure
+            columns: 2
+            square: false
+            cards:
+              - type: sensor
+                name: Bedroom
+                entity: sensor.bedroom_humidity_temp_sensor_pressure
+                graph: line
+              - type: sensor
+                name: Small room
+                entity: sensor.small_room_humidity_temp_sensor_pressure
+                graph: line
           - type: sensor
             name: Air Quality
             graph: line
@@ -38,12 +83,147 @@ views:
             #entity: sensor.waqi_north_taipei_city_sinyi_taiwan
             entity: sensor.waqi_north_taipei_city_daan_taiwan
             graph: line
-      - type: iframe
-        title: Weather radar
-        aspect_ratio: 80%
-        url: https://embed.windy.com/?24.727,121.393,8
-      - type: weather-forecast
-        entity: weather.openweathermap
+
+      - type: vertical-stack
+        cards:
+          - type: 'custom:vertical-stack-in-card'
+            cards:
+              - type: markdown
+                content: '<ha-icon icon="mdi:account-multiple"></ha-icon> Home'
+                style: |
+                  ha-card { 
+                    #background: rgba(0,0,0,0);
+                    font-size: 20px;
+                  }
+              - type: horizontal-stack
+                cards:
+                  - type: 'custom:button-card'
+                    entity: device_tracker.ludovic_mi9t
+                    aspect_ratio: 4/4
+                    show_name: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - padding: 4%
+                        - background-image: url("/local/images/ludo.png")
+                        - background-size: 99%
+                        - background-repeat: no-repeat
+                        - background-position: top center
+                      custom_fields:
+                        location:
+                          - text-transform: capitalize
+                          - position: absolute
+                          - left: 4%
+                          - top: 4%
+                          - color: >-
+                              [[[ if (states["device_tracker.ludovic_mi9t"].state == "home")
+                              return "#50F14F"; else return "#e45649"; ]]]
+                        battery:
+                          - align-self: right
+                          - position: absolute
+                          - right: 4%
+                          - top: 4%
+                          - color: >-
+                              [[[ if (states["device_tracker.ludovic_mi9t"].attributes.battery_level <= 30)
+                              return "#e45649"; if
+                              (states["device_tracker.ludovic_mi9t"].attributes.battery_level <= 50) return
+                              "#ffa229"; else return "#50F14F"; ]]]
+                    custom_fields:
+                      location: |
+                        [[[
+                          if (states["device_tracker.ludovic_mi9t"].state == "not_home")
+                            return `<ha-icon
+                              icon="mdi:home-export-outline"
+                              style="width: 22px; height: 22px;">
+                              </ha-icon>`
+                          else if (states["device_tracker.ludovic_mi9t"].state == "office_ludovic")
+                            return `<ha-icon
+                              icon="mdi:office-building-outline"
+                              style="width: 22px; height: 22px;">
+                              </ha-icon>`
+                          else
+                            return `<ha-icon
+                              icon="mdi:home"
+                              style="width: 22px; height: 22px;">
+                              </ha-icon>`
+                        ]]]
+                      battery: |
+                        [[[
+                          return `<ha-icon
+                            icon="mdi:battery"
+                            style="width: 20px; height: 20px;"></ha-icon
+                            <span>${states['device_tracker.ludovic_mi9t'].attributes.battery_level}%</span>`
+                        ]]]
+                  - type: 'custom:button-card'
+                    entity: device_tracker.tara_mia2
+                    aspect_ratio: 4/4
+                    show_name: false
+                    show_icon: false
+                    styles:
+                      card:
+                        - padding: 4%
+                        - background-image: url("/local/images/tara.jpg")
+                        - background-size: 99%
+                        - background-repeat: no-repeat
+                        - background-position: top center
+                      custom_fields:
+                        location:
+                          - text-transform: capitalize
+                          - position: absolute
+                          - left: 4%
+                          - top: 4%
+                          - color: >-
+                              [[[ if (states["device_tracker.tara_mia2"].state ==
+                              "not_home") return "#e45649"; else return "#50F14F"; ]]]
+                        battery:
+                          - align-self: right
+                          - position: absolute
+                          - right: 4%
+                          - top: 4%
+                          - color: >-
+                              [[[ if (states["device_tracker.tara_mia2"].attributes.battery_level <= 30)
+                              return "#e45649"; if
+                              (states["device_tracker.tara_mia2"].attributes.battery_level <= 50) return
+                              "#ffa229"; else return "#50F14F"; ]]]
+                    custom_fields:
+                      location: |
+                        [[[
+                          if (states["device_tracker.tara_mia2"].state == "not_home")
+                            return `<ha-icon
+                              icon="mdi:home-export-outline"
+                              style="width: 22px; height: 22px;">
+                              </ha-icon>`
+                          else 
+                            return `<ha-icon
+                              icon="mdi:home"
+                              style="width: 22px; height: 22px;">
+                              </ha-icon>`
+                        ]]]
+                      battery: |
+                        [[[
+                          return `<ha-icon
+                            icon="mdi:battery"
+                            style="width: 20px; height: 20px;"></ha-icon
+                            <span>${states['device_tracker.tara_mia2'].attributes.battery_level}%</strong>`
+                        ]]]
+              - type: map
+                entities:
+                  - device_tracker.ludovic_mi9t
+                  - device_tracker.tara_mia2
+                hours_to_show: 1
+
+      - type: vertical-stack
+        cards:
+          - type: iframe
+            title: Weather radar
+            aspect_ratio: 80%
+            url: https://embed.windy.com/?24.727,121.393,8
+          - type: weather-forecast
+            entity: weather.openweathermap
+
+  - path: control
+    title: Control
+    cards:
       - type: grid
         title: Lights
         columns: 3
@@ -59,6 +239,8 @@ views:
             entity: light.bed
           - type: light
             entity: light.shower_room
+          - type: light
+            entity: light.small_room
       - type: grid
         title: Sensors
         columns: 1
@@ -81,9 +263,11 @@ views:
             title: Others
             entities:
               - sensor.living_room_cube_action
+              - sensor.small_room_switch_action
               - sensor.bedroom_switch_action
               - binary_sensor.shower_room_door_contact
               - vacuum.xiaomi_vacuum_cleaner
+
   - path: all_view
     title: All
     cards:
@@ -134,6 +318,7 @@ views:
           - light.tv_lights
           - light.living_room_table
           - light.living_room_main
+          - light.small_room
         title: Lights
         show_header_toggle: true
       - type: entities
@@ -240,6 +425,7 @@ views:
           - light.living_room_lights
           - light.tv_back
           - light.tv_up
+          - light.small_room
         title: Light
       - type: entities
         entities:
