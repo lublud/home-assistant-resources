@@ -1,8 +1,8 @@
 device_tracker.ludovic_mi9t:
   entity_picture: "/local/images/ludo.png"
-device_tracker.tara_mia2:
+device_tracker.tara_a52s:
   entity_picture: "/local/images/tara.jpg"
-fan.mi_air_purifier_2: {}
+fan.air_purifier: {}
 group.all_fans:
   homebridge_hidden: true
 group.default_view:

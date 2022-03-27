@@ -102,7 +102,66 @@
     service: light.turn_off
     data:
       entity_id: light.living_room_lights
-  
+
+- id: single_press_toggle_sofa_light
+  alias: 'Single Press Toggle Sofa Light'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/sofa_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "single" }}'
+  action:
+    service: light.toggle
+    entity_id: light.sofa
+
+- id: double_press_toggle_tv_light
+  alias: 'Double Press Toggle TV Light'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/sofa_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "double" }}'
+  action:
+    service: light.toggle
+    entity_id: light.tv_lights
+
+- id: triple_press_toggle_living_room_main
+  alias: 'Triple Press Toggle Living Room Main'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/sofa_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "triple" }}'
+  action:
+    service: light.toggle
+    entity_id: light.living_room_main
+
+- id: quadruple_press_toggle_living_room_table
+  alias: 'Quadruple Press Toggle Living Room Table'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/sofa_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "quadruple" }}'
+  action:
+    service: light.toggle
+    entity_id: light.living_room_table
+
+- id: hold_press_turn_off_living_room_lights
+  alias: 'Hold Press Turn off living room lights'
+  trigger:
+    platform: mqtt
+    topic: zigbee2mqtt/sofa_switch
+  condition:
+    - condition: template
+      value_template: '{{ trigger.payload_json.action == "hold" }}'
+  action:
+    service: light.turn_off
+    entity_id: light.living_room_lights
 
 
 ###########
@@ -118,8 +177,32 @@
     - condition: template
       value_template: '{{ trigger.payload_json.action == "single" }}'
   action:
-    service: light.toggle
-    entity_id: light.bed_lights
+    - service: light.toggle
+      entity_id: light.bed_lights
+    - condition: and
+      conditions:
+        - condition: or
+          conditions:
+            - condition: time
+              after: '23:00:00'
+            - condition: time
+              before: '05:00:00'
+        - condition: state
+          entity_id: light.bed_lights
+          state: 'off'
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: binary_sensor.living_room_motion_occupancy
+              state: 'off'
+            - condition: state
+              entity_id: binary_sensor.shower_room_motion_occupancy
+              state: 'off'
+            - condition: state
+              entity_id: binary_sensor.kitchen_motion_occupancy
+              state: 'off'
+    - service: light.turn_off
+      entity_id: group.all_lights
 
 - id: Hold_Press_turn_on_light_orange_1percent
   alias: 'Hold Press Turn ON Light (Orange - 1 percent)'
@@ -130,11 +213,32 @@
     - condition: template
       value_template: '{{ trigger.payload_json.action == "hold" }}'
   action:
-    service: light.turn_on
-    entity_id: light.bed_lights
-    data:
-      brightness: 1
-      rgb_color: [255,115,0]
+    - service: light.turn_on
+      entity_id: light.bed_lights
+      data:
+        brightness: 1
+        rgb_color: [255,115,0]
+    - condition: and
+      conditions:
+        - condition: or
+          conditions:
+            - condition: time
+              after: '23:00:00'
+            - condition: time
+              before: '05:00:00'
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: binary_sensor.living_room_motion_occupancy
+              state: 'off'
+            - condition: state
+              entity_id: binary_sensor.shower_room_motion_occupancy
+              state: 'off'
+            - condition: state
+              entity_id: binary_sensor.kitchen_motion_occupancy
+              state: 'off'
+    - service: light.turn_off
+      entity_id: group.all_lights
 
 - id: Double_press_turn_on_light_(orange_30percent)
   alias: 'Double Press Turn ON Light (Orange - 30 percent)'
@@ -178,22 +282,6 @@
 #    service: light.toggle
 #    entity_id: light.ludovics_desk
 
-##############
-# SMALL ROOM #
-##############
-
-- id: single_press_toggle_small_room_light
-  alias: 'Single Press Toggle Small Room Light'
-  trigger:
-    platform: mqtt
-    topic: zigbee2mqtt/small_room_switch
-  condition:
-    - condition: template
-      value_template: '{{ trigger.payload_json.action == "single" }}'
-  action:
-    service: light.toggle
-    entity_id: light.small_room
-
 ###############
 # Shower Room #
 ###############
@@ -228,6 +316,25 @@
     data:
       entity_id: light.shower_room
 
+- id: 15_minutes_shower_warning
+  alias: '15 minutes shower warning'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.shower_room_door_contact
+    to: 'off'
+    for:
+      minutes: 15
+  action:
+    service: yeelight.start_flow
+    data:
+      entity_id: light.shower_room
+      count: 15
+      action: recover
+      transitions:
+        - RGBTransition: [255, 0, 0, 200, 100]
+        - RGBTransition: [255, 0, 0, 400, 10]
+        - SleepTransition: [200]
+
 
 ###########
 # KITCHEN #
@@ -257,7 +364,7 @@
     service: switch.turn_off
     data:
       entity_id: switch.thin_power_switch
-      
+
 
 ############
 # TELEGRAM #

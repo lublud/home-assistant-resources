@@ -1,0 +1,84 @@
+#automation:
+#  - id: enable_night_mode_when_bedroom_light_off_last
+#    alias: 'Single Press Toggle Bed Lights'
+#    trigger:
+#      platform: state
+#    entity_id: light.bed_lights
+#    to: 'off'
+#    for:
+#      minutes: 5
+#    condition:
+#      - condition: time
+#        after: '23:00:00'
+#        before: '05:00:00'
+#    action:
+#      service: light.toggle
+#    entity_id: light.bed_lights
+#
+#
+
+
+# TODO
+# reduce the number of binary_sensor
+# state: >
+# {% return value a %}
+# {% return value b %}
+# {{ a or/and b }}
+# to check if any of them change then return the value
+
+template:
+
+  - trigger:
+    - platform: mqtt
+      topic: zigbee2mqtt/bedroom_switch #sofa_switch
+      value_template: '{{ trigger.payload_json.action == "single" }}'
+    binary_sensor:
+      - name: night_mode_start
+        state: >
+            {{ is_state('light.bed', 'on') and
+              (now().strftime('%T') > strptime('22:00:00', '%T') or 
+               now().strftime('%T') < strptime('05:00:00', '%T')) }}
+
+  - binary_sensor:
+      - name: night_mode
+        state: >
+          {% if is_state('sun.sun', 'above_horizon') %}
+          off
+          {% elif is_state('binary_sensor.night_mode_start', 'on') %}
+          on
+          {% endif %}
+
+#automation:
+#  - id: downstairs_on_night_time_motion_bedroom
+#    alias: 'Turn on shower at night when motion in bedroom'
+#    trigger:
+#      platform: state
+#      entity_id: binary_sensor.bedroom_motion_occupancy
+#      to: 'on'
+#    condition:
+#      - condition: state
+#        entity_id: binary_sensor.night_mode
+#        state: 'on'
+#    action:
+#      - service: light.turn_on
+#        entity_id: light.shower_room
+#      - service: light.turn_on
+#        entity_id: light.tv_lights
+#
+#  - id: downstairs_off_night_time_no_motion
+#    alias: 'Turn off shower at night when no motion'
+#    trigger:
+#      platform: state
+#      entity_id: binary_sensor.bedroom_motion_occupancy
+#      to: 'off'
+#      for:
+#        minutes: 5
+#    condition:
+#      - condition: state
+#        entity_id: binary_sensor.night_mode
+#        state: 'on'
+#    action:
+#      - service: light.turn_off
+#        entity_id: light.shower_room
+#      - service: light.turn_off
+#        entity_id: light.tv_lights

@@ -28,6 +28,13 @@ system_health:
 
 lovelace:
   mode: yaml
+  resources:
+    - url: /local/custom_lovelace/vertical-stack-in-card.js?v=0.4.1
+      type: js
+    - url: /local/custom_lovelace/button-card.js
+      type: module
+    - url: /local/custom_lovelace/xiaomi-vacuum-map-card.js
+      type: module
 
 http:
   ip_ban_enabled: True
@@ -69,7 +76,7 @@ discovery:
 map:
 
 # Track the sun
-#sun:
+sun:
 
 #panel_custom:
 #  - name: floorplan
@@ -78,55 +85,6 @@ map:
 #    url_path: floorplan
 #    config: !include config/floorplan.yaml
 
-
-# Cloud
-cloud:
-  google_actions:
-    filter:
-      exclude_entities:
-        - light.sink_right
-        - light.sink_left
-        - light.tv_up
-        - light.tv_back
-        - light.living_room_in
-        - light.living_room_out
-#        - light.bed_l
-        - light.small_room
-        - light.bed
-      exclude_domains:
-        - input_boolean
-        - input_text
-        - input_select
-        - group
-        - script
-        - device_tracker
-        - sensor
-        - binary_sensor
-      include_entities:
-        - script.toggle_ludovics_fan
-        - script.turn_on_ludovics_ac
-        - script.turn_off_ludovics_ac
-    entity_config:
-      light.ludovics_desk:
-        name: Desk light
-        aliases:
-          - Desk
-      light.gateway_light_34ce0083878f:
-        name: Gateway light
-        aliases:
-          - Gateway
-      light.shower_room:
-        name: Shower room light
-        aliases:
-          - Shower room
-      fan.mi_air_purifier_2:
-        name: Air purifier
-      script.toggle_ludovics_fan:
-        name: Toggle fan
-      script.turn_on_ludovics_ac:
-        name: AC on
-      script.turn_off_ludovics_ac:
-        name: AC off
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -138,23 +96,6 @@ mqtt:
   username: !secret mosquitto_username
   password: !secret mosquitto_password
   port: 8883
-
-sensor:
-# Template
-  - platform: template
-    sensors:
-      bedroom_temperature:
-        friendly_name: "Room temperature"
-        unit_of_measurement: "°C"
-        value_template: "{{ states.fan.mi_air_purifier_2.attributes.temperature}}"
-      bedroom_humidity:
-        friendly_name: "Room Humidity"
-        unit_of_measurement: "%"
-        value_template: "{{ states.fan.mi_air_purifier_2.attributes.humidity}}"
-      bedroom_aqi:
-        friendly_name: "Room pollution"
-        unit_of_measurement: "pm2.5"
-        value_template: "{{ states.fan.mi_air_purifier_2.attributes.aqi}}"
 
 # Air quality
 #  - platform: waqi
@@ -170,7 +111,7 @@ yeelight:
 #    192.168.1.122:
 #      name: Bed L
     192.168.1.123:
-      name: Small room
+      name: Sofa
 #    192.168.1.124:
 #      name: Ludovics desk
     192.168.1.125:
@@ -213,6 +154,7 @@ light:
       - light.living_room_table
       - light.tv_up
       - light.tv_back
+      - light.sofa
   - platform: group
     name: TV lights
     entities:
@@ -222,64 +164,25 @@ light:
     name: Dining room lights
     entities:
       - light.living_room_table
-
-# Gateway
-xiaomi_aqara:
-  discovery_retry: 5
-  gateways:
-    - mac: !secret mac_gateway_ludo
-      key: !secret key_gateway_ludo
-      host: !secret host_gateway_ludo
-
 # IR Remote
 #remote: !include config/xiaomi_ir_remote.yaml
 
-# Google cast
-#cast:
-#  media_player:
-#  - name: Chromcast
-#    platform: cast
-#    host: !secret host_chromecast
-#  - name: Teddy
-#    platform: cast
-#    host: !secret host_teddy_google_home
-#  - name: Bobby
-#    platform: cast
-#    host: !secret host_bobby_google_home
-
 zone:
-#  - name: Carrefour
-#    latitude: !secret latitude_carrefour
-#    longitude: !secret longitude_carrefour
-#    radius: 50
-#  - name: RT Mart
-#    latitude: !secret latitude_rt_mart
-#    longitude: !secret longitude_rt_mart
-#    radius: 50
-#  - name: PX Mart
-#    latitude: !secret latitude_px_mart
-#    longitude: !secret longitude_px_mart
-#    radius: 50
-#  - name: Wellcome
-#    latitude: !secret latitude_wellcome
-#    longitude: !secret longitude_wellcome
-#    radius: 50
   - name: Office Ludovic
     latitude: !secret latitude_office_ludo
     longitude: !secret longitude_office_ludo
     radius: 40
 
 # Camera
-#camera:
-  # Weather satellite
-#  - platform: generic
-#    name: Taiwan Weather Satellite
-#    still_image_url: !secret url_weather_satellite_taipei
-  # Security camera
-#  - platform: mjpeg
-#    name: Living Room Live
-#    mjpeg_url: !secret mjpeg_url_camera
-
+camera:
+  - platform: xiaomi_cloud_map_extractor
+    host: !secret host_vacuum
+    token: !secret token_vacuum
+    username: !secret xiaomi_cloud_username
+    password: !secret xiaomi_cloud_password
+    draw: ['all']
+    attributes:
+      - calibration_points    
 binary_sensor:
 # MQTT binary sensor
 #  - name: camera
@@ -292,10 +195,6 @@ binary_sensor:
     country: !secret wd_country_code
     excludes: holiday
 
-# IFTTT
-#ifttt:
-#  key: !secret ifttt_key
-
 # Telegram
 notify:
   - name: telegram
@@ -304,10 +203,6 @@ notify:
   - name: telegram_admin
     platform: telegram
     chat_id: !secret chat_id_telegram_admin
-#  - name: Push
-#    platform: html5
-#    gcm_api_key: !secret gcm_api_key
-#    gcm_sender_id: !secret gcm_sender_id
 
 # platform broadcast instead of polling: https://github.com/home-assistant/core/issues/18271
 telegram_bot:

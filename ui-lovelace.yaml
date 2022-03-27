@@ -1,9 +1,4 @@
 title: TechVille
-resources:
-  - url: /local/vertical-stack-in-card.js?v=0.4.1
-    type: js
-  - url: /local/button-card.js
-    type: module
 views:
   - path: home
     title: Home
@@ -20,7 +15,7 @@ views:
             cards:
               - type: sensor
                 name: Living room
-                entity: sensor.bedroom_temperature
+                entity: sensor.air_purifier_temperature
                 graph: line
               - type: sensor
                 name: Bedroom
@@ -38,7 +33,7 @@ views:
               - type: sensor
                 name: Living room
                 icon: mdi:water-percent
-                entity: sensor.bedroom_humidity
+                entity: sensor.air_purifier_humidity
                 graph: line
               - type: sensor
                 name: Bedroom
@@ -64,7 +59,7 @@ views:
           - type: sensor
             name: Air Quality
             graph: line
-            entity: sensor.bedroom_aqi
+            entity: sensor.air_purifier_pm2_5
       - type: grid
         title: Outdoor
         columns: 1
@@ -155,7 +150,7 @@ views:
                             <span>${states['device_tracker.ludovic_mi9t'].attributes.battery_level}%</span>`
                         ]]]
                   - type: 'custom:button-card'
-                    entity: device_tracker.tara_mia2
+                    entity: device_tracker.tara_a52s
                     aspect_ratio: 4/4
                     show_name: false
                     show_icon: false
@@ -173,7 +168,7 @@ views:
                           - left: 4%
                           - top: 4%
                           - color: >-
-                              [[[ if (states["device_tracker.tara_mia2"].state ==
+                              [[[ if (states["device_tracker.tara_a52s"].state ==
                               "not_home") return "#e45649"; else return "#50F14F"; ]]]
                         battery:
                           - align-self: right
@@ -181,14 +176,14 @@ views:
                           - right: 4%
                           - top: 4%
                           - color: >-
-                              [[[ if (states["device_tracker.tara_mia2"].attributes.battery_level <= 30)
+                              [[[ if (states["device_tracker.tara_a52s"].attributes.battery_level <= 30)
                               return "#e45649"; if
-                              (states["device_tracker.tara_mia2"].attributes.battery_level <= 50) return
+                              (states["device_tracker.tara_a52s"].attributes.battery_level <= 50) return
                               "#ffa229"; else return "#50F14F"; ]]]
                     custom_fields:
                       location: |
                         [[[
-                          if (states["device_tracker.tara_mia2"].state == "not_home")
+                          if (states["device_tracker.tara_a52s"].state == "not_home")
                             return `<ha-icon
                               icon="mdi:home-export-outline"
                               style="width: 22px; height: 22px;">
@@ -204,13 +199,13 @@ views:
                           return `<ha-icon
                             icon="mdi:battery"
                             style="width: 20px; height: 20px;"></ha-icon
-                            <span>${states['device_tracker.tara_mia2'].attributes.battery_level}%</strong>`
+                            <span>${states['device_tracker.tara_a52s'].attributes.battery_level}%</strong>`
                         ]]]
               - type: map
                 entities:
                   - device_tracker.ludovic_mi9t
-                  - device_tracker.tara_mia2
-                hours_to_show: 1
+                  - device_tracker.tara_a52s
+                hours_to_show: 2
 
       - type: vertical-stack
         cards:
@@ -240,7 +235,7 @@ views:
           - type: light
             entity: light.shower_room
           - type: light
-            entity: light.small_room
+            entity: light.sofa
       - type: grid
         title: Sensors
         columns: 1
@@ -263,10 +258,10 @@ views:
             title: Others
             entities:
               - sensor.living_room_cube_action
-              - sensor.small_room_switch_action
+              - sensor.sofa_switch_action
               - sensor.bedroom_switch_action
               - binary_sensor.shower_room_door_contact
-              - vacuum.xiaomi_vacuum_cleaner
+              - vacuum.robot_vacuum
 
   - path: all_view
     title: All
@@ -293,88 +288,25 @@ views:
       - type: entities
         entities:
           - device_tracker.ludovic_mi9t
-          - device_tracker.tara_mia2
+          - device_tracker.tara_a52s
         title: People
         show_header_toggle: true
-      - type: entities
-        entities:
-          - entity: group.security_sensor
-            name: Sensor
-          - group.alarm
-        title: Security
-        show_header_toggle: true
-      - type: picture-entity
-        entity: camera.living_room_live
-      - type: media-control
-        entity: media_player.tv_chomecast
-      - type: media-control
-        entity: media_player.teddy
-      - type: media-control
-        entity: media_player.bobby
-      - type: entities
-        entities:
-          - light.bed_lights
-          - light.shower_room
-          - light.tv_lights
-          - light.living_room_table
-          - light.living_room_main
-          - light.small_room
-        title: Lights
-        show_header_toggle: true
-      - type: entities
-        entities:
-          - group.vacuum_schedule_weekdays
-          - group.vacuum_schedule_weekend
-          - vacuum.xiaomi_vacuum_cleaner
-        title: Vacuum Remote
-        show_header_toggle: true
-      - type: entities
-        entities:
-          - sensor.waqi_guting_taiwan_tai_wan_gu_ting
-        title: Weather
-        show_header_toggle: true
-      - type: weather-forecast
-        entity: weather.dark_sky
-        show_forecast: false
-      - type: entities
-        entities:
-          - sensor.bedroom_temperature
-          - sensor.bedroom_humidity
-          - sensor.bedroom_aqi
-        title: Bedroom Sensors
-        show_header_toggle: true
-      - type: entities
-        entities:
-          - light.tv_lights
-          - light.living_room_table
-          - light.living_room_main
-          - fan.mi_air_purifier_2
-        title: Living Room
-        show_header_toggle: true
-      - type: entities
-        entities:
-          - binary_sensor.front_door_contact
-          - binary_sensor.front_door_lock_contact
-        title: Security Sensor
-        show_header_toggle: true
-      - type: entities
-        entities:
-          - light.bed
-          - light.shower_room
-        title: Lights Bedroom
-        show_header_toggle: true
-      - type: entities
-        entities:
-          - binary_sensor.bedroom_motion_occupancy
-        title: Bed Sensors
-        show_header_toggle: true
+
+      - type: custom:xiaomi-vacuum-map-card
+        title: Xiaomi Vacuum Map Card
+        entity: vacuum.robot_vacuum
+        map_source:
+          camera: camera.xiaomi_cloud_map_extractor
+        calibration_source:
+          camera: true
+
       - type: entities
         entities:
           - sensor.vacuum_schedule_weekdays_template
           - input_boolean.vacuum_schedule_weekdays
           - input_number.vacuum_schedule_weekdays_hour
           - input_number.vacuum_schedule_weekdays_minute
-          - input_datetime.only_time
+            #- input_datetime.only_time
         title: Georgie's Schedule (Weekdays)
         show_header_toggle: true
       - type: entities
@@ -385,67 +317,4 @@ views:
           - input_number.vacuum_schedule_weekend_minute
         title: Georgie's Schedule (Weekend)
         show_header_toggle: true
-      - type: entities
-        entities:
-          - binary_sensor.remote_ui
-          - binary_sensor.updater
-          - binary_sensor.workday_sensor
-          - binary_sensor.living_room_motion_occupancy
-          - binary_sensor.shower_room_door_contact
-          - binary_sensor.shower_room_motion_occupancy
-        title: Binary sensor
-      - type: entities
-        entities:
-          - input_boolean.ac_interval_enabled
-          - input_boolean.alarm_enabled_all
-          - input_boolean.alarm_enabled
-          - input_boolean.ac_delay_enabled
-          - input_boolean.ac_time_slot_enabled
-          - input_boolean.ac_timer_enabled
-          - input_boolean.front_door_opened_long
-        title: Input boolean
-      - type: entities
-        entities:
-          - input_number.ac_interval_duration
-          - input_number.ac_delay_hour
-          - input_number.ac_timer_hour
-          - input_number.ac_interval_min_temp
-          - input_number.ac_delay_minute
-          - input_number.ac_timer_minute
-          - input_number.ac_interval_time
-          - input_number.ac_start_hour
-          - input_number.ac_start_minute
-          - input_number.ac_stop_hour
-          - input_number.ac_stop_minute
-        title: Input number
-      - type: entities
-        entities:
-          - light.bedroom_lights
-          - light.dining_room_lights
-          - light.living_room_lights
-          - light.tv_back
-          - light.tv_up
-          - light.small_room
-        title: Light
-      - type: entities
-        entities:
-          - remote.bedroom_remote
-        title: remote
-      - type: entities
-        entities:
-          - sensor.living_room_cube_action
-          - sensor.living_room_cube_linkquality
-          - sensor.bedroom_motion_linkquality
-          - sensor.front_door_linkquality
-          - sensor.front_door_lock_linkquality
-          - sensor.living_room_motion_linkquality
-          - sensor.shower_room_door_linkquality
-          - sensor.shower_room_motion_linkquality
-          - sensor.bedroom_switch_action
-          - sensor.bedroom_switch_linkquality
-        title: Sensor
-      - type: entities
-        entities:
-          - switch.smart_plug
-        title: Switch
 

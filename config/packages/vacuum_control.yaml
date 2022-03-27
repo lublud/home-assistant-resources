@@ -1,46 +1,4 @@
 # Control Panel
-#homeassistant:
-#  customize:
-#    script.vacuum_remote_control:
-#      custom_ui_state_card: state-card-tiles
-#      config:
-#        columns: 4
-#        row_height: 75px
-#        column_width: 85px
-#        gap: 10px
-#        color: '#353B65'
-#        entities:
-##          - entity: script.vacuum_locate
-##            icon: mdi:magnify
-##            column_span: 2
-##          - entity: script.vacuum_return_to_base
-##            icon: mdi:home
-##            column_span: 2
-#          - entity: script.vacuum_remote_control_start
-#            icon: mdi:play
-#            column_span: 2
-#          - entity: script.vacuum_remote_control_stop
-#            icon: mdi:stop
-#            column_span: 2
-#          - entity: script.vacuum_remote_control_turn_left_15
-#            icon: mdi:chevron-left
-#            column_span: 1
-#          - entity: script.vacuum_remote_control_turn_right_15
-#            icon: mdi:chevron-right
-#            column_span: 1
-#          - entity: script.vacuum_remote_control_move_foward_fast
-#            icon: mdi:chevron-double-up
-#            column_span: 2
-#          - entity: script.vacuum_remote_control_turn_left_45
-#            icon: mdi:rotate-left
-#            column_span: 1
-#          - entity: script.vacuum_remote_control_turn_right_45
-#            icon: mdi:rotate-right
-#            column_span: 1
-#          - entity: script.vacuum_remote_control_move_foward_slow
-#            icon: mdi:chevron-up
-#            column_span: 2
-
 # Automatic Control
 input_boolean:
   vacuum_schedule_weekdays:
@@ -76,22 +34,13 @@ input_number:
     max: 45
     step: 15
 
-input_datetime:
-  only_time:
-    name: TEST
-    has_date: false
-    has_time: true
-
-
-#script:
-#  vacuum_remote_control:
-#    sequence:
+#input_datetime:
+#  only_time:
+#    name: TEST
+#    has_date: false
+#    has_time: true
 
 group:
-#  vacuum_control_panel:
-#    name: Vacuum Control Panel
-#    entities:
-#      - script.vacuum_remote_control
   vacuum_schedule_weekdays:
     name: Georgie's Schedule (Weekdays)
     entities:
@@ -152,29 +101,27 @@ automation:
             entity_id: binary_sensor.workday_sensor
             state: 'off'
     action:
-      - service: script.vacuum_start_clean
+      - service: vacuum.start
+        entity_id: vacuum.robot_vacuum
+
 
   - id: air_purifier_on_when_vacuuming
     alias: 'Air Purifier on when vacuuming'
     trigger:
       - platform: state
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+        entity_id: vacuum.robot_vacuum
         to: 'cleaning'
     action:
-      - service: fan.set_speed
-        entity_id: fan.mi_air_purifier_2
-        data:
-          speed: auto
+      - service: fan.turn_on
+        entity_id: fan.air_purifier
 
   - id: air_purifier_off_when_vacuuming
     alias: 'Air Purifier off when vacuuming'
     trigger:
       - platform: state
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+        entity_id: vacuum.robot_vacuum
         from: 'returning'
         to: 'docked'
     action:
-      - service: fan.set_speed
-        entity_id: fan.mi_air_purifier_2
-        data:
-          speed: idle
+      - service: fan.turn_off
+        entity_id: fan.air_purifier

@@ -3,7 +3,7 @@ People:
   icon: mdi:home
   entities:
     - device_tracker.ludovic_mi9t
-    - device_tracker.tara_mia2
+    - device_tracker.tara_a52s
 
 Security:
   #view: yes
@@ -54,7 +54,7 @@ Vacuum Remote:
   entities:
     - group.vacuum_schedule_weekdays
     - group.vacuum_schedule_weekend
-    - vacuum.xiaomi_vacuum_cleaner
+    - vacuum.robot_vacuum
     #- group.vacuum_control_panel
 
 
@@ -91,7 +91,7 @@ Living Room:
     - light.tv_lights
     - light.living_room_table
     - light.living_room_main
-    - fan.mi_air_purifier_2
+    - fan.air_purifier_2
 
 
 ############
