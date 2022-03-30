@@ -189,7 +189,7 @@
               before: '05:00:00'
         - condition: state
           entity_id: light.bed_lights
-          state: 'off'
+          state: 'on' # if state is on and we toggle, then it turns off...
         - condition: and
           conditions:
             - condition: state
@@ -202,7 +202,7 @@
               entity_id: binary_sensor.kitchen_motion_occupancy
               state: 'off'
     - service: light.turn_off
-      entity_id: group.all_lights
+      entity_id: light.living_room_lights
 
 - id: Hold_Press_turn_on_light_orange_1percent
   alias: 'Hold Press Turn ON Light (Orange - 1 percent)'
@@ -238,7 +238,7 @@
               entity_id: binary_sensor.kitchen_motion_occupancy
               state: 'off'
     - service: light.turn_off
-      entity_id: group.all_lights
+      entity_id: light.living_room_lights
 
 - id: Double_press_turn_on_light_(orange_30percent)
   alias: 'Double Press Turn ON Light (Orange - 30 percent)'
